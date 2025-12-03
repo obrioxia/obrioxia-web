@@ -1,61 +1,29 @@
 import { Injectable, inject } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { Auth, authState, signInWithEmailAndPassword, signOut, User } from '@angular/fire/auth';
 import { Router } from '@angular/router';
-import { Observable, BehaviorSubject, tap } from 'rxjs';
+import { Observable, from, of } from 'rxjs';
+import { switchMap, tap } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-  private http = inject(HttpClient);
+  private auth = inject(Auth);
   private router = inject(Router);
-  private apiUrl = 'https://obrioxia-backend-pkrp.onrender.com/auth';
 
-  private userSubject = new BehaviorSubject<any>(null);
-  user$ = this.userSubject.asObservable();
+  // Expose the Firebase user state directly
+  user$: Observable<User | null> = authState(this.auth);
 
-  constructor() {
-    const saved = localStorage.getItem('obrioxia_user');
-    if (saved) {
-      this.userSubject.next(JSON.parse(saved));
-    }
-  }
-
-  register(data: any): Observable<any> {
-    return this.http.post(`${this.apiUrl}/register`, data);
-  }
-
-  login(data: any): Observable<any> {
-    return this.http.post(`${this.apiUrl}/login`, data).pipe(
-      tap((res: any) => {
-        if (res.status === 'success') {
-          this.userSubject.next(res.user);
-          localStorage.setItem('obrioxia_user', JSON.stringify(res.user));
-          this.router.navigate(['/hub']);
-        }
-      })
+  login(email: string, pass: string): Observable<any> {
+    // Uses Firebase SDK
+    return from(signInWithEmailAndPassword(this.auth, email, pass)).pipe(
+      tap(() => this.router.navigate(['/hub']))
     );
   }
 
-  logout() {
-    this.userSubject.next(null);
-    localStorage.removeItem('obrioxia_user');
-    this.router.navigate(['/login']);
-  }
-
-  verifyEmail(token: string): Observable<any> {
-    return this.http.get(`${this.apiUrl}/verify/${token}`);
-  }
-
-  resendVerification(email: string): Observable<any> {
-    return this.http.post(`${this.apiUrl}/send-verification`, { email });
-  }
-
-  forgotPassword(email: string): Observable<any> {
-    return this.http.post(`${this.apiUrl}/forgot-password`, { email });
-  }
-
-  resetPassword(token: string, newPassword: string): Observable<any> {
-    return this.http.post(`${this.apiUrl}/reset-password`, { token, newPassword });
+  logout(): Observable<any> {
+    return from(signOut(this.auth)).pipe(
+      tap(() => this.router.navigate(['/login']))
+    );
   }
 }

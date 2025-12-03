@@ -1,5 +1,4 @@
 import { Routes } from '@angular/router';
-import { authGuard } from './core/guards/auth.guard';
 import { protectedRouteGuard } from './core/guards/protected-route.guard';
 import { HomeComponent } from './pages/home/home.component';
 import { FeaturesComponent } from './pages/features/features.component';
@@ -13,12 +12,7 @@ import { TrustCenterComponent } from './pages/trust-center/trust-center.componen
 import { EuAiActComponent } from './pages/compliance/eu-ai-act/eu-ai-act.component';
 import { Iso42001Component } from './pages/compliance/iso-42001/iso-42001.component';
 import { InsuranceComponent } from './pages/compliance/insurance/insurance.component';
-
-import { SignupComponent } from './pages/auth/signup/signup.component';
 import { LoginComponent } from './pages/auth/login/login.component';
-import { VerifyEmailComponent } from './pages/auth/verify-email/verify-email.component';
-import { ForgotPasswordComponent } from './pages/auth/forgot-password/forgot-password.component';
-import { ResetPasswordComponent } from './pages/auth/reset-password/reset-password.component';
 
 export const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -31,31 +25,29 @@ export const routes: Routes = [
   { path: 'compliance/iso-42001', component: Iso42001Component },
   { path: 'compliance/insurance-automotive', component: InsuranceComponent },
   
-  { path: 'signup', component: SignupComponent },
+  // Auth
   { path: 'login', component: LoginComponent },
-  { path: 'verify-email', component: VerifyEmailComponent },
-  { path: 'forgot-password', component: ForgotPasswordComponent },
-  { path: 'reset-password', component: ResetPasswordComponent },
 
+  // 🔒 Protected Routes (Requires Firebase Auth + Whitelist)
   { 
     path: 'hub', 
     component: HubComponent, 
-    canActivate: [authGuard, protectedRouteGuard] 
+    canActivate: [protectedRouteGuard] 
   },
   { 
     path: 'hub/logger', 
     component: LoggerComponent, 
-    canActivate: [authGuard, protectedRouteGuard] 
+    canActivate: [protectedRouteGuard] 
   },
   { 
     path: 'hub/verifier', 
     component: VerifierComponent, 
-    canActivate: [authGuard, protectedRouteGuard] 
+    canActivate: [protectedRouteGuard] 
   },
   { 
     path: 'hub/shredder', 
     component: ShredderComponent, 
-    canActivate: [authGuard, protectedRouteGuard] 
+    canActivate: [protectedRouteGuard] 
   },
   
   { path: '**', redirectTo: '' }
