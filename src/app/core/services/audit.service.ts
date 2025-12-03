@@ -20,7 +20,6 @@ export class AuditService {
   // v3.9 Backend URL
   private apiUrl = 'https://obrioxia-backend-pkrp.onrender.com';
   
-  // Use the same keys as the backend
   private getHeaders(): HttpHeaders {
     return new HttpHeaders({
       'Content-Type': 'application/json',
@@ -28,7 +27,7 @@ export class AuditService {
     });
   }
 
-  // 1. Submit Data (Write to Ledger)
+  // 1. Submit Data
   submitLog(data: AuditLogPayload): Observable<any> {
     const payload = {
       policyNumber: data.policyNumber,
@@ -41,9 +40,12 @@ export class AuditService {
     return this.http.post(`${this.apiUrl}/api/incidents`, payload, { headers: this.getHeaders() });
   }
 
-  // 2. Get All Logs (Admin Dashboard)
-  getLogs(decrypt: boolean = false): Observable<any> {
-    return this.http.get(`${this.apiUrl}/api/admin/incidents?page_size=100&decrypt=${decrypt}`, { headers: this.getHeaders() });
+  // 2. Generate PDF Evidence
+  downloadPdfEvidence(receipt: any): Observable<Blob> {
+    return this.http.post(`${this.apiUrl}/api/pdf/submission`, receipt, {
+      headers: this.getHeaders(),
+      responseType: 'blob'
+    });
   }
 
   // 3. Verify Integrity
@@ -51,10 +53,8 @@ export class AuditService {
     return this.http.post(`${this.apiUrl}/api/verify`, { current_hash: hash }, { headers: this.getHeaders() });
   }
 
-  // 4. Crypto-Shred User (GDPR)
+  // 4. Crypto-Shred User
   shredSubject(subjectId: string): Observable<any> {
     return this.http.delete(`${this.apiUrl}/api/admin/shred/${subjectId}`, { headers: this.getHeaders() });
   }
 }
-
-

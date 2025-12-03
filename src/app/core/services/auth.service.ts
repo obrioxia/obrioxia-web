@@ -10,33 +10,21 @@ export class AuthService {
   private auth = inject(Auth);
   private router = inject(Router);
   
-  // Observable for route guards
   user$ = user(this.auth);
-  
-  // Signal for UI components (Navbar etc)
   currentUser = signal<User | null>(null);
 
   constructor() {
-    // Sync signal with firebase user state
     this.user$.subscribe(u => this.currentUser.set(u));
   }
 
   async register(email: string, pass: string) {
-    try {
-      await createUserWithEmailAndPassword(this.auth, email, pass);
-      this.router.navigate(['/hub']);
-    } catch (err) {
-      throw err;
-    }
+    await createUserWithEmailAndPassword(this.auth, email, pass);
+    this.router.navigate(['/hub']);
   }
 
   async login(email: string, pass: string) {
-    try {
-      await signInWithEmailAndPassword(this.auth, email, pass);
-      this.router.navigate(['/hub']);
-    } catch (err) {
-      throw err;
-    }
+    await signInWithEmailAndPassword(this.auth, email, pass);
+    this.router.navigate(['/hub']);
   }
 
   async logout() {

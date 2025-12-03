@@ -1,7 +1,8 @@
 import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
-import { AuthService } from '../../../core/services/auth.service';
+// FIXED IMPORT PATH (Removed one ../)
+import { AuthService } from '../../core/services/auth.service';
 
 @Component({
   selector: 'app-navbar',
@@ -79,3 +80,5 @@ export class NavbarComponent {
   auth = inject(AuthService);
   isMobileMenuOpen = false;
 }
+
+
