@@ -20,7 +20,7 @@ import { AuthService } from '../../core/services/auth.service';
         </a>
 
         <!-- Desktop Menu -->
-        <div class="hidden md:flex items-center gap-8">
+        <div class="hidden md:flex items-center gap-6">
           <a routerLink="/" routerLinkActive="text-obrioxia-cyan" [routerLinkActiveOptions]="{exact: true}" class="text-sm font-orbitron text-gray-400 hover:text-white transition-colors">HOME</a>
           <a routerLink="/features" routerLinkActive="text-obrioxia-cyan" class="text-sm font-orbitron text-gray-400 hover:text-white transition-colors">FEATURES</a>
           <a href="https://demo.obrioxia.com" target="_blank" class="text-sm font-orbitron text-gray-400 hover:text-white transition-colors">LIVE DEMO</a>
