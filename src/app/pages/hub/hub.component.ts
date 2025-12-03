@@ -1,6 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { AuthService } from '../../core/services/auth.service';
+import { AuditService } from '../../core/services/audit.service';
 
 @Component({
   selector: 'app-hub',
@@ -49,17 +50,17 @@ import { AuthService } from '../../core/services/auth.service';
             <p class="text-gray-400 text-sm">Cryptographically verify the integrity of your audit logs against the public ledger.</p>
           </a>
 
-          <!-- API Keys (Placeholder) -->
-          <div class="glass-panel p-6 rounded-xl border border-white/10 opacity-75">
+          <!-- Tool 3: GDPR Shredder (NEW) -->
+          <button (click)="shredUser()" class="glass-panel p-6 rounded-xl border border-red-500/20 hover:border-red-500/80 transition-all group text-left">
             <div class="flex items-center justify-between mb-4">
-              <div class="w-10 h-10 rounded bg-purple-500/10 flex items-center justify-center text-purple-400">
-                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 7a2 2 0 012 2m4 0a6 6 0 01-7.743 5.743L11.536 11l-3.232 2.155a3 3 0 01-4.043-4.043l3.233-3.233A6 6 0 0119 9z"></path></svg>
+              <div class="w-10 h-10 rounded bg-red-500/10 flex items-center justify-center text-red-500">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
               </div>
+              <span class="text-xs font-bold text-red-500 bg-red-500/10 px-2 py-1 rounded">GDPR ADMIN</span>
             </div>
-            <h3 class="text-xl text-white font-orbitron mb-2">API Keys</h3>
-            <p class="text-gray-400 text-sm">Manage your secret keys for the REST API and Python SDK integration.</p>
-            <button disabled class="mt-4 text-xs border border-white/20 px-3 py-1 rounded text-gray-500 cursor-not-allowed">COMING SOON</button>
-          </div>
+            <h3 class="text-xl text-white font-orbitron mb-2 group-hover:text-red-500 transition-colors">Crypto-Shredder</h3>
+            <p class="text-gray-400 text-sm">Execute Right-to-Erasure. Destroy encryption keys while maintaining chain integrity.</p>
+          </button>
 
         </div>
       </div>
@@ -68,4 +69,19 @@ import { AuthService } from '../../core/services/auth.service';
 })
 export class HubComponent {
   auth = inject(AuthService);
+  audit = inject(AuditService);
+
+  shredUser() {
+    const id = prompt("⚠️ GDPR ADMIN ACTION ⚠️\n\nEnter the Policy Number or User ID to permanently shred:");
+    
+    if (id) {
+      if (confirm(`Are you sure you want to destroy the key for ID: ${id}?\n\nThis action cannot be undone.`)) {
+        this.audit.shredSubject(id).subscribe({
+          next: () => alert(`SUCCESS: Key for ${id} has been destroyed. Data is now unrecoverable.`),
+          error: (err) => alert(`FAILED: ${err.message || 'Key not found or unauthorized.'}`)
+        });
+      }
+    }
+  }
 }
+
