@@ -11,14 +11,11 @@ import { AuthService } from '../../../core/services/auth.service';
   template: `
     <div class="min-h-screen bg-obrioxia-base flex items-center justify-center p-4">
       <div class="glass-panel p-8 rounded-xl border border-white/10 w-full max-w-md">
-        
         <h2 class="text-2xl text-white font-orbitron mb-6 text-center">New <span class="text-obrioxia-cyan">Password</span></h2>
-
         <div *ngIf="success" class="text-center">
           <p class="text-green-400 mb-4">Password updated successfully!</p>
           <a routerLink="/login" class="block w-full py-3 bg-obrioxia-cyan text-black font-bold font-orbitron rounded">LOGIN NOW</a>
         </div>
-
         <form *ngIf="!success" (ngSubmit)="onSubmit()">
           <div class="space-y-4 mb-6">
             <div>
@@ -30,14 +27,11 @@ import { AuthService } from '../../../core/services/auth.service';
               <input [(ngModel)]="confirm" name="cpw" type="password" required class="w-full bg-black/50 border border-white/10 rounded p-3 text-white focus:border-obrioxia-cyan outline-none">
             </div>
           </div>
-
           <div *ngIf="error" class="text-red-500 text-xs text-center mb-4">{{ error }}</div>
-
           <button type="submit" [disabled]="loading || !password" class="w-full py-4 bg-obrioxia-cyan text-black font-bold font-orbitron rounded hover:bg-obrioxia-cyan/90 transition-all disabled:opacity-50">
             {{ loading ? 'UPDATING...' : 'UPDATE PASSWORD' }}
           </button>
         </form>
-
       </div>
     </div>
   `
@@ -71,7 +65,7 @@ export class ResetPasswordComponent implements OnInit {
         this.success = true;
         this.loading = false;
       },
-      error: (err) => {
+      error: (err: any) => {
         this.error = err.error?.detail || "Failed to reset password.";
         this.loading = false;
       }
