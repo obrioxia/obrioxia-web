@@ -1,34 +1,61 @@
-import { Injectable, inject, signal } from '@angular/core';
-import { Auth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, user, User } from '@angular/fire/auth';
+import { Injectable, inject } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
-import { Observable } from 'rxjs';
+import { Observable, BehaviorSubject, tap } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-  private auth = inject(Auth);
+  private http = inject(HttpClient);
   private router = inject(Router);
-  
-  user$ = user(this.auth);
-  currentUser = signal<User | null>(null);
+  private apiUrl = 'https://obrioxia-backend-pkrp.onrender.com/auth';
+
+  private userSubject = new BehaviorSubject<any>(null);
+  user$ = this.userSubject.asObservable();
 
   constructor() {
-    this.user$.subscribe(u => this.currentUser.set(u));
+    const saved = localStorage.getItem('obrioxia_user');
+    if (saved) {
+      this.userSubject.next(JSON.parse(saved));
+    }
   }
 
-  async register(email: string, pass: string) {
-    await createUserWithEmailAndPassword(this.auth, email, pass);
-    this.router.navigate(['/hub']);
+  register(data: any): Observable<any> {
+    return this.http.post(`${this.apiUrl}/register`, data);
   }
 
-  async login(email: string, pass: string) {
-    await signInWithEmailAndPassword(this.auth, email, pass);
-    this.router.navigate(['/hub']);
+  login(data: any): Observable<any> {
+    return this.http.post(`${this.apiUrl}/login`, data).pipe(
+      tap((res: any) => {
+        if (res.status === 'success') {
+          this.userSubject.next(res.user);
+          localStorage.setItem('obrioxia_user', JSON.stringify(res.user));
+          this.router.navigate(['/hub']);
+        }
+      })
+    );
   }
 
-  async logout() {
-    await signOut(this.auth);
-    this.router.navigate(['/']);
+  logout() {
+    this.userSubject.next(null);
+    localStorage.removeItem('obrioxia_user');
+    this.router.navigate(['/login']);
+  }
+
+  verifyEmail(token: string): Observable<any> {
+    return this.http.get(`${this.apiUrl}/verify/${token}`);
+  }
+
+  resendVerification(email: string): Observable<any> {
+    return this.http.post(`${this.apiUrl}/send-verification`, { email });
+  }
+
+  forgotPassword(email: string): Observable<any> {
+    return this.http.post(`${this.apiUrl}/forgot-password`, { email });
+  }
+
+  resetPassword(token: string, newPassword: string): Observable<any> {
+    return this.http.post(`${this.apiUrl}/reset-password`, { token, newPassword });
   }
 }
