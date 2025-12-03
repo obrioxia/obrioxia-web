@@ -1,12 +1,12 @@
 import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { RouterLink } from '@angular/router';
 import { AuthService } from '../../core/services/auth.service';
-import { AuditService } from '../../core/services/audit.service';
 
 @Component({
   selector: 'app-hub',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, RouterLink],
   template: `
     <div class="min-h-screen bg-obrioxia-base pt-28 pb-20 px-4">
       <div class="max-w-7xl mx-auto">
@@ -27,7 +27,7 @@ import { AuditService } from '../../core/services/audit.service';
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           
           <!-- Tool 1: Event Logger -->
-          <a href="https://demo.obrioxia.com" target="_blank" class="glass-panel p-6 rounded-xl border border-white/10 hover:border-obrioxia-cyan/50 transition-all group">
+          <a routerLink="/hub/logger" class="glass-panel p-6 rounded-xl border border-white/10 hover:border-obrioxia-cyan/50 transition-all group cursor-pointer">
             <div class="flex items-center justify-between mb-4">
               <div class="w-10 h-10 rounded bg-obrioxia-cyan/10 flex items-center justify-center text-obrioxia-cyan">
                 <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
@@ -39,7 +39,7 @@ import { AuditService } from '../../core/services/audit.service';
           </a>
 
           <!-- Tool 2: Chain Verifier -->
-          <a href="https://demo.obrioxia.com/verify" target="_blank" class="glass-panel p-6 rounded-xl border border-white/10 hover:border-obrioxia-green/50 transition-all group">
+          <a routerLink="/hub/verifier" class="glass-panel p-6 rounded-xl border border-white/10 hover:border-obrioxia-green/50 transition-all group cursor-pointer">
             <div class="flex items-center justify-between mb-4">
               <div class="w-10 h-10 rounded bg-obrioxia-green/10 flex items-center justify-center text-obrioxia-green">
                 <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
@@ -50,8 +50,8 @@ import { AuditService } from '../../core/services/audit.service';
             <p class="text-gray-400 text-sm">Cryptographically verify the integrity of your audit logs against the public ledger.</p>
           </a>
 
-          <!-- Tool 3: GDPR Shredder (NEW) -->
-          <button (click)="shredUser()" class="glass-panel p-6 rounded-xl border border-red-500/20 hover:border-red-500/80 transition-all group text-left">
+          <!-- Tool 3: Crypto Shredder -->
+          <a routerLink="/hub/shredder" class="glass-panel p-6 rounded-xl border border-red-500/20 hover:border-red-500/80 transition-all group cursor-pointer">
             <div class="flex items-center justify-between mb-4">
               <div class="w-10 h-10 rounded bg-red-500/10 flex items-center justify-center text-red-500">
                 <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
@@ -60,7 +60,7 @@ import { AuditService } from '../../core/services/audit.service';
             </div>
             <h3 class="text-xl text-white font-orbitron mb-2 group-hover:text-red-500 transition-colors">Crypto-Shredder</h3>
             <p class="text-gray-400 text-sm">Execute Right-to-Erasure. Destroy encryption keys while maintaining chain integrity.</p>
-          </button>
+          </a>
 
         </div>
       </div>
@@ -69,19 +69,6 @@ import { AuditService } from '../../core/services/audit.service';
 })
 export class HubComponent {
   auth = inject(AuthService);
-  audit = inject(AuditService);
-
-  shredUser() {
-    const id = prompt("⚠️ GDPR ADMIN ACTION ⚠️\n\nEnter the Policy Number or User ID to permanently shred:");
-    
-    if (id) {
-      if (confirm(`Are you sure you want to destroy the key for ID: ${id}?\n\nThis action cannot be undone.`)) {
-        this.audit.shredSubject(id).subscribe({
-          next: () => alert(`SUCCESS: Key for ${id} has been destroyed. Data is now unrecoverable.`),
-          error: (err) => alert(`FAILED: ${err.message || 'Key not found or unauthorized.'}`)
-        });
-      }
-    }
-  }
 }
+
 
