@@ -1,0 +1,94 @@
+<div class="min-h-screen bg-obrioxia-base pt-28 pb-20 px-4">
+  <div class="max-w-7xl mx-auto">
+    
+    <div class="text-center mb-16">
+      <h1 class="text-4xl text-white font-orbitron mb-4">Select Your <span class="text-obrioxia-cyan">Capacity.</span></h1>
+      <p class="text-gray-400">Scale your immutable ledger as your agent volume grows.</p>
+    </div>
+
+    <!-- Cancellation Message -->
+    <div *ngIf="paymentCancelled" class="max-w-2xl mx-auto mb-12 p-4 bg-red-500/10 border border-red-500/30 rounded text-center">
+      <p class="text-red-400 font-orbitron">Payment Cancelled. No charges were made.</p>
+    </div>
+
+    <!-- GROWTH TIERS GRID -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-20">
+      
+      <!-- Growth Pro 1 -->
+      <div class="glass-panel p-8 rounded-xl border border-white/10 hover:border-obrioxia-cyan/30 transition-all flex flex-col">
+        <h3 class="text-xl text-white font-orbitron mb-2">Growth Pro 1</h3>
+        <div class="text-3xl text-obrioxia-cyan font-orbitron mb-4">£500<span class="text-sm text-gray-400">/mo</span></div>
+        <p class="text-gray-400 text-sm mb-6 h-12">Essential forensic logging for early-stage production agents. Verify decisions and build trust with your first users.</p>
+        
+        <div class="space-y-4 mb-8 flex-grow">
+          <div class="flex items-center text-gray-300 text-sm"><span class="text-obrioxia-cyan mr-3">✓</span> <strong>100,000</strong> Events / Mo</div>
+          <div class="flex items-center text-gray-300 text-sm"><span class="text-obrioxia-cyan mr-3">✓</span> 3-Month Retention</div>
+          <div class="flex items-center text-gray-300 text-sm"><span class="text-obrioxia-cyan mr-3">✓</span> Full Crypto-Shredding</div>
+          <div class="flex items-center text-gray-300 text-sm"><span class="text-obrioxia-cyan mr-3">✓</span> PDF Evidence Packs</div>
+        </div>
+
+        <button (click)="buyGrowth('growth_1')" class="w-full py-3 border border-obrioxia-cyan text-obrioxia-cyan font-orbitron rounded hover:bg-obrioxia-cyan hover:text-black transition-all">
+          Upgrade to Pro 1
+        </button>
+      </div>
+
+      <!-- Growth Pro 2 -->
+      <div class="glass-panel p-8 rounded-xl border border-obrioxia-cyan shadow-[0_0_20px_rgba(0,255,255,0.1)] flex flex-col relative transform md:-translate-y-4">
+        <div class="absolute -top-3 left-1/2 -translate-x-1/2 bg-obrioxia-cyan text-black text-xs font-bold px-3 py-1 rounded-full font-orbitron">MOST POPULAR</div>
+        <h3 class="text-xl text-white font-orbitron mb-2">Growth Pro 2</h3>
+        <div class="text-3xl text-obrioxia-cyan font-orbitron mb-4">£1,000<span class="text-sm text-gray-400">/mo</span></div>
+        <p class="text-gray-400 text-sm mb-6 h-12">Expanded capacity for scaling applications. 6-month retention allows for robust incident reconstruction and trend analysis.</p>
+        
+        <div class="space-y-4 mb-8 flex-grow">
+          <div class="flex items-center text-gray-300 text-sm"><span class="text-obrioxia-cyan mr-3">✓</span> <strong>500,000</strong> Events / Mo</div>
+          <div class="flex items-center text-gray-300 text-sm"><span class="text-obrioxia-cyan mr-3">✓</span> 6-Month Retention</div>
+          <div class="flex items-center text-gray-300 text-sm"><span class="text-obrioxia-cyan mr-3">✓</span> Everything in Pro 1</div>
+          <div class="flex items-center text-gray-300 text-sm"><span class="text-obrioxia-cyan mr-3">✓</span> Priority Support</div>
+        </div>
+
+        <button (click)="buyGrowth('growth_2')" class="w-full py-3 bg-obrioxia-cyan text-black font-bold font-orbitron rounded hover:bg-obrioxia-cyan/90 transition-all">
+          Upgrade to Pro 2
+        </button>
+      </div>
+
+      <!-- Growth Pro 3 -->
+      <div class="glass-panel p-8 rounded-xl border border-white/10 hover:border-obrioxia-cyan/30 transition-all flex flex-col">
+        <h3 class="text-xl text-white font-orbitron mb-2">Growth Pro 3</h3>
+        <div class="text-3xl text-obrioxia-cyan font-orbitron mb-4">£1,500<span class="text-sm text-gray-400">/mo</span></div>
+        <p class="text-gray-400 text-sm mb-6 h-12">Maximum volume and retention for mission-critical AI. 1-year history ensures readiness for annual compliance audits.</p>
+        
+        <div class="space-y-4 mb-8 flex-grow">
+          <div class="flex items-center text-gray-300 text-sm"><span class="text-obrioxia-cyan mr-3">✓</span> <strong>1,000,000</strong> Events / Mo</div>
+          <div class="flex items-center text-gray-300 text-sm"><span class="text-obrioxia-cyan mr-3">✓</span> 1-Year Retention</div>
+          <div class="flex items-center text-gray-300 text-sm"><span class="text-obrioxia-cyan mr-3">✓</span> Everything in Pro 2</div>
+          <div class="flex items-center text-gray-300 text-sm"><span class="text-obrioxia-cyan mr-3">✓</span> Dedicated Success Mgr</div>
+        </div>
+
+        <button (click)="buyGrowth('growth_3')" class="w-full py-3 border border-white/20 text-white font-orbitron rounded hover:bg-white/10 transition-all">
+          Upgrade to Pro 3
+        </button>
+      </div>
+
+    </div>
+
+    <!-- Enterprise & Free Links -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+      <div class="p-6 border border-white/10 rounded-lg flex justify-between items-center bg-white/5">
+        <div>
+          <h4 class="text-white font-orbitron">Builder / Sandbox</h4>
+          <p class="text-gray-400 text-xs">Free forever. 10k events/mo.</p>
+        </div>
+        <button routerLink="/signup" class="text-sm text-white border border-white/20 px-4 py-2 rounded hover:bg-white/10">Create Free Account</button>
+      </div>
+
+      <div class="p-6 border border-white/10 rounded-lg flex justify-between items-center bg-white/5">
+        <div>
+          <h4 class="text-white font-orbitron">Enterprise</h4>
+          <p class="text-gray-400 text-xs">Unlimited volume & custom SLAs.</p>
+        </div>
+        <a href="mailto:sales@obrioxia.com" class="text-sm text-white border border-white/20 px-4 py-2 rounded hover:bg-white/10">Contact Sales</a>
+      </div>
+    </div>
+
+  </div>
+</div>
