@@ -5,6 +5,9 @@ import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
 import { getAuth, provideAuth } from '@angular/fire/auth';
 import { environment } from '../environments/environment';
 
+// ADDED: Import for global chart configuration
+import { provideCharts, withDefaultRegisterables } from 'ng2-charts';
+
 import { routes } from './app.routes';
 
 export const appConfig: ApplicationConfig = {
@@ -19,6 +22,9 @@ export const appConfig: ApplicationConfig = {
     ),
     provideHttpClient(),
     provideFirebaseApp(() => initializeApp(environment.firebase)),
-    provideAuth(() => getAuth())
+    provideAuth(() => getAuth()),
+    
+    // ADDED: Registers Chart.js modules globally so your Dashboard graphs render
+    provideCharts(withDefaultRegisterables())
   ]
 };

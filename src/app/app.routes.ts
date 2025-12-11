@@ -21,6 +21,7 @@ import { LoginComponent } from './pages/auth/login/login.component';
 import { VerifyEmailComponent } from './pages/auth/verify-email/verify-email.component';
 import { ForgotPasswordComponent } from './pages/auth/forgot-password/forgot-password.component';
 import { ResetPasswordComponent } from './pages/auth/reset-password/reset-password.component';
+import { DemoComponent } from './pages/demo/demo.component'; // Ensure you generated this component
 
 export const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -39,10 +40,23 @@ export const routes: Routes = [
   { path: 'verify-email', component: VerifyEmailComponent },
   { path: 'forgot-password', component: ForgotPasswordComponent },
   { path: 'reset-password', component: ResetPasswordComponent },
+  
+  // NEW: Live Demo Route (Protected)
+  { path: 'demo', component: DemoComponent, canActivate: [authGuard] },
+
+  // Existing Hub Routes
   { path: 'hub', component: HubComponent, canActivate: [authGuard, protectedRouteGuard] },
   { path: 'hub/logger', component: LoggerComponent, canActivate: [authGuard, protectedRouteGuard] },
   { path: 'hub/verifier', component: VerifierComponent, canActivate: [authGuard, protectedRouteGuard] },
   { path: 'hub/shredder', component: ShredderComponent, canActivate: [authGuard, protectedRouteGuard] },
   { path: 'hub/analytics', component: AnalyticsComponent, canActivate: [authGuard, protectedRouteGuard] },
+
+  // Standalone Dashboard Route (Lazy Loaded)
+  { 
+    path: 'dashboard', 
+    loadChildren: () => import('./dashboard/dashboard.module').then(m => m.DashboardModule),
+    canActivate: [authGuard] 
+  },
+
   { path: '**', redirectTo: '' }
 ];
