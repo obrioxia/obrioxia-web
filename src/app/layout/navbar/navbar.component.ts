@@ -1,8 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterLink, RouterLinkActive, Router } from '@angular/router';
+import { RouterLink, RouterLinkActive } from '@angular/router'; // Removed 'Router' import as it's no longer used
 import { AuthService } from '../../core/services/auth.service';
-import { take } from 'rxjs/operators';
 
 @Component({
   selector: 'app-navbar',
@@ -23,9 +22,11 @@ import { take } from 'rxjs/operators';
           <a routerLink="/" routerLinkActive="text-obrioxia-cyan" [routerLinkActiveOptions]="{exact: true}" class="text-sm font-orbitron text-gray-400 hover:text-white transition-colors">HOME</a>
           <a routerLink="/features" routerLinkActive="text-obrioxia-cyan" class="text-sm font-orbitron text-gray-400 hover:text-white transition-colors">FEATURES</a>
           
-          <button (click)="handleLiveDemo()" class="text-sm font-orbitron text-gray-400 hover:text-white transition-colors bg-transparent border-none p-0 cursor-pointer uppercase">
-            LIVE DEMO
-          </button>
+          <a routerLink="/demo-signup" 
+             routerLinkActive="text-obrioxia-cyan"
+             class="text-sm font-orbitron text-gray-400 hover:text-white transition-colors uppercase cursor-pointer">
+             LIVE DEMO SIGN-UP
+          </a>
 
           <a routerLink="/how-it-works" routerLinkActive="text-obrioxia-cyan" class="text-sm font-orbitron text-gray-400 hover:text-white transition-colors">HOW IT WORKS</a>
           <a routerLink="/trust-center" routerLinkActive="text-obrioxia-cyan" class="text-sm font-orbitron text-gray-400 hover:text-white transition-colors">TRUST CENTER</a>
@@ -52,17 +53,5 @@ import { take } from 'rxjs/operators';
 })
 export class NavbarComponent {
   auth = inject(AuthService);
-  private router = inject(Router);
-
-  handleLiveDemo() {
-    this.auth.user$.pipe(take(1)).subscribe(user => {
-      if (user) {
-        // User is logged in -> Go to Demo
-        this.router.navigate(['/demo']);
-      } else {
-        // User NOT logged in -> Go to Signup
-        this.router.navigate(['/signup']);
-      }
-    });
-  }
+  // Router and handleLiveDemo are deleted because we now use a simple routerLink
 }
