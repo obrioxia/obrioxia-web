@@ -17,7 +17,8 @@ import { Auth, createUserWithEmailAndPassword, updateProfile } from '@angular/fi
         <div *ngIf="successMessage" class="p-6 bg-green-500/10 border border-green-500/30 rounded text-center animate-fade-in">
           <h3 class="text-green-400 font-orbitron text-xl mb-2">Secure Account Created</h3>
           <p class="text-gray-300">{{ successMessage }}</p>
-          <a href="https://app.obrioxia.com" class="block mt-6 py-3 bg-obrioxia-cyan text-black font-bold rounded hover:bg-cyan-400 transition-all font-orbitron">
+          
+          <a href="https://obrioxia.pages.dev" class="block mt-6 py-3 bg-obrioxia-cyan text-black font-bold rounded hover:bg-cyan-400 transition-all font-orbitron">
             GO TO APP LOGIN
           </a>
         </div>
@@ -85,7 +86,6 @@ import { Auth, createUserWithEmailAndPassword, updateProfile } from '@angular/fi
   `
 })
 export class SignupComponent {
-  // Inject Firebase Auth directly
   private auth = inject(Auth);
   private http = inject(HttpClient);
   
@@ -115,21 +115,18 @@ export class SignupComponent {
     this.errorMessage = '';
 
     try {
-      // 1. CREATE IN FIREBASE (Identity)
       const userCredential = await createUserWithEmailAndPassword(
         this.auth, 
         this.data.email, 
         this.data.password
       );
 
-      // 2. SET DISPLAY NAME
       if (userCredential.user) {
         await updateProfile(userCredential.user, {
           displayName: this.data.fullName
         });
       }
 
-      // 3. SYNC TO BACKEND (Data)
       this.http.post('https://obrioxia-backend-pkrp.onrender.com/auth/register', this.data)
         .subscribe({
           next: () => {
@@ -138,7 +135,6 @@ export class SignupComponent {
           },
           error: (err) => {
             console.error("Backend Sync Error:", err);
-            // We treat this as success because the Firebase Identity is created.
             this.successMessage = "Account Created. Please Login to App.";
             this.loading.set(false);
           }

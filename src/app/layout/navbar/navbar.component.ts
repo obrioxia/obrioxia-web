@@ -1,7 +1,8 @@
 import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterLink, RouterLinkActive } from '@angular/router'; // Removed 'Router' import as it's no longer used
+import { RouterLink, RouterLinkActive } from '@angular/router';
 import { AuthService } from '../../core/services/auth.service';
+import { Auth, signOut } from '@angular/fire/auth'; 
 
 @Component({
   selector: 'app-navbar',
@@ -34,17 +35,26 @@ import { AuthService } from '../../core/services/auth.service';
         </div>
 
         <div class="flex items-center gap-4">
+          
           <ng-container *ngIf="auth.user$ | async as user; else loginBtn">
-            <a routerLink="/hub" class="flex items-center gap-2 px-4 py-2 border border-obrioxia-green/50 bg-obrioxia-green/10 rounded hover:bg-obrioxia-green/20 transition-all group">
+            
+            <a href="https://obrioxia.pages.dev" class="flex items-center gap-2 px-4 py-2 border border-obrioxia-green/50 bg-obrioxia-green/10 rounded hover:bg-obrioxia-green/20 transition-all group">
               <div class="w-2 h-2 rounded-full bg-obrioxia-green animate-pulse"></div>
-              <span class="text-xs font-orbitron text-obrioxia-green">HUB ACCESS</span>
+              <span class="text-xs font-orbitron text-obrioxia-green">ENTER HUB</span>
             </a>
+
+            <button (click)="logout()" class="px-3 py-2 border border-red-500/30 text-red-400 text-xs font-orbitron rounded hover:bg-red-500/10 transition-all">
+              LOGOUT
+            </button>
+
           </ng-container>
+
           <ng-template #loginBtn>
-            <a routerLink="/hub" class="px-5 py-2 border border-white/20 text-white text-xs font-orbitron rounded hover:bg-white/10 transition-all">
+            <a href="https://obrioxia.pages.dev" class="px-5 py-2 border border-white/20 text-white text-xs font-orbitron rounded hover:bg-white/10 transition-all">
               LOGIN
             </a>
           </ng-template>
+
         </div>
 
       </div>
@@ -53,5 +63,14 @@ import { AuthService } from '../../core/services/auth.service';
 })
 export class NavbarComponent {
   auth = inject(AuthService);
-  // Router and handleLiveDemo are deleted because we now use a simple routerLink
+  private firebaseAuth = inject(Auth); 
+
+  async logout() {
+    try {
+      await signOut(this.firebaseAuth);
+      window.location.reload(); 
+    } catch (err) {
+      console.error('Logout failed:', err);
+    }
+  }
 }
