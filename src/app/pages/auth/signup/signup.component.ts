@@ -18,7 +18,7 @@ import { Auth, createUserWithEmailAndPassword, updateProfile } from '@angular/fi
           <h3 class="text-green-400 font-orbitron text-xl mb-2">Secure Account Created</h3>
           <p class="text-gray-300">{{ successMessage }}</p>
           
-          <a href="https://obrioxia.pages.dev" class="block mt-6 py-3 bg-obrioxia-cyan text-black font-bold rounded hover:bg-cyan-400 transition-all font-orbitron">
+          <a href="https://hub.obrioxia.com" class="block mt-6 py-3 bg-obrioxia-cyan text-black font-bold rounded hover:bg-cyan-400 transition-all font-orbitron">
             GO TO APP LOGIN
           </a>
         </div>
