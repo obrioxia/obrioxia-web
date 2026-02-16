@@ -68,6 +68,15 @@ import { HttpClient } from '@angular/common/http';
                 SESSION ID: <span class="text-obrioxia-cyan">{{ demoKey }}</span>
             </div>
         </div>
+
+        <div class="mt-16 border-t border-white/10 pt-8 text-center">
+          <p class="text-gray-600 text-xs font-orbitron tracking-widest uppercase mb-4">OBRIOXIA AUDIT ENGINE v4.0 · Patent pending.</p>
+          <div class="flex justify-center gap-6">
+            <a routerLink="/demo/terms" class="text-gray-600 text-xs hover:text-white transition-colors">Terms &amp; Conditions</a>
+            <a routerLink="/demo/privacy" class="text-gray-600 text-xs hover:text-white transition-colors">Privacy Policy</a>
+            <a routerLink="/demo/data-disclaimer" class="text-gray-600 text-xs hover:text-white transition-colors">Data Disclaimer</a>
+          </div>
+        </div>
       </div>
     </div>
   `

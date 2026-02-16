@@ -1,53 +1,61 @@
-import { Component } from '@angular/core';
+import { Component, inject, signal, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 
 @Component({
-  selector: 'app-demo-signup',
+  selector: 'app-demo',
   standalone: true,
   imports: [CommonModule, RouterLink],
   template: `
-    <div class="min-h-screen bg-obrioxia-base pt-32 pb-20 px-4 flex flex-col items-center text-center">
-      <div class="max-w-2xl mx-auto">
-        
-        <div class="w-20 h-20 bg-obrioxia-cyan/10 rounded-2xl border border-obrioxia-cyan/30 flex items-center justify-center mx-auto mb-8 shadow-[0_0_30px_rgba(34,211,238,0.15)]">
-          <svg class="w-10 h-10 text-obrioxia-cyan" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path></svg>
-        </div>
-
-        <h1 class="text-4xl md:text-5xl text-white font-orbitron mb-6">
-          Request <span class="text-obrioxia-cyan">Live Demo</span> Access
-        </h1>
-
-        <div class="space-y-6 text-gray-400 text-lg leading-relaxed mb-12">
-          <p>
-            The Obrioxia Live Demo is a restricted-access sandbox environment for evaluating our immutable audit chain technology.
-          </p>
-          <div class="bg-white/5 border border-white/10 rounded-lg p-6 text-left space-y-3">
-            <div class="flex items-start gap-3">
-              <span class="text-obrioxia-cyan mt-1">▸</span>
-              <span><strong>Invite Only:</strong> To maintain system integrity, access is granted via session keys only.</span>
-            </div>
-            <div class="flex items-start gap-3">
-              <span class="text-obrioxia-cyan mt-1">▸</span>
-              <span><strong>Evaluation Purpose:</strong> Designed for technical verification of logging, hashing, and shredding capabilities.</span>
-            </div>
-            <div class="flex items-start gap-3">
-              <span class="text-obrioxia-cyan mt-1">▸</span>
-              <span><strong>Limited Scope:</strong> This environment does not connect to production APIs or store persistent data.</span>
-            </div>
+    <div class="min-h-screen bg-black text-white font-sans selection:bg-obrioxia-cyan selection:text-black">
+      <nav class="border-b border-white/10 bg-black/50 backdrop-blur-md fixed top-0 w-full z-50">
+        <div class="max-w-7xl mx-auto px-4 h-16 flex items-center justify-between">
+          <div class="flex items-center gap-2">
+            <div class="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
+            <span class="font-orbitron font-bold tracking-widest text-lg">OBRIOXIA <span class="text-obrioxia-cyan">DEMO</span></span>
           </div>
+          <button (click)="logout()" class="text-xs font-mono text-red-400 hover:text-red-300 border border-red-500/30 px-3 py-1 rounded">
+            EXIT DEMO
+          </button>
         </div>
+      </nav>
 
-        <a routerLink="/signup" class="inline-block px-8 py-4 bg-obrioxia-cyan text-black font-bold text-lg font-orbitron rounded hover:bg-cyan-400 transition-all shadow-[0_0_20px_rgba(34,211,238,0.3)] hover:shadow-[0_0_30px_rgba(34,211,238,0.5)] uppercase tracking-wide">
-          Get Your Session Key
-        </a>
-        
-        <p class="mt-6 text-sm text-gray-500">
-          Already have a key? <a href="https://demo.obrioxia.com" class="text-obrioxia-cyan hover:underline">Enter Demo Environment →</a>
+      <div class="pt-32 pb-20 px-4 max-w-7xl mx-auto text-center">
+        <h1 class="text-5xl md:text-6xl font-orbitron font-black mb-4 bg-clip-text text-transparent bg-gradient-to-r from-white via-gray-200 to-gray-500">
+          AUDIT <span class="text-obrioxia-cyan">ENGINE</span>
+        </h1>
+        <p class="text-gray-400 max-w-2xl mx-auto text-lg mb-12">
+          Tamper-Evident Ledger Active. Select a module to begin testing.
         </p>
 
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div class="p-8 rounded-2xl bg-white/5 border border-white/10 hover:border-obrioxia-cyan/50 transition-all">
+            <h3 class="text-2xl font-orbitron text-white mb-2">LOGGER</h3>
+            <p class="text-sm text-gray-400 mb-6">Submit a decision event. Sensitive fields are sealed with write-only protection.</p>
+            <a routerLink="/hub/logger" class="inline-block w-full py-3 bg-obrioxia-cyan text-black font-bold rounded hover:bg-cyan-400 transition-all font-orbitron">LAUNCH</a>
+          </div>
+          <div class="p-8 rounded-2xl bg-white/5 border border-white/10 hover:border-purple-500/50 transition-all">
+            <h3 class="text-2xl font-orbitron text-white mb-2">VERIFIER</h3>
+            <p class="text-sm text-gray-400 mb-6">Cryptographically verify the integrity of any audit log.</p>
+            <a routerLink="/hub/verifier" class="inline-block w-full py-3 bg-white text-black font-bold rounded hover:bg-gray-200 transition-all font-orbitron">LAUNCH</a>
+          </div>
+          <div class="p-8 rounded-2xl bg-white/5 border border-white/10 hover:border-red-500/50 transition-all">
+            <h3 class="text-2xl font-orbitron text-white mb-2">SHREDDER</h3>
+            <p class="text-sm text-gray-400 mb-6">Selectively shred sensitive fields. The record stays in the chain but protected data becomes irrecoverable.</p>
+            <a routerLink="/hub/shredder" class="inline-block w-full py-3 bg-transparent border border-red-500 text-red-500 font-bold rounded hover:bg-red-500/10 transition-all font-orbitron">LAUNCH</a>
+          </div>
+        </div>
       </div>
     </div>
   `
 })
-export class DemoSignupComponent {}
+export class DemoComponent implements OnInit { // ✅ FIXED CLASS NAME
+  private router = inject(Router);
+
+  ngOnInit() { }
+
+  logout() {
+    localStorage.removeItem('demo_key');
+    this.router.navigate(['/']);
+  }
+}

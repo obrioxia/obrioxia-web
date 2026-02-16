@@ -3,6 +3,7 @@ import { Routes } from '@angular/router';
 // Guards
 import { authGuard } from './core/guards/auth.guard';
 import { protectedRouteGuard } from './core/guards/protected-route.guard';
+import { demoGuard } from './core/guards/demo.guard';
 
 // Components
 import { HomeComponent } from './pages/home/home.component';
@@ -26,8 +27,12 @@ import { VerifyEmailComponent } from './pages/auth/verify-email/verify-email.com
 import { ForgotPasswordComponent } from './pages/auth/forgot-password/forgot-password.component';
 import { ResetPasswordComponent } from './pages/auth/reset-password/reset-password.component';
 
-// NEW Component Import
-import { DemoSignupComponent } from './pages/demo-signup/demo-signup.component';
+// Demo Components
+import { DemoComponent } from './pages/demo/demo.component';
+import { DemoGateComponent } from './pages/demo-gate/demo-gate.component';
+import { DemoTermsComponent } from './pages/demo/demo-terms.component';
+import { DemoPrivacyComponent } from './pages/demo/demo-privacy.component';
+import { DemoDataDisclaimerComponent } from './pages/demo/demo-data-disclaimer.component';
 
 export const routes: Routes = [
   // Main Public Pages
@@ -37,16 +42,16 @@ export const routes: Routes = [
   { path: 'upgrade', component: PricingComponent },
   { path: 'how-it-works', component: HowItWorksComponent },
   { path: 'trust-center', component: TrustCenterComponent },
-  
+
   // Compliance Pages
   { path: 'compliance/eu-ai-act', component: EuAiActComponent },
   { path: 'compliance/iso-42001', component: Iso42001Component },
   { path: 'compliance/insurance-automotive', component: InsuranceComponent },
-  
+
   // Legal
   { path: 'terms-of-service', component: TermsComponent },
   { path: 'privacy-policy', component: PrivacyComponent },
-  
+
   // Auth
   { path: 'signup', component: SignupComponent },
   { path: 'login', component: LoginComponent },
@@ -54,9 +59,20 @@ export const routes: Routes = [
   { path: 'forgot-password', component: ForgotPasswordComponent },
   { path: 'reset-password', component: ResetPasswordComponent },
 
-  // --- NEW DEMO SIGN-UP ROUTE ---
-  // This is the page we link to from the Header
-  { path: 'demo-signup', component: DemoSignupComponent },
+  // --- DEMO ROUTES ---
+
+  // 1. The Sign-Up Page (Public) points to Full Form
+  { path: 'demo-signup', component: SignupComponent },
+
+  // 2. The Gate (Public - Where they enter the key)
+  { path: 'demo-gate', component: DemoGateComponent },
+
+  // 3. The Actual Demo (PROTECTED by demoGuard)
+  {
+    path: 'demo',
+    component: DemoComponent,
+    canActivate: [demoGuard]
+  },
 
   // Hub / App Routes (Protected)
   { path: 'hub', component: HubComponent, canActivate: [authGuard, protectedRouteGuard] },
@@ -65,12 +81,18 @@ export const routes: Routes = [
   { path: 'hub/shredder', component: ShredderComponent, canActivate: [authGuard, protectedRouteGuard] },
   { path: 'hub/analytics', component: AnalyticsComponent, canActivate: [authGuard, protectedRouteGuard] },
 
-  // Dashboard Module (Lazy Loaded)
-  { 
-    path: 'dashboard', 
-    loadChildren: () => import('./dashboard/dashboard.module').then(m => m.DashboardModule),
-    canActivate: [authGuard] 
+  // ✅ FIXED DASHBOARD ROUTE (The Build Saver)
+  // Replaced broken module import with direct Component loading
+  {
+    path: 'dashboard',
+    loadComponent: () => import('./dashboard/dashboard.component').then(m => m.DashboardComponent),
+    canActivate: [authGuard]
   },
+
+  // Demo Legal Pages
+  { path: 'demo/terms', component: DemoTermsComponent, canActivate: [demoGuard] },
+  { path: 'demo/privacy', component: DemoPrivacyComponent, canActivate: [demoGuard] },
+  { path: 'demo/data-disclaimer', component: DemoDataDisclaimerComponent, canActivate: [demoGuard] },
 
   // Catch-all
   { path: '**', redirectTo: '' }

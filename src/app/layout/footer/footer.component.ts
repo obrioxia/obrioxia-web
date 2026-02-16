@@ -14,7 +14,7 @@ import { RouterLink } from '@angular/router';
         <div class="col-span-1 md:col-span-1">
           <a routerLink="/" class="text-xl font-orbitron text-white tracking-widest mb-6 block">OBRIOXIA</a>
           <p class="text-gray-500 text-sm leading-relaxed">
-            The immutable audit layer for Enterprise AI. Trust, but verify.
+            The tamper-evident audit layer for Enterprise AI. Trust, but verify.
           </p>
         </div>
 
@@ -61,4 +61,4 @@ import { RouterLink } from '@angular/router';
     </footer>
   `
 })
-export class FooterComponent {}
+export class FooterComponent { }
