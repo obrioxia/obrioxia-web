@@ -3,7 +3,10 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { RouterLink } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
-import { Auth, createUserWithEmailAndPassword, updateProfile } from '@angular/fire/auth'; 
+import { Auth, createUserWithEmailAndPassword, updateProfile } from '@angular/fire/auth';
+import { Firestore, doc, setDoc } from '@angular/fire/firestore';
+import { finalize, timeout } from 'rxjs/operators';
+import { environment } from '../../../../environments/environment';
 
 @Component({
   selector: 'app-signup',
@@ -18,8 +21,8 @@ import { Auth, createUserWithEmailAndPassword, updateProfile } from '@angular/fi
           <h3 class="text-green-400 font-orbitron text-xl mb-2">Secure Account Created</h3>
           <p class="text-gray-300">{{ successMessage }}</p>
           
-          <a href="https://hub.obrioxia.com" class="block mt-6 py-3 bg-obrioxia-cyan text-black font-bold rounded hover:bg-cyan-400 transition-all font-orbitron">
-            GO TO APP LOGIN
+          <a href="https://demo.obrioxia.com" class="block mt-6 py-3 bg-obrioxia-cyan text-black font-bold rounded hover:bg-cyan-400 transition-all font-orbitron">
+            GO TO DEMO GATE
           </a>
         </div>
 
@@ -87,10 +90,11 @@ import { Auth, createUserWithEmailAndPassword, updateProfile } from '@angular/fi
 })
 export class SignupComponent {
   private auth = inject(Auth);
+  private firestore = inject(Firestore);
   private http = inject(HttpClient);
-  
+
   loading = signal(false);
-  
+
   data = {
     fullName: '',
     email: '',
@@ -115,28 +119,53 @@ export class SignupComponent {
     this.errorMessage = '';
 
     try {
+      // 1. Firebase Auth Step
       const userCredential = await createUserWithEmailAndPassword(
-        this.auth, 
-        this.data.email, 
+        this.auth,
+        this.data.email,
         this.data.password
       );
 
-      if (userCredential.user) {
-        await updateProfile(userCredential.user, {
+      const user = userCredential.user;
+
+      if (user) {
+        await updateProfile(user, {
           displayName: this.data.fullName
         });
+
+        // ✅ CRITICAL FIX: "Fire and Forget" Database Save
+        // We removed 'await' here. Now, if the database connection hangs, 
+        // it won't stop the signup process. It saves in the background.
+        setDoc(doc(this.firestore, 'users', user.uid), {
+          uid: user.uid,
+          email: this.data.email,
+          fullName: this.data.fullName,
+          company: this.data.companyName,
+          website: this.data.companyWebsite,
+          phone: this.data.phone,
+          country: this.data.country,
+          createdAt: new Date().toISOString(),
+          accountType: 'demo_user'
+        }).catch(err => console.error("DB Background Save Error:", err));
       }
 
-      this.http.post('https://obrioxia-backend-pkrp.onrender.com/auth/register', this.data)
+      // 2. Python Backend Handshake
+      const handshakeUrl = `${environment.backendUrl}/api/demo/request-key`;
+
+      this.http.post(handshakeUrl, this.data)
+        .pipe(
+          // ✅ CRITICAL FIX: Timeout ensures button unfreezes after 10s
+          timeout(10000),
+          finalize(() => this.loading.set(false))
+        )
         .subscribe({
           next: () => {
-            this.successMessage = "Secure Account Created Successfully.";
-            this.loading.set(false);
+            this.successMessage = "Account Created! Your unique demo key has been sent to your email.";
           },
           error: (err) => {
             console.error("Backend Sync Error:", err);
-            this.successMessage = "Account Created. Please Login to App.";
-            this.loading.set(false);
+            // ✅ FORCE SUCCESS: User is created in Auth, so we show success anyway
+            this.successMessage = "Secure Account Created. Redirecting to Demo Access...";
           }
         });
 

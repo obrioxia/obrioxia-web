@@ -15,7 +15,7 @@ export class LoggerComponent {
   private router = inject(Router);
   
   loading = signal(false);
-  receipt: any = null;
+  receipt = signal<any | null>(null);
 
   formData: AuditLogPayload = {
     policyNumber: '',
@@ -26,53 +26,77 @@ export class LoggerComponent {
     agentId: 'obrioxia_web_user'
   };
 
+  /**
+   * Submits event to Python backend.
+   * Logic is now silent: UI updates via signals automatically.
+   */
   onSubmit() {
     this.loading.set(true);
     this.audit.submitLog(this.formData).subscribe({
       next: (res) => {
-        this.receipt = res.receipt;
+        this.receipt.set(res); 
         this.loading.set(false);
+        // ✅ Success Alert Removed
       },
       error: (err) => {
-        alert('Logging Failed: ' + err.message);
+        console.error('❌ Logging Failure:', err);
+        // Errors remain as alerts to ensure the user knows if the ledger is unreachable
+        alert('Logging Failed: ' + (err.error?.detail || err.message));
         this.loading.set(false);
       }
     });
   }
 
   downloadJson() {
-    if (!this.receipt) return;
-    const jsonString = JSON.stringify(this.receipt, null, 2);
+    const rawData = this.receipt();
+    if (!rawData) return;
+
+    const evidenceData = typeof rawData === 'string' 
+      ? { current_hash: rawData, decision_id: rawData, exported_at: new Date().toISOString() }
+      : { ...rawData, exported_at: new Date().toISOString() };
+
+    const jsonString = JSON.stringify(evidenceData, null, 2);
     const blob = new Blob([jsonString], { type: 'application/json' });
     const url = window.URL.createObjectURL(blob);
+    
     const a = document.createElement('a');
     a.href = url;
-    a.download = `obrioxia_evidence_${this.receipt.sequence}.json`;
+    const id = evidenceData.sequence || evidenceData.decision_id || Date.now();
+    a.download = `obrioxia_evidence_${id}.json`;
+    
+    document.body.appendChild(a);
     a.click();
+    document.body.removeChild(a);
     window.URL.revokeObjectURL(url);
   }
 
   downloadPdf() {
-    if (!this.receipt) return;
-    this.loading.set(true); // Re-use loading state for UI feedback
-    this.audit.downloadPdfEvidence(this.receipt).subscribe({
+    const data = this.receipt();
+    if (!data) return;
+    this.loading.set(true);
+    this.audit.downloadPdfEvidence(data).subscribe({
       next: (blob) => {
         const url = window.URL.createObjectURL(blob);
         const a = document.createElement('a');
         a.href = url;
-        a.download = `obrioxia_certificate_${this.receipt.sequence}.pdf`;
+        const id = data.sequence || Date.now();
+        a.download = `obrioxia_certificate_${id}.pdf`;
         a.click();
         window.URL.revokeObjectURL(url);
         this.loading.set(false);
       },
       error: (err) => {
-        alert('PDF Generation Failed: ' + err.message);
         this.loading.set(false);
       }
     });
   }
 
-  goBack() {
-    this.router.navigate(['/hub']);
+  goBack() { this.router.navigate(['/hub']); }
+  
+  resetForm() {
+    this.receipt.set(null);
+    this.formData.policyNumber = '';
+    this.formData.decisionNotes = '';
+    this.formData.claimAmount = 0;
   }
 }

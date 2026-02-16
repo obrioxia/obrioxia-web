@@ -16,25 +16,44 @@ export class VerifierComponent {
 
   hashToVerify = '';
   loading = signal(false);
-  result: any = null;
+  result = signal<any | null>(null);
 
-  // Handle JSON File Upload
+  /**
+   * Handles JSON Evidence file upload.
+   * Silent logic: No popups, only UI state changes.
+   */
   onFileSelected(event: any) {
     const file = event.target.files[0];
     if (!file) return;
 
     const reader = new FileReader();
     reader.onload = (e: any) => {
+      const rawContent = e.target.result as string;
       try {
-        const json = JSON.parse(e.target.result);
-        if (json.current_hash) {
-          this.hashToVerify = json.current_hash;
-          this.verify(); // Auto-verify on upload
+        const json = JSON.parse(rawContent);
+        
+        let extractedHash = '';
+        if (typeof json === 'string') {
+          extractedHash = json;
         } else {
-          alert('Invalid Evidence File: Missing current_hash');
+          extractedHash = 
+            json.current_hash || 
+            json.decision_id || 
+            json.receipt?.current_hash || 
+            json.value?.current_hash;
+        }
+
+        if (extractedHash) {
+          this.hashToVerify = extractedHash;
+          this.verify(); 
         }
       } catch (err) {
-        alert('Error parsing JSON file');
+        // Raw string fallback
+        const fallbackHash = rawContent.trim();
+        if (fallbackHash.length > 10) {
+          this.hashToVerify = fallbackHash;
+          this.verify();
+        }
       }
     };
     reader.readAsText(file);
@@ -43,21 +62,18 @@ export class VerifierComponent {
   verify() {
     if (!this.hashToVerify) return;
     this.loading.set(true);
-    this.result = null;
-
+    this.result.set(null); 
     this.audit.verifyHash(this.hashToVerify.trim()).subscribe({
       next: (res) => {
-        this.result = res;
+        this.result.set(res); // Success card appears in template
         this.loading.set(false);
       },
-      error: () => {
-        this.result = { valid: false };
+      error: (err) => {
+        this.result.set({ valid: false, error: true });
         this.loading.set(false);
       }
     });
   }
 
-  goBack() {
-    this.router.navigate(['/hub']);
-  }
+  goBack() { this.router.navigate(['/hub']); }
 }

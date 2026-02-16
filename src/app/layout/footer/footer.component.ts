@@ -33,7 +33,7 @@ import { RouterLink } from '@angular/router';
         <div>
           <h4 class="text-white font-orbitron text-sm mb-6">COMPLIANCE</h4>
           <ul class="space-y-4 text-sm text-gray-500">
-            <li><a routerLink="/compliance/eu-ai-act" class="hover:text-obrioxia-cyan transition-colors">EU AI Act (Art. 12)</a></li>
+            <li><a routerLink="/compliance/eu-ai-act" class="hover:text-obrioxia-cyan transition-colors">Supports Article 12</a></li>
             <li><a routerLink="/compliance/iso-42001" class="hover:text-obrioxia-cyan transition-colors">ISO 42001</a></li>
             <li><a routerLink="/compliance/insurance-automotive" class="hover:text-obrioxia-cyan transition-colors">Insurance & Auto</a></li>
             <li><a routerLink="/trust-center" class="hover:text-obrioxia-cyan transition-colors">Trust Center</a></li>

@@ -1,7 +1,11 @@
 import { Injectable, inject } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { environment } from '../../../environments/environment';
 
+/**
+ * Payload interface for logging events to the audit chain.
+ */
 export interface AuditLogPayload {
   policyNumber: string;
   incidentType: string;
@@ -16,45 +20,52 @@ export interface AuditLogPayload {
 })
 export class AuditService {
   private http = inject(HttpClient);
-  
-  // v3.9 Backend URL
-  private apiUrl = 'https://obrioxia-backend-pkrp.onrender.com';
-  
-  private getHeaders(): HttpHeaders {
-    return new HttpHeaders({
-      'Content-Type': 'application/json',
-      'x-api-key': 'admin-secret-key' 
+
+  /**
+   * ✅ FIX: Updated to the new Python Render backend.
+   */
+  private apiUrl = `${environment.backendUrl}/api`;
+
+  /**
+   * ✅ The Master API Key for Administrative tasks.
+   * Ensure this matches the BACKEND_API_KEY in your Render environment variables.
+   */
+  private masterApiKey = 'c919848182e3e4250082ea7bacd14e170';
+
+  /**
+   * Logs a new event to the tamper-evident ledger.
+   */
+  submitLog(payload: AuditLogPayload): Observable<any> {
+    return this.http.post(`${this.apiUrl}/incidents`, payload);
+  }
+
+  /**
+   * Verifies an existing record using the Triple-Check logic.
+   * Standardized to match the Python 'verify' endpoint structure.
+   */
+  verifyHash(key: string): Observable<any> {
+    return this.http.post(`${this.apiUrl}/verify/`, { current_hash: key });
+  }
+
+  /**
+   * 🧨 THE SHREDDER HANDSHAKE
+   * Authorizes the deletion of a specific subject/record.
+   */
+  shredSubject(identifier: string): Observable<any> {
+    const headers = new HttpHeaders({
+      'x-api-key': this.masterApiKey
     });
+
+    // Pointed to the new admin/shred path on Render
+    return this.http.delete(`${this.apiUrl}/admin/shred/${identifier}`, { headers });
   }
 
-  // 1. Submit Data
-  submitLog(data: AuditLogPayload): Observable<any> {
-    const payload = {
-      policyNumber: data.policyNumber,
-      incidentType: data.incidentType,
-      claimAmount: data.claimAmount,
-      decisionNotes: data.decisionNotes,
-      aiConfidenceScore: data.aiConfidenceScore,
-      agentId: data.agentId
-    };
-    return this.http.post(`${this.apiUrl}/api/incidents`, payload, { headers: this.getHeaders() });
-  }
-
-  // 2. Generate PDF Evidence
+  /**
+   * Downloads the PDF evidence certificate from the ledger.
+   */
   downloadPdfEvidence(receipt: any): Observable<Blob> {
-    return this.http.post(`${this.apiUrl}/api/pdf/submission`, receipt, {
-      headers: this.getHeaders(),
+    return this.http.post(`${this.apiUrl}/pdf/submission`, receipt, {
       responseType: 'blob'
     });
-  }
-
-  // 3. Verify Integrity
-  verifyHash(hash: string): Observable<any> {
-    return this.http.post(`${this.apiUrl}/api/verify`, { current_hash: hash }, { headers: this.getHeaders() });
-  }
-
-  // 4. Crypto-Shred User
-  shredSubject(subjectId: string): Observable<any> {
-    return this.http.delete(`${this.apiUrl}/api/admin/shred/${subjectId}`, { headers: this.getHeaders() });
   }
 }

@@ -103,12 +103,12 @@ export class IndustryComponent implements OnInit {
       heroBadge: 'ISO 26262 // AUTOMOTIVE',
       title: 'Black Box Recorders for Autonomous Fleets.',
       subtitle: 'Ensure liability protection for Level 3-5 autonomous vehicles with frame-by-frame decision logging.',
-      challenge: 'In the event of an accident, how do you prove your perception model identified the pedestrian correctly but the control logic failed? Without immutable logs, liability is ambiguous.',
+      challenge: 'In the event of an accident, how do you prove your perception model identified the pedestrian correctly but the control logic failed? Without tamper-evident logs, liability is ambiguous.',
       solution: 'Obrioxia acts as a digital Flight Data Recorder. We hash every sensor input and control output in real-time. If a crash occurs, you have a cryptographically verifiable timeline of AI cognition.',
       stat: '< 10ms',
       statLabel: 'Latency Impact',
       useCaseTitle: 'Scenario: Highway Hand-off Failure',
-      useCaseDesc: 'When a Level 3 vehicle hands control back to the driver, the exact millisecond of transfer determines legal fault. Obrioxia logs the "Request to Intervene" signal and the "Driver Torque Detected" event to an immutable ledger, settling disputes instantly.',
+      useCaseDesc: 'When a Level 3 vehicle hands control back to the driver, the exact millisecond of transfer determines legal fault. Obrioxia logs the "Request to Intervene" signal and the "Driver Torque Detected" event to a tamper-evident ledger, settling disputes instantly.',
       complianceList: ['ISO 26262', 'UN R157', 'GDPR', 'NHTSA Standing Order']
     },
     'insurance': {
@@ -121,7 +121,7 @@ export class IndustryComponent implements OnInit {
       statLabel: 'Audit Readiness',
       useCaseTitle: 'Scenario: Algorithmic Bias Audit',
       useCaseDesc: 'An auditor flags a spike in rejections for a specific zip code. With Obrioxia, you can query all decisions for that region and replay the exact model inference to prove the rejections were based on flood data, not demographics.',
-      complianceList: ['EU AI Act Art. 12', 'Solvency II', 'FCRA', 'CPRA']
+      complianceList: ['Article 12', 'Solvency II', 'FCRA', 'CPRA']
     },
     'healthcare': {
       heroBadge: 'MEDTECH',
@@ -137,7 +137,7 @@ export class IndustryComponent implements OnInit {
     }
   };
 
-  constructor(private route: ActivatedRoute) {}
+  constructor(private route: ActivatedRoute) { }
 
   ngOnInit() {
     this.route.data.subscribe(data => {

@@ -17,7 +17,7 @@ export const protectedRouteGuard: CanActivateFn = (route, state) => {
 
   return auth.user$.pipe(
     // Wait for the auth state to settle (Firebase initial load)
-    filter(user => user !== undefined), 
+    filter(user => user !== undefined),
     take(1),
     map(user => {
       // 1. If not logged in, go to login
@@ -25,14 +25,19 @@ export const protectedRouteGuard: CanActivateFn = (route, state) => {
         return router.createUrlTree(['/login']);
       }
 
-      // 2. Check Whitelist
+      // 2. Demo users bypass the whitelist
+      if (localStorage.getItem('demo_key')) {
+        return true;
+      }
+
+      // 3. Check Whitelist for production users
       if (user.email && allowedEmails.includes(user.email)) {
         return true;
       }
 
-      // 3. Block & Redirect Unauthorized Users
+      // 4. Block & Redirect Unauthorized Users
       console.warn(`Access Denied for: ${user.email}`);
-      return router.createUrlTree(['/pricing']); 
+      return router.createUrlTree(['/pricing']);
     })
   );
 };

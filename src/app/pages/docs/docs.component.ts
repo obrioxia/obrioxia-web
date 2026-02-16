@@ -3,10 +3,10 @@ import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 
 @Component({
-  selector: 'app-docs',
-  standalone: true,
-  imports: [CommonModule, RouterModule],
-  template: `
+    selector: 'app-docs',
+    standalone: true,
+    imports: [CommonModule, RouterModule],
+    template: `
     <div class="min-h-screen bg-obrioxia-base flex pt-20">
         
         <!-- SIDEBAR -->
@@ -35,7 +35,7 @@ import { RouterModule } from '@angular/router';
                 <div class="inline-block px-2 py-1 mb-4 border border-obrioxia-cyan/30 rounded bg-obrioxia-cyan/5 text-[10px] text-obrioxia-cyan font-mono">v1.0.4</div>
                 <h1 class="font-orbitron text-4xl text-white mb-6">Introduction</h1>
                 <p class="text-obrioxia-text leading-relaxed text-lg mb-8">
-                    The Obrioxia API allows you to programmatically log AI decisions to an immutable ledger. All requests are cryptographically signed and timestamped upon receipt.
+                    The Obrioxia API allows you to programmatically log AI decisions to a tamper-evident ledger. All requests are cryptographically signed and timestamped upon receipt.
                 </p>
                 <div class="p-4 bg-yellow-500/10 border border-yellow-500/20 rounded text-yellow-200 text-sm mb-8">
                     <strong>Note:</strong> You must have a valid API Key from the dashboard to make requests.
@@ -92,5 +92,5 @@ curl -X POST https://api.obrioxia.com/v1/events/log \\
     </div>
   `
 })
-export class DocsComponent {}
+export class DocsComponent { }
 

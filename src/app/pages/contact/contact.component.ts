@@ -2,10 +2,10 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 @Component({
-  selector: 'app-contact',
-  standalone: true,
-  imports: [CommonModule],
-  template: `
+    selector: 'app-contact',
+    standalone: true,
+    imports: [CommonModule],
+    template: `
     <div class="min-h-screen bg-obrioxia-base pt-24 pb-20 flex items-center justify-center relative">
         <!-- Background -->
         <div class="absolute inset-0 bg-grid-pattern [background-size:40px_40px] opacity-20 pointer-events-none"></div>
@@ -32,7 +32,7 @@ import { CommonModule } from '@angular/common';
                     </li>
                     <li class="flex items-center text-gray-300">
                         <span class="w-6 h-6 rounded-full bg-obrioxia-cyan/10 flex items-center justify-center text-obrioxia-cyan mr-3 text-xs">03</span>
-                        EU AI Act Gap Analysis
+                        Article 12 Gap Analysis
                     </li>
                 </ul>
                 <div class="text-sm text-obrioxia-muted">
@@ -72,6 +72,6 @@ import { CommonModule } from '@angular/common';
     </div>
   `
 })
-export class ContactComponent {}
+export class ContactComponent { }
 
 

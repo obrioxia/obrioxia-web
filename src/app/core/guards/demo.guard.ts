@@ -1,16 +1,18 @@
 import { inject } from '@angular/core';
-import { CanActivateFn, Router } from '@angular/router';
+import { Router, CanActivateFn } from '@angular/router';
 
 export const demoGuard: CanActivateFn = (route, state) => {
   const router = inject(Router);
   
-  // Check for the flag in local storage
-  const hasAccess = localStorage.getItem('obrioxia_demo_access_granted');
+  // 1. Check if the key exists in the browser's pocket
+  const key = localStorage.getItem('demo_key');
 
-  if (hasAccess === 'true') {
-    return true;
-  } else {
-    // Redirect to the gate if access is missing
-    return router.createUrlTree(['/demo-gate']);
+  // 2. If NO key, kick them out to the login gate
+  if (!key) {
+    // If they are trying to go to the demo, redirect to the gate (home or login page)
+    return router.createUrlTree(['/']); 
   }
+
+  // 3. If key exists, let them pass
+  return true;
 };

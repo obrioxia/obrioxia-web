@@ -1,9 +1,12 @@
-import { Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
-import { delay } from 'rxjs/operators';
+import { Injectable, inject } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { environment } from '../../../environments/environment';
 import { LogEntry, DashboardMetrics } from '../models/analytics.models';
 
-// Future-ready hook for OTel
+/**
+ * Future-ready hook for OpenTelemetry (OTel) context.
+ */
 @Injectable({ providedIn: 'root' })
 export class AnalyticsIngestionAdapter {
   prepareForOtel(): void { console.log('Initializing OTel context...'); }
@@ -12,39 +15,41 @@ export class AnalyticsIngestionAdapter {
 
 @Injectable({ providedIn: 'root' })
 export class DashboardAnalyticsService {
+  private http = inject(HttpClient);
+  private adapter = inject(AnalyticsIngestionAdapter);
 
-  constructor(private adapter: AnalyticsIngestionAdapter) {}
+  /**
+   * ✅ FIX: Pointing to the new Python Render backend analytics module.
+   */
+  private apiUrl = `${environment.backendUrl}/api/analytics`;
 
-  // Mocks backend 'get_all_logs' behavior for the new Dashboard
+  /**
+   * Fetches all logs from the backend.
+   * Replaces mock data with a live call to the Python /logs endpoint.
+   */
   getLogs(): Observable<LogEntry[]> {
-    const mockData: LogEntry[] = [
-      {
-        decision_id: '550e8400-e29b-41d4-a716-446655440000',
-        timestamp_utc: new Date().toISOString(),
-        ai_system: 'obrioxia_core',
-        entry_hash: 'a1b2c3d4...', 
-        previous_hash: '000000...', 
-        _is_encrypted: false
-      },
-      {
-        decision_id: '550e8400-e29b-41d4-a716-446655440001',
-        timestamp_utc: new Date(Date.now() - 3600000).toISOString(),
-        ai_system: 'obrioxia_core',
-        entry_hash: 'e5f6g7h8...',
-        previous_hash: 'a1b2c3d4...',
-        _is_encrypted: true,
-        _decryption_status: 'SHREDDED_OR_MISSING'
-      }
-    ];
-    return of(mockData).pipe(delay(800));
+    // Standardizing to the backend log structure
+    return this.http.get<LogEntry[]>(`${this.apiUrl}/logs`);
   }
 
+  /**
+   * Fetches the Key Performance Indicators (KPIs) for the Dashboard.
+   */
   getMetrics(): Observable<DashboardMetrics> {
-    return of({
-      totalRequests: 1250,
-      totalIncidents: 3,
-      verificationPassRate: 99.8, 
-      shreddedEvents: 12          
-    }).pipe(delay(500));
+    return this.http.get<DashboardMetrics>(`${this.apiUrl}/kpi`);
+  }
+
+  /**
+   * Fetches trend data for Chart.js visualizations.
+   */
+  getTrends(): Observable<any[]> {
+    return this.http.get<any[]>(`${this.apiUrl}/trends`);
+  }
+
+  /**
+   * Fetches anomaly detection data from the Python AI engine.
+   */
+  getAnomalies(): Observable<any[]> {
+    return this.http.get<any[]>(`${this.apiUrl}/anomalies`);
   }
 }

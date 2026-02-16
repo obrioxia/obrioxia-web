@@ -5,6 +5,7 @@ import { AuthService } from '../../core/services/auth.service';
 import { HttpClient } from '@angular/common/http';
 import { take } from 'rxjs/operators';
 import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-pricing',
@@ -17,12 +18,11 @@ export class PricingComponent {
   private http = inject(HttpClient);
   private route = inject(ActivatedRoute);
   private fb = inject(FormBuilder);
-  
+
   // Backend URLs
-  private checkoutUrl = 'https://obrioxia-backend-pkrp.onrender.com/api/checkout';
-  // Note: Replace this with your actual contact/email endpoint if different
-  private contactUrl = 'https://obrioxia-backend-pkrp.onrender.com/api/contact'; 
-  
+  private checkoutUrl = `${environment.backendUrl}/api/checkout`;
+  private contactUrl = `${environment.backendUrl}/api/contact`;
+
   paymentCancelled = false;
 
   // Pilot Modal State
@@ -62,10 +62,10 @@ export class PricingComponent {
       }
 
       // 2. Call Backend to get Stripe URL
-      this.http.post(this.checkoutUrl, { 
-        email: user.email, 
+      this.http.post(this.checkoutUrl, {
+        email: user.email,
         id: user.uid,
-        tier: tier 
+        tier: tier
       }).subscribe({
         next: (res: any) => {
           if (res.checkoutUrl) {
