@@ -1,29 +1,49 @@
 <div class="min-h-screen bg-obrioxia-base pt-32 px-4 text-center">
   <div class="max-w-3xl mx-auto">
 
-    <h1 class="text-4xl text-white font-orbitron mb-4">Live <span class="text-obrioxia-cyan">Demo</span> Environment
-    </h1>
-    <p class="text-gray-400 mb-12">Welcome to the read-only Sandbox instance. You can explore the forensic logs of a
-      simulated AI agent.</p>
+    <h1 class="text-4xl text-white font-orbitron mb-4">Live <span class="text-obrioxia-cyan">Demo</span></h1>
+    <p class="text-gray-400 mb-8">This sandbox demonstrates tamper-evident logging, write-only field protection, and
+      selective shredding. All data shown is synthetic.</p>
 
-    <div class="glass-panel border border-white/10 rounded-xl p-12 bg-gray-900/50">
-      <div class="animate-pulse flex flex-col items-center">
-        <div class="w-16 h-16 bg-obrioxia-cyan/20 rounded-full flex items-center justify-center mb-6">
-          <svg class="w-8 h-8 text-obrioxia-cyan" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-              d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z">
-            </path>
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-              d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-          </svg>
-        </div>
-        <h3 class="text-xl text-white font-orbitron mb-2">Loading Sandbox Instance...</h3>
-        <p class="text-gray-500 text-sm">Initialising tamper-evident ledger chain...</p>
-      </div>
+    <div class="glass-panel border border-white/10 rounded-xl p-8 bg-gray-900/50 text-left mb-8">
+      <h3 class="text-lg text-white font-orbitron mb-4">What this demo proves</h3>
+      <ul class="space-y-2 text-gray-400 text-sm">
+        <li class="flex items-start"><span class="text-obrioxia-cyan mr-2">►</span>Events are sealed into a
+          tamper-evident chain that detects any modification</li>
+        <li class="flex items-start"><span class="text-obrioxia-cyan mr-2">►</span>Sensitive fields are protected with
+          write-only encryption that the service itself cannot reverse</li>
+        <li class="flex items-start"><span class="text-obrioxia-cyan mr-2">►</span>Shredding makes protected data
+          permanently irrecoverable without breaking the chain</li>
+      </ul>
+    </div>
 
-      <div class="mt-8">
-        <a routerLink="/hub" class="text-obrioxia-cyan text-sm hover:underline font-orbitron">← Return to Hub</a>
-      </div>
+    <div class="glass-panel border border-white/10 rounded-xl p-8 bg-gray-900/50 text-left mb-8">
+      <h3 class="text-lg text-white font-orbitron mb-4">How to use this demo</h3>
+      <ol class="space-y-2 text-gray-400 text-sm list-decimal list-inside">
+        <li>Open the <strong class="text-white">Logger</strong> and submit a test decision event</li>
+        <li>Open the <strong class="text-white">Verifier</strong> and confirm the chain is intact</li>
+        <li>Open the <strong class="text-white">Shredder</strong>, shred the record, then re-verify to confirm integrity
+          is preserved</li>
+      </ol>
+    </div>
+
+    <div class="glass-panel border border-white/10 rounded-xl p-8 bg-gray-900/50 text-left mb-8">
+      <h3 class="text-lg text-white font-orbitron mb-4">What to look for</h3>
+      <ul class="space-y-2 text-gray-400 text-sm">
+        <li class="flex items-start"><span class="text-obrioxia-green mr-2">►</span>After logging: the event appears
+          with an entry hash linking it to the previous record</li>
+        <li class="flex items-start"><span class="text-obrioxia-green mr-2">►</span>After verifying: the chain reports
+          all hashes valid with zero errors</li>
+        <li class="flex items-start"><span class="text-red-500 mr-2">►</span>After shredding: sensitive fields show as
+          irrecoverable, but the chain still verifies cleanly</li>
+      </ul>
+    </div>
+
+    <p class="text-gray-600 text-xs font-mono">This demo uses synthetic data. It demonstrates technical capabilities,
+      not a compliance certification.</p>
+
+    <div class="mt-8">
+      <a routerLink="/hub" class="text-obrioxia-cyan text-sm hover:underline font-orbitron">← Enter the Hub</a>
     </div>
 
   </div>
