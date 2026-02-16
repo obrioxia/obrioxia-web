@@ -2,7 +2,7 @@ import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 import { AuthService } from '../../core/services/auth.service';
-import { Auth, signOut } from '@angular/fire/auth'; 
+import { Auth, signOut } from '@angular/fire/auth';
 
 @Component({
   selector: 'app-navbar',
@@ -13,10 +13,7 @@ import { Auth, signOut } from '@angular/fire/auth';
       <div class="max-w-7xl mx-auto px-4 h-20 flex items-center justify-between">
         
         <a routerLink="/" class="flex items-center gap-2 group">
-          <div class="w-8 h-8 bg-obrioxia-cyan/20 rounded flex items-center justify-center border border-obrioxia-cyan/50 group-hover:bg-obrioxia-cyan/30 transition-all">
-            <div class="w-3 h-3 bg-obrioxia-cyan rounded-sm"></div>
-          </div>
-          <span class="text-xl font-orbitron text-white tracking-widest group-hover:text-obrioxia-cyan transition-colors">OBRIOXIA</span>
+          <img src="brand/obrioxia-logo.png" alt="Obrioxia" class="h-8 w-auto">
         </a>
 
         <div class="hidden md:flex items-center gap-6">
@@ -63,12 +60,21 @@ import { Auth, signOut } from '@angular/fire/auth';
 })
 export class NavbarComponent {
   auth = inject(AuthService);
-  private firebaseAuth = inject(Auth); 
+  private firebaseAuth = inject(Auth);
 
   async logout() {
     try {
+      // 1. Sign out of Firebase
       await signOut(this.firebaseAuth);
-      window.location.reload(); 
+
+      // 2. 👇 THIS IS THE CRITICAL FIX
+      // Destroy the key so the browser forgets it
+      localStorage.removeItem('demo_key');
+      localStorage.clear();
+
+      // 3. Force them back to the login gate (refresh page)
+      window.location.href = 'https://demo.obrioxia.com';
+
     } catch (err) {
       console.error('Logout failed:', err);
     }
