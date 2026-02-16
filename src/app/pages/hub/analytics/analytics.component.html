@@ -1,14 +1,16 @@
 <div class="min-h-screen bg-obrioxia-base pt-28 pb-20 px-4">
   <div class="max-w-7xl mx-auto">
-    
+
     <div class="mb-8 flex justify-between items-end">
       <div>
-        <button (click)="goBack()" class="text-obrioxia-cyan text-sm font-orbitron hover:underline mb-2">&larr; BACK TO HUB</button>
+        <button (click)="goBack()" class="text-obrioxia-cyan text-sm font-orbitron hover:underline mb-2">&larr; BACK TO
+          HUB</button>
         <h1 class="text-3xl text-white font-orbitron">Decision <span class="text-obrioxia-cyan">Intelligence</span></h1>
         <p class="text-gray-400 mt-2">Real-time forensic analysis of AI confidence and integrity.</p>
       </div>
       <div *ngIf="kpi" class="flex items-center gap-2">
-        <div class="w-2 h-2 rounded-full" [class.bg-green-500]="kpi.status === 'Healthy'" [class.bg-red-500]="kpi.status === 'Risk'"></div>
+        <div class="w-2 h-2 rounded-full" [class.bg-green-500]="kpi.status === 'Healthy'"
+          [class.bg-red-500]="kpi.status === 'Risk'"></div>
         <span class="text-xs font-mono text-gray-400">SYSTEM STATUS: {{ kpi.status | uppercase }}</span>
       </div>
     </div>
@@ -18,7 +20,7 @@
     </div>
 
     <div [class.hidden]="loading()">
-      
+
       <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
         <div class="glass-panel p-6 rounded-xl border border-white/10">
           <h4 class="text-gray-500 text-xs font-orbitron mb-2">24H CONFIDENCE</h4>
@@ -31,7 +33,7 @@
         <div class="glass-panel p-6 rounded-xl border border-white/10">
           <h4 class="text-gray-500 text-xs font-orbitron mb-2">TOTAL DECISIONS</h4>
           <div class="text-4xl text-white font-mono">{{ kpi?.total_decisions || 0 }}</div>
-          <p class="text-xs text-gray-500 mt-2">Immutable Records Sealed</p>
+          <p class="text-xs text-gray-500 mt-2">Tamper-Evident Records Sealed</p>
         </div>
 
         <div class="glass-panel p-6 rounded-xl border border-white/10">
@@ -51,7 +53,8 @@
       <div class="glass-panel rounded-xl border border-white/10 overflow-hidden">
         <div class="p-6 border-b border-white/5 flex justify-between items-center">
           <h3 class="text-white font-orbitron text-sm">Recent Anomalies & Risks</h3>
-          <span class="text-xs text-red-400 border border-red-500/30 px-2 py-1 rounded bg-red-500/10">Attention Required</span>
+          <span class="text-xs text-red-400 border border-red-500/30 px-2 py-1 rounded bg-red-500/10">Attention
+            Required</span>
         </div>
         <div class="overflow-x-auto">
           <table class="w-full text-left text-sm text-gray-400">
