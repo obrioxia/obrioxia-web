@@ -16,21 +16,21 @@ import { Auth, signOut } from '@angular/fire/auth';
           <img src="/brand/obrioxia-logo.png" alt="Obrioxia" class="h-10 w-auto hover:opacity-80 transition-opacity duration-300">
         </a>
 
-        <div class="hidden md:flex items-center gap-6">
-          <a routerLink="/features" routerLinkActive="text-obrioxia-cyan" class="text-sm font-orbitron text-gray-400 hover:text-white transition-colors">FEATURES</a>
+        <div class="hidden md:flex items-center gap-5">
+          <a routerLink="/features" routerLinkActive="text-obrioxia-cyan" class="text-xs font-orbitron text-gray-400 hover:text-white transition-colors whitespace-nowrap">FEATURES</a>
           
           <a routerLink="/demo-signup" 
              routerLinkActive="text-obrioxia-cyan"
-             class="text-sm font-orbitron text-gray-400 hover:text-white transition-colors uppercase cursor-pointer">
+             class="text-xs font-orbitron text-gray-400 hover:text-white transition-colors uppercase cursor-pointer whitespace-nowrap">
              LIVE DEMO SIGN-UP
           </a>
 
-          <a routerLink="/how-it-works" routerLinkActive="text-obrioxia-cyan" class="text-sm font-orbitron text-gray-400 hover:text-white transition-colors">HOW IT WORKS</a>
-          <a routerLink="/trust-center" routerLinkActive="text-obrioxia-cyan" class="text-sm font-orbitron text-gray-400 hover:text-white transition-colors">TRUST CENTER</a>
-          <a routerLink="/pricing" routerLinkActive="text-obrioxia-cyan" class="text-sm font-orbitron text-gray-400 hover:text-white transition-colors">PRICING</a>
+          <a routerLink="/how-it-works" routerLinkActive="text-obrioxia-cyan" class="text-xs font-orbitron text-gray-400 hover:text-white transition-colors whitespace-nowrap">HOW IT WORKS</a>
+          <a routerLink="/trust-center" routerLinkActive="text-obrioxia-cyan" class="text-xs font-orbitron text-gray-400 hover:text-white transition-colors whitespace-nowrap">TRUST CENTER</a>
+          <a routerLink="/pricing" routerLinkActive="text-obrioxia-cyan" class="text-xs font-orbitron text-gray-400 hover:text-white transition-colors whitespace-nowrap">PRICING</a>
         </div>
 
-        <div class="flex items-center gap-4">
+        <div class="flex items-center gap-3 ml-4">
           
           <ng-container *ngIf="auth.user$ | async as user; else loginBtn">
             
