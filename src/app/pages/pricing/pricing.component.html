@@ -52,9 +52,9 @@
             Evidence Packs</div>
         </div>
 
-        <button (click)="buyGrowth('growth_1')"
-          class="w-full py-3 border border-obrioxia-cyan text-obrioxia-cyan font-orbitron rounded hover:bg-obrioxia-cyan hover:text-black transition-all">
-          Upgrade to Pro 1
+        <button (click)="buyGrowth('growth_1')" [disabled]="checkoutLoading"
+          class="w-full py-3 border border-obrioxia-cyan text-obrioxia-cyan font-orbitron rounded hover:bg-obrioxia-cyan hover:text-black transition-all disabled:opacity-50 disabled:cursor-wait">
+          {{ checkoutLoading ? 'CONNECTING...' : 'Upgrade to Pro 1' }}
         </button>
       </div>
 
@@ -81,9 +81,9 @@
             Support</div>
         </div>
 
-        <button (click)="buyGrowth('growth_2')"
-          class="w-full py-3 bg-obrioxia-cyan text-black font-bold font-orbitron rounded hover:bg-obrioxia-cyan/90 transition-all shadow-lg shadow-obrioxia-cyan/20">
-          Upgrade to Pro 2
+        <button (click)="buyGrowth('growth_2')" [disabled]="checkoutLoading"
+          class="w-full py-3 bg-obrioxia-cyan text-black font-bold font-orbitron rounded hover:bg-obrioxia-cyan/90 transition-all shadow-lg shadow-obrioxia-cyan/20 disabled:opacity-50 disabled:cursor-wait">
+          {{ checkoutLoading ? 'CONNECTING...' : 'Upgrade to Pro 2' }}
         </button>
       </div>
 
@@ -107,9 +107,9 @@
             Success Mgr</div>
         </div>
 
-        <button (click)="buyGrowth('growth_3')"
-          class="w-full py-3 border border-white/20 text-white font-orbitron rounded hover:bg-white/10 transition-all">
-          Upgrade to Pro 3
+        <button (click)="buyGrowth('growth_3')" [disabled]="checkoutLoading"
+          class="w-full py-3 border border-white/20 text-white font-orbitron rounded hover:bg-white/10 transition-all disabled:opacity-50 disabled:cursor-wait">
+          {{ checkoutLoading ? 'CONNECTING...' : 'Upgrade to Pro 3' }}
         </button>
       </div>
 
@@ -120,7 +120,7 @@
         class="p-6 border border-white/10 rounded-lg flex justify-between items-center bg-white/5 hover:bg-white/10 transition-colors">
         <div>
           <h4 class="text-white font-orbitron">Builder / Sandbox</h4>
-          <p class="text-gray-400 text-xs mt-1">Free forever. 10k events/mo.</p>
+          <p class="text-gray-400 text-xs mt-1">Free Sandbox — subject to fair-use limits.</p>
         </div>
         <button routerLink="/signup"
           class="text-xs text-white border border-white/20 px-4 py-2 rounded hover:bg-white/10 uppercase tracking-wide">Create

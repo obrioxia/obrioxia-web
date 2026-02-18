@@ -1,6 +1,6 @@
 import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterLink, ActivatedRoute } from '@angular/router';
+import { RouterLink, ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from '../../core/services/auth.service';
 import { HttpClient } from '@angular/common/http';
 import { take } from 'rxjs/operators';
@@ -17,6 +17,7 @@ export class PricingComponent {
   auth = inject(AuthService);
   private http = inject(HttpClient);
   private route = inject(ActivatedRoute);
+  private router = inject(Router);
   private fb = inject(FormBuilder);
 
   // Backend URLs
@@ -49,32 +50,36 @@ export class PricingComponent {
     });
   }
 
-  // --- EXISTING STRIPE LOGIC ---
+  checkoutLoading = false;
 
   buyGrowth(tier: string) {
+    if (this.checkoutLoading) return;
+
     // 1. Get current user
     this.auth.user$.pipe(take(1)).subscribe(user => {
       if (!user) {
-        // If not logged in, force login
-        alert("You must be logged in to upgrade.");
-        window.location.href = '/login';
+        // Not logged in — redirect to login via Angular Router
+        this.router.navigate(['/login'], { queryParams: { returnUrl: '/pricing', tier } });
         return;
       }
 
       // 2. Call Backend to get Stripe URL
-      this.http.post(this.checkoutUrl, {
-        email: user.email,
-        id: user.uid,
-        tier: tier
-      }).subscribe({
+      this.checkoutLoading = true;
+      this.http.post(this.checkoutUrl, { tier }).subscribe({
         next: (res: any) => {
+          this.checkoutLoading = false;
           if (res.checkoutUrl) {
-            // 3. Redirect to Stripe
+            // 3. Redirect to Stripe Checkout
             window.location.href = res.checkoutUrl;
+          } else {
+            console.error('[Pricing] Backend returned null checkoutUrl:', res);
+            alert('Checkout unavailable. Please try again or contact support.');
           }
         },
         error: (err) => {
-          alert("Checkout failed: " + (err.error?.detail || "Unknown error"));
+          this.checkoutLoading = false;
+          console.error('[Pricing] Checkout request failed:', err);
+          alert('Checkout failed: ' + (err.error?.detail || err.message || 'Unknown error'));
         }
       });
     });
