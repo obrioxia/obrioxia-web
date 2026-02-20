@@ -10,7 +10,7 @@
 }
 
 html {
-  background-color: #000000;
+  background-color: transparent;
   /* Gradient fallback if video fails to load */
   background-image: radial-gradient(ellipse at 50% 0%, rgba(255, 255, 255, 0.04) 0%, transparent 70%);
 }
@@ -19,7 +19,7 @@ body {
   @apply bg-transparent text-white antialiased selection:bg-obrioxia-cyan selection:text-black;
   font-family: 'General Sans', sans-serif;
   overflow-x: hidden;
-  background-color: #000000;
+  background-color: transparent;
 }
 
 /* Typography overrides */
