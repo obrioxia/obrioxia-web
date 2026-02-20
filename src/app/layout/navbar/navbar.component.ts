@@ -9,11 +9,11 @@ import { Auth, signOut } from '@angular/fire/auth';
   standalone: true,
   imports: [CommonModule, RouterLink, RouterLinkActive],
   template: `
-    <nav class="fixed top-0 left-0 w-full z-50 border-b border-white/10 bg-black/80 backdrop-blur-md">
-      <div class="max-w-[1440px] mx-auto px-4 md:px-[120px] py-[20px] flex items-center justify-between">
+    <nav class="fixed top-0 inset-x-0 z-50 pointer-events-none">
+      <div class="pointer-events-auto mx-auto mt-4 max-w-[1200px] rounded-full border border-white/10 bg-black/40 backdrop-blur-md shadow-[0_0_40px_rgba(0,0,0,0.35)] px-6 lg:px-10 py-4 flex items-center justify-between">
         
         <a routerLink="/" class="flex items-center gap-2 group">
-          <img src="/brand/obrioxia-logo.png" alt="Obrioxia" class="h-[32px] w-auto shrink-0 object-contain hover:opacity-80 transition-opacity duration-300">
+          <img src="/brand/obrioxia-logo.png" alt="Obrioxia" class="shrink-0 h-8 w-auto object-contain block hover:opacity-80 transition-opacity duration-300">
         </a>
 
         <div class="flex items-center gap-[30px]">
