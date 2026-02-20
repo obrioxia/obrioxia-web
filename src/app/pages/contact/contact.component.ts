@@ -6,7 +6,7 @@ import { CommonModule } from '@angular/common';
     standalone: true,
     imports: [CommonModule],
     template: `
-    <div class="min-h-screen bg-obrioxia-base pt-24 pb-20 flex items-center justify-center relative">
+    <div class="min-h-screen pt-24 pb-20 flex items-center justify-center relative">
         <!-- Background -->
         <div class="absolute inset-0 bg-grid-pattern [background-size:40px_40px] opacity-20 pointer-events-none"></div>
 

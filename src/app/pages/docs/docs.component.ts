@@ -7,7 +7,7 @@ import { RouterModule } from '@angular/router';
     standalone: true,
     imports: [CommonModule, RouterModule],
     template: `
-    <div class="min-h-screen bg-obrioxia-base flex pt-20">
+    <div class="min-h-screen flex pt-20">
         
         <!-- SIDEBAR -->
         <div class="w-64 border-r border-white/5 hidden md:block fixed h-full overflow-y-auto bg-[#050B14]">

@@ -7,7 +7,7 @@ import { RouterLink } from '@angular/router';
     standalone: true,
     imports: [CommonModule, RouterLink],
     template: `
-    <div class="min-h-screen bg-obrioxia-base pt-28 pb-20 px-4">
+    <div class="min-h-screen pt-28 pb-20 px-4">
       <div class="max-w-3xl mx-auto">
 
         <div class="text-center mb-12">

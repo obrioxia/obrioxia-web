@@ -8,7 +8,7 @@ import { AuthService } from '../../../core/services/auth.service';
   standalone: true,
   imports: [CommonModule, RouterLink],
   template: `
-    <div class="min-h-screen bg-obrioxia-base flex items-center justify-center p-4">
+    <div class="min-h-screen flex items-center justify-center p-4">
       <div class="glass-panel p-8 rounded-xl border border-white/10 w-full max-w-md text-center">
         
         <div *ngIf="status === 'verifying'" class="text-gray-400">

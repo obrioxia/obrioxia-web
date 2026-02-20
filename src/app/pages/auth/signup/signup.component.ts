@@ -13,7 +13,7 @@ import { environment } from '../../../../environments/environment';
   standalone: true,
   imports: [CommonModule, FormsModule, RouterLink],
   template: `
-    <div class="min-h-screen bg-obrioxia-base flex items-center justify-center p-4">
+    <div class="min-h-screen flex items-center justify-center p-4">
       <div class="glass-panel p-8 rounded-xl border border-white/10 w-full max-w-2xl">
         <h2 class="text-3xl text-white font-orbitron mb-6 text-center">Create <span class="text-obrioxia-cyan">Account</span></h2>
 

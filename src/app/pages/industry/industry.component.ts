@@ -20,7 +20,7 @@ interface IndustryContent {
   standalone: true,
   imports: [CommonModule, RouterModule],
   template: `
-    <div class="min-h-screen bg-obrioxia-base pt-24 pb-20 relative overflow-hidden">
+    <div class="min-h-screen pt-24 pb-20 relative overflow-hidden">
         <!-- Dynamic Background -->
         <div class="absolute inset-0 z-0 opacity-20 bg-grid-pattern [background-size:40px_40px] pointer-events-none"></div>
         <div class="absolute top-0 right-0 w-[600px] h-[600px] bg-obrioxia-cyan/5 rounded-full blur-[120px] pointer-events-none"></div>

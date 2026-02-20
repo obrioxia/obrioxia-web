@@ -13,7 +13,7 @@ import { Auth, signOut } from '@angular/fire/auth';
       <div class="max-w-[1440px] mx-auto px-4 md:px-[120px] py-[20px] flex items-center justify-between">
         
         <a routerLink="/" class="flex items-center gap-2 group">
-          <img src="/brand/obrioxia-logo.png" alt="Obrioxia" class="h-10 w-auto hover:opacity-80 transition-opacity duration-300">
+          <img src="/brand/obrioxia-logo.png" alt="Obrioxia" class="h-[32px] w-auto shrink-0 object-contain hover:opacity-80 transition-opacity duration-300">
         </a>
 
         <div class="hidden md:flex items-center gap-[30px]">

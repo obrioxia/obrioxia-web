@@ -16,7 +16,7 @@ interface ComplianceData {
     standalone: true,
     imports: [CommonModule, RouterModule],
     template: `
-    <div class="min-h-screen bg-obrioxia-base pt-24 pb-20 relative">
+    <div class="min-h-screen pt-24 pb-20 relative">
         <div class="fixed inset-0 z-0 opacity-20 bg-grid-pattern [background-size:40px_40px] pointer-events-none"></div>
 
         <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">

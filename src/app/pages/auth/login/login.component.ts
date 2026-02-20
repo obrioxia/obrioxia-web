@@ -9,7 +9,7 @@ import { AuthService } from '../../../core/services/auth.service';
   standalone: true,
   imports: [CommonModule, FormsModule, RouterLink],
   template: `
-    <div class="min-h-screen bg-obrioxia-base flex items-center justify-center p-4">
+    <div class="min-h-screen flex items-center justify-center p-4">
       <div class="glass-panel p-8 rounded-xl border border-white/10 w-full max-w-md">
         <h2 class="text-3xl text-white font-orbitron mb-6 text-center">Hub <span class="text-obrioxia-cyan">Login</span></h2>
         <form (ngSubmit)="onSubmit()" #f="ngForm" class="space-y-6">
