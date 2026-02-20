@@ -16,18 +16,18 @@ import { Auth, signOut } from '@angular/fire/auth';
           <img src="/brand/obrioxia-logo.png" alt="Obrioxia" class="h-[32px] w-auto shrink-0 object-contain hover:opacity-80 transition-opacity duration-300">
         </a>
 
-        <div class="hidden md:flex items-center gap-[30px]">
-          <a routerLink="/features" routerLinkActive="text-obrioxia-cyan" class="text-[15px] text-white/70 hover:text-white transition-colors whitespace-nowrap">FEATURES</a>
+        <div class="flex items-center gap-[30px]">
+          <a routerLink="/features" routerLinkActive="text-obrioxia-cyan" class="text-[15px] text-white/80 hover:text-white transition-colors whitespace-nowrap">FEATURES</a>
           
           <a routerLink="/demo-signup" 
              routerLinkActive="text-obrioxia-cyan"
-             class="text-[15px] text-white/70 hover:text-white transition-colors uppercase cursor-pointer whitespace-nowrap">
+             class="text-[15px] text-white/80 hover:text-white transition-colors uppercase cursor-pointer whitespace-nowrap">
              LIVE DEMO SIGN-UP
           </a>
 
-          <a routerLink="/how-it-works" routerLinkActive="text-obrioxia-cyan" class="text-[15px] text-white/70 hover:text-white transition-colors whitespace-nowrap">HOW IT WORKS</a>
-          <a routerLink="/trust-center" routerLinkActive="text-obrioxia-cyan" class="text-[15px] text-white/70 hover:text-white transition-colors whitespace-nowrap">TRUST CENTER</a>
-          <a routerLink="/pricing" routerLinkActive="text-obrioxia-cyan" class="text-[15px] text-white/70 hover:text-white transition-colors whitespace-nowrap">PRICING</a>
+          <a routerLink="/how-it-works" routerLinkActive="text-obrioxia-cyan" class="text-[15px] text-white/80 hover:text-white transition-colors whitespace-nowrap">HOW IT WORKS</a>
+          <a routerLink="/trust-center" routerLinkActive="text-obrioxia-cyan" class="text-[15px] text-white/80 hover:text-white transition-colors whitespace-nowrap">TRUST CENTER</a>
+          <a routerLink="/pricing" routerLinkActive="text-obrioxia-cyan" class="text-[15px] text-white/80 hover:text-white transition-colors whitespace-nowrap">PRICING</a>
         </div>
 
         <div class="flex items-center gap-[30px] ml-4">
