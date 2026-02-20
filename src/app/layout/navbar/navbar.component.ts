@@ -10,43 +10,43 @@ import { Auth, signOut } from '@angular/fire/auth';
   imports: [CommonModule, RouterLink, RouterLinkActive],
   template: `
     <nav class="fixed top-0 left-0 w-full z-50 border-b border-white/10 bg-black/80 backdrop-blur-md">
-      <div class="max-w-7xl mx-auto px-4 h-20 flex items-center justify-between">
+      <div class="max-w-[1440px] mx-auto px-4 md:px-[120px] py-[20px] flex items-center justify-between">
         
         <a routerLink="/" class="flex items-center gap-2 group">
           <img src="/brand/obrioxia-logo.png" alt="Obrioxia" class="h-10 w-auto hover:opacity-80 transition-opacity duration-300">
         </a>
 
-        <div class="hidden md:flex items-center gap-5">
-          <a routerLink="/features" routerLinkActive="text-obrioxia-cyan" class="text-xs font-orbitron text-gray-400 hover:text-white transition-colors whitespace-nowrap">FEATURES</a>
+        <div class="hidden md:flex items-center gap-[30px]">
+          <a routerLink="/features" routerLinkActive="text-obrioxia-cyan" class="text-[15px] text-white/70 hover:text-white transition-colors whitespace-nowrap">FEATURES</a>
           
           <a routerLink="/demo-signup" 
              routerLinkActive="text-obrioxia-cyan"
-             class="text-xs font-orbitron text-gray-400 hover:text-white transition-colors uppercase cursor-pointer whitespace-nowrap">
+             class="text-[15px] text-white/70 hover:text-white transition-colors uppercase cursor-pointer whitespace-nowrap">
              LIVE DEMO SIGN-UP
           </a>
 
-          <a routerLink="/how-it-works" routerLinkActive="text-obrioxia-cyan" class="text-xs font-orbitron text-gray-400 hover:text-white transition-colors whitespace-nowrap">HOW IT WORKS</a>
-          <a routerLink="/trust-center" routerLinkActive="text-obrioxia-cyan" class="text-xs font-orbitron text-gray-400 hover:text-white transition-colors whitespace-nowrap">TRUST CENTER</a>
-          <a routerLink="/pricing" routerLinkActive="text-obrioxia-cyan" class="text-xs font-orbitron text-gray-400 hover:text-white transition-colors whitespace-nowrap">PRICING</a>
+          <a routerLink="/how-it-works" routerLinkActive="text-obrioxia-cyan" class="text-[15px] text-white/70 hover:text-white transition-colors whitespace-nowrap">HOW IT WORKS</a>
+          <a routerLink="/trust-center" routerLinkActive="text-obrioxia-cyan" class="text-[15px] text-white/70 hover:text-white transition-colors whitespace-nowrap">TRUST CENTER</a>
+          <a routerLink="/pricing" routerLinkActive="text-obrioxia-cyan" class="text-[15px] text-white/70 hover:text-white transition-colors whitespace-nowrap">PRICING</a>
         </div>
 
-        <div class="flex items-center gap-3 ml-4">
+        <div class="flex items-center gap-[30px] ml-4">
           
           <ng-container *ngIf="auth.user$ | async as user; else loginBtn">
             
-            <a routerLink="/hub" class="flex items-center gap-2 px-4 py-2 border border-obrioxia-green/50 bg-obrioxia-green/10 rounded hover:bg-obrioxia-green/20 transition-all group cursor-pointer">
+            <a routerLink="/hub" class="ob-btn-primary flex gap-2">
               <div class="w-2 h-2 rounded-full bg-obrioxia-green animate-pulse"></div>
-              <span class="text-xs font-orbitron text-obrioxia-green">ENTER HUB</span>
+              <span>ENTER HUB</span>
             </a>
 
-            <button (click)="logout()" class="px-3 py-2 border border-red-500/30 text-red-400 text-xs font-orbitron rounded hover:bg-red-500/10 transition-all">
+            <button (click)="logout()" class="text-[14px] text-red-400 hover:text-red-300 transition-all font-medium">
               LOGOUT
             </button>
 
           </ng-container>
 
           <ng-template #loginBtn>
-            <a routerLink="/hub" class="px-5 py-2 border border-white/20 text-white text-xs font-orbitron rounded hover:bg-white/10 transition-all cursor-pointer">
+            <a routerLink="/hub" class="ob-btn-secondary">
               LOGIN
             </a>
           </ng-template>

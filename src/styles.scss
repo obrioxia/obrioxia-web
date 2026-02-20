@@ -43,9 +43,9 @@ h6 {
 
   /* Consistent Pill Buttons */
   .ob-btn-primary {
-    @apply inline-flex items-center justify-center bg-white text-black font-medium text-[14px] rounded-full transition-all cursor-pointer shadow-[0_-1px_2px_rgba(255, 255, 255, 0.8)_inset];
+    @apply inline-flex items-center justify-center bg-white text-black font-medium text-[14px] rounded-full transition-all cursor-pointer shadow-[0_-1px_2px_#ffffffcc_inset];
     padding: 11px 29px;
-    border: 0.6px solid rgba(255, 255, 255, 1);
+    border: 0.6px solid #ffffff;
   }
 
   .ob-btn-primary:hover {
@@ -55,7 +55,7 @@ h6 {
   .ob-btn-secondary {
     @apply inline-flex items-center justify-center bg-transparent text-white font-medium text-[14px] rounded-full transition-all cursor-pointer backdrop-blur-sm;
     padding: 11px 29px;
-    border: 0.6px solid rgba(255, 255, 255, 0.3);
+    border: 0.6px solid #ffffff4d;
   }
 
   .ob-btn-secondary:hover {
