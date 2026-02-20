@@ -9,24 +9,74 @@
   color-scheme: dark;
 }
 
+html {
+  background-color: #000000;
+  /* Gradient fallback if video fails to load */
+  background-image: radial-gradient(ellipse at 50% 0%, rgba(255, 255, 255, 0.04) 0%, transparent 70%);
+}
+
 body {
-  background-color: #050B14;
-  color: #E2E8F0;
-  font-family: 'Inter', sans-serif;
+  @apply bg-transparent text-white antialiased selection:bg-obrioxia-cyan selection:text-black;
+  font-family: 'General Sans', sans-serif;
   overflow-x: hidden;
+  background-color: #000000;
+}
+
+/* Typography overrides */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: 'General Sans', sans-serif;
+  font-weight: 500;
+  letter-spacing: -0.02em;
+}
+
+/* Global Marketing Wrapper Helper */
+.ob-marketing-page {
+  @apply relative z-10;
+}
+
+@layer components {
+
+  /* Consistent Pill Buttons */
+  .ob-btn-primary {
+    @apply inline-flex items-center justify-center bg-white text-black font-medium text-[14px] rounded-full transition-all cursor-pointer shadow-[0_-1px_2px_rgba(255, 255, 255, 0.8)_inset];
+    padding: 11px 29px;
+    border: 0.6px solid rgba(255, 255, 255, 1);
+  }
+
+  .ob-btn-primary:hover {
+    @apply bg-gray-200;
+  }
+
+  .ob-btn-secondary {
+    @apply inline-flex items-center justify-center bg-transparent text-white font-medium text-[14px] rounded-full transition-all cursor-pointer backdrop-blur-sm;
+    padding: 11px 29px;
+    border: 0.6px solid rgba(255, 255, 255, 0.3);
+  }
+
+  .ob-btn-secondary:hover {
+    @apply bg-white/10 border-white/50;
+  }
 }
 
 /* Custom Scrollbar */
 ::-webkit-scrollbar {
   width: 8px;
 }
+
 ::-webkit-scrollbar-track {
   background: #050B14;
 }
+
 ::-webkit-scrollbar-thumb {
   background: #121C2D;
   border-radius: 4px;
 }
+
 ::-webkit-scrollbar-thumb:hover {
   background: #00F0FF;
 }

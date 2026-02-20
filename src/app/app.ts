@@ -8,7 +8,22 @@ import { FooterComponent } from './layout/footer/footer.component';
   standalone: true,
   imports: [RouterOutlet, NavbarComponent, FooterComponent],
   template: `
-    <div class="min-h-screen bg-obrioxia-base text-obrioxia-text font-inter selection:bg-obrioxia-cyan selection:text-obrioxia-base flex flex-col">
+    <!-- Global Cinematic Background (Fixed, behind everything) -->
+    <div class="fixed inset-0 z-0 overflow-hidden pointer-events-none">
+      <video
+        autoplay
+        loop
+        muted
+        playsinline
+        preload="auto"
+        class="absolute w-full h-full object-cover">
+        <source src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260217_030345_246c0224-10a4-422c-b324-070b7c0eceda.mp4" type="video/mp4">
+      </video>
+      <div class="absolute inset-0 bg-black/50"></div>
+    </div>
+
+    <!-- Site Content (relative z-10 to stay clickable above video) -->
+    <div class="relative z-10 flex flex-col min-h-screen text-white font-sans selection:bg-obrioxia-cyan selection:text-black">
       <app-navbar></app-navbar>
       
       <main class="flex-grow">
@@ -19,5 +34,5 @@ import { FooterComponent } from './layout/footer/footer.component';
     </div>
   `
 })
-export class AppComponent {}
+export class AppComponent { }
 
