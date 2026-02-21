@@ -14,8 +14,11 @@ import { LoggerComponent } from './pages/hub/logger/logger.component';
 import { VerifierComponent } from './pages/hub/verifier/verifier.component';
 import { ShredderComponent } from './pages/hub/shredder/shredder.component';
 import { AnalyticsComponent } from './pages/hub/analytics/analytics.component';
+import { OnboardingComponent } from './pages/hub/onboarding/onboarding.component';
 import { HowItWorksComponent } from './pages/how-it-works/how-it-works.component';
 import { TrustCenterComponent } from './pages/trust-center/trust-center.component';
+import { TrustPackComponent } from './pages/trust-pack/trust-pack.component';
+import { StatusComponent } from './pages/status/status.component';
 import { EuAiActComponent } from './pages/compliance/eu-ai-act/eu-ai-act.component';
 import { Iso42001Component } from './pages/compliance/iso-42001/iso-42001.component';
 import { InsuranceComponent } from './pages/compliance/insurance/insurance.component';
@@ -42,6 +45,8 @@ export const routes: Routes = [
   { path: 'upgrade', component: PricingComponent },
   { path: 'how-it-works', component: HowItWorksComponent },
   { path: 'trust-center', component: TrustCenterComponent },
+  { path: 'trust-pack', component: TrustPackComponent },
+  { path: 'status', component: StatusComponent },
 
   // Compliance Pages
   { path: 'compliance/eu-ai-act', component: EuAiActComponent },
@@ -80,6 +85,7 @@ export const routes: Routes = [
   { path: 'hub/verifier', component: VerifierComponent, canActivate: [authGuard, protectedRouteGuard] },
   { path: 'hub/shredder', component: ShredderComponent, canActivate: [authGuard, protectedRouteGuard] },
   { path: 'hub/analytics', component: AnalyticsComponent, canActivate: [authGuard, protectedRouteGuard] },
+  { path: 'hub/onboarding', component: OnboardingComponent, canActivate: [authGuard, protectedRouteGuard] },
 
   // ✅ FIXED DASHBOARD ROUTE (The Build Saver)
   // Replaced broken module import with direct Component loading

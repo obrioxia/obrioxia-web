@@ -52,7 +52,7 @@ import { RouterLink } from '@angular/router';
       </div>
 
       <div class="max-w-7xl mx-auto border-t border-white/5 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
-        <p class="text-gray-600 text-xs">© 2025 Obrioxia. All rights reserved.</p>
+        <p class="text-gray-600 text-xs">© 2026 Obrioxia. All rights reserved.</p>
         <div class="flex gap-6">
           <a routerLink="/privacy-policy" class="text-gray-600 text-xs hover:text-white transition-colors">Privacy Policy</a>
           <a routerLink="/terms-of-service" class="text-gray-600 text-xs hover:text-white transition-colors">Terms of Service</a>
