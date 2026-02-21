@@ -1,5 +1,5 @@
 import { Injectable, inject } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from '../../../environments/environment';
 
@@ -27,12 +27,6 @@ export class AuditService {
   private apiUrl = `${environment.backendUrl}/api`;
 
   /**
-   * ✅ The Master API Key for Administrative tasks.
-   * Ensure this matches the BACKEND_API_KEY in your Render environment variables.
-   */
-  private masterApiKey = 'c919848182e3e4250082ea7bacd14e170';
-
-  /**
    * Logs a new event to the tamper-evident ledger.
    */
   submitLog(payload: AuditLogPayload): Observable<any> {
@@ -48,16 +42,11 @@ export class AuditService {
   }
 
   /**
-   * 🧨 THE SHREDDER HANDSHAKE
    * Authorizes the deletion of a specific subject/record.
+   * Auth interceptor attaches Bearer token automatically.
    */
   shredSubject(identifier: string): Observable<any> {
-    const headers = new HttpHeaders({
-      'x-api-key': this.masterApiKey
-    });
-
-    // Pointed to the new admin/shred path on Render
-    return this.http.delete(`${this.apiUrl}/admin/shred/${identifier}`, { headers });
+    return this.http.delete(`${this.apiUrl}/admin/shred/${identifier}`);
   }
 
   /**

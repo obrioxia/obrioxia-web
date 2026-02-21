@@ -1,12 +1,11 @@
 import { Component, inject, signal, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Router, RouterLink } from '@angular/router';
-import { HttpClient } from '@angular/common/http';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-demo',
   standalone: true,
-  imports: [CommonModule, RouterLink],
+  imports: [CommonModule],
   template: `
     <div class="min-h-screen bg-black text-white font-sans selection:bg-obrioxia-cyan selection:text-black">
       
@@ -38,7 +37,7 @@ import { HttpClient } from '@angular/common/http';
             <div class="absolute inset-0 bg-gradient-to-br from-obrioxia-cyan/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity rounded-2xl"></div>
             <h3 class="text-2xl font-orbitron text-white mb-2">LOGGER</h3>
             <p class="text-sm text-gray-400 mb-6 h-12">Submit a decision event. Sensitive fields are sealed with write-only protection.</p>
-            <a routerLink="/hub/logger" class="inline-flex items-center justify-center w-full py-3 bg-obrioxia-cyan text-black font-bold rounded hover:bg-cyan-400 transition-all font-orbitron">
+            <a href="https://demo.obrioxia.com/log" class="inline-flex items-center justify-center w-full py-3 bg-obrioxia-cyan text-black font-bold rounded hover:bg-cyan-400 transition-all font-orbitron">
               LAUNCH LOGGER
             </a>
           </div>
@@ -47,7 +46,7 @@ import { HttpClient } from '@angular/common/http';
             <div class="absolute inset-0 bg-gradient-to-br from-purple-500/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity rounded-2xl"></div>
             <h3 class="text-2xl font-orbitron text-white mb-2">VERIFIER</h3>
             <p class="text-sm text-gray-400 mb-6 h-12">Cryptographically verify the integrity of any audit log.</p>
-            <a routerLink="/hub/verifier" class="inline-flex items-center justify-center w-full py-3 bg-white text-black font-bold rounded hover:bg-gray-200 transition-all font-orbitron">
+            <a href="https://demo.obrioxia.com/verify" class="inline-flex items-center justify-center w-full py-3 bg-white text-black font-bold rounded hover:bg-gray-200 transition-all font-orbitron">
               LAUNCH VERIFIER
             </a>
           </div>
@@ -56,7 +55,7 @@ import { HttpClient } from '@angular/common/http';
             <div class="absolute inset-0 bg-gradient-to-br from-red-500/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity rounded-2xl"></div>
             <h3 class="text-2xl font-orbitron text-white mb-2">SHREDDER</h3>
             <p class="text-sm text-gray-400 mb-6 h-12">Selectively shred sensitive fields. The record stays in the chain but protected data becomes irrecoverable.</p>
-            <a routerLink="/hub/shredder" class="inline-flex items-center justify-center w-full py-3 bg-transparent border border-red-500 text-red-500 font-bold rounded hover:bg-red-500/10 transition-all font-orbitron">
+            <a href="https://demo.obrioxia.com/shred" class="inline-flex items-center justify-center w-full py-3 bg-transparent border border-red-500 text-red-500 font-bold rounded hover:bg-red-500/10 transition-all font-orbitron">
               LAUNCH SHREDDER
             </a>
           </div>
