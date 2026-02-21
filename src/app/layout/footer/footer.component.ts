@@ -25,6 +25,9 @@ import { RouterLink } from '@angular/router';
             <li><a routerLink="/features" class="hover:text-obrioxia-cyan transition-colors">Features</a></li>
             <li><a routerLink="/how-it-works" class="hover:text-obrioxia-cyan transition-colors">How It Works</a></li>
             <li><a routerLink="/pricing" class="hover:text-obrioxia-cyan transition-colors">Pricing</a></li>
+            <li><a routerLink="/status" class="hover:text-obrioxia-cyan transition-colors">System Status</a></li>
+            <li><a routerLink="/trust-pack" class="hover:text-obrioxia-cyan transition-colors">Trust Pack</a></li>
+            <li><a routerLink="/hub/onboarding" class="hover:text-obrioxia-cyan transition-colors">Get Started</a></li>
             <li><a href="https://demo.obrioxia.com" target="_blank" class="hover:text-obrioxia-cyan transition-colors">Live Demo</a></li>
           </ul>
         </div>
