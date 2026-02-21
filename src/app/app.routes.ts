@@ -79,13 +79,13 @@ export const routes: Routes = [
     canActivate: [demoGuard]
   },
 
-  // Hub / App Routes (Protected)
-  { path: 'hub', component: HubComponent, canActivate: [authGuard, protectedRouteGuard] },
+  // Hub / App Routes (Protected) — specific paths BEFORE prefix
+  { path: 'hub/onboarding', component: OnboardingComponent, canActivate: [authGuard, protectedRouteGuard] },
   { path: 'hub/logger', component: LoggerComponent, canActivate: [authGuard, protectedRouteGuard] },
   { path: 'hub/verifier', component: VerifierComponent, canActivate: [authGuard, protectedRouteGuard] },
   { path: 'hub/shredder', component: ShredderComponent, canActivate: [authGuard, protectedRouteGuard] },
   { path: 'hub/analytics', component: AnalyticsComponent, canActivate: [authGuard, protectedRouteGuard] },
-  { path: 'hub/onboarding', component: OnboardingComponent, canActivate: [authGuard, protectedRouteGuard] },
+  { path: 'hub', component: HubComponent, canActivate: [authGuard, protectedRouteGuard], pathMatch: 'full' },
 
   // ✅ FIXED DASHBOARD ROUTE (The Build Saver)
   // Replaced broken module import with direct Component loading
