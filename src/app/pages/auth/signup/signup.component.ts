@@ -1,7 +1,6 @@
 import { Component, inject, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { RouterLink } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { Auth, createUserWithEmailAndPassword, updateProfile } from '@angular/fire/auth';
 import { Firestore, doc, setDoc } from '@angular/fire/firestore';
@@ -11,7 +10,7 @@ import { environment } from '../../../../environments/environment';
 @Component({
   selector: 'app-signup',
   standalone: true,
-  imports: [CommonModule, FormsModule, RouterLink],
+  imports: [CommonModule, FormsModule],
   template: `
     <div class="min-h-screen flex items-center justify-center p-4">
       <div class="glass-panel p-8 rounded-xl border border-white/10 w-full max-w-2xl">

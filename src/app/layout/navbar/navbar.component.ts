@@ -95,7 +95,7 @@ export class NavbarComponent {
       await signOut(this.firebaseAuth);
       localStorage.removeItem('demo_key');
       localStorage.clear();
-      window.location.href = 'https://demo.obrioxia.com';
+      window.location.href = '/';
     } catch (err) {
       console.error('Logout failed:', err);
     }

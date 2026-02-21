@@ -1,6 +1,5 @@
 import { Component, inject } from '@angular/core';
-import { CommonModule } from '@angular/common'; 
-import { RouterLink } from '@angular/router';
+import { CommonModule } from '@angular/common';
 import { Firestore, collection, collectionData, query, orderBy, limit } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
 
@@ -15,7 +14,7 @@ Chart.register(...registerables);
   selector: 'app-dashboard',
   standalone: true,
   // ✅ NEW FIX: Use BaseChartDirective here
-  imports: [CommonModule, RouterLink, BaseChartDirective], 
+  imports: [CommonModule, BaseChartDirective],
   template: `
     <div class="dashboard-container p-6 bg-black min-h-screen text-white">
       <header class="mb-8 border-b border-white/10 pb-4">
@@ -92,14 +91,14 @@ export class DashboardComponent {
       }
     ]
   };
-  
-  public lineChartOptions: ChartOptions<'line'> = { 
+
+  public lineChartOptions: ChartOptions<'line'> = {
     responsive: true,
     maintainAspectRatio: false,
     plugins: { legend: { display: false } },
     scales: {
-        y: { grid: { color: 'rgba(255,255,255,0.1)' }, ticks: { color: '#888' } },
-        x: { grid: { display: false }, ticks: { color: '#888' } }
+      y: { grid: { color: 'rgba(255,255,255,0.1)' }, ticks: { color: '#888' } },
+      x: { grid: { display: false }, ticks: { color: '#888' } }
     }
   };
 
