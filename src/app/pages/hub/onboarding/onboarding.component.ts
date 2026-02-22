@@ -6,10 +6,10 @@ import { AuthService } from '../../../core/services/auth.service';
 import { environment } from '../../../../environments/environment';
 
 @Component({
-    selector: 'app-onboarding',
-    standalone: true,
-    imports: [CommonModule, RouterLink],
-    template: `
+  selector: 'app-onboarding',
+  standalone: true,
+  imports: [CommonModule, RouterLink],
+  template: `
     <div class="onboarding-page">
       <div class="onboarding-header">
         <h1>🚀 Get Started with Obrioxia</h1>
@@ -58,24 +58,32 @@ import { environment } from '../../../../environments/environment';
         <div class="step-card" [class.done]="steps.apiKey">
           <div class="step-header">
             <span class="step-number">2</span>
-            <span class="step-badge" [class.done]="steps.apiKey">{{ steps.apiKey ? '✓ Done' : 'Action Required' }}</span>
+            <span class="step-badge" [class.done]="steps.apiKey">{{ steps.apiKey ? '✓ Done' : (isApiKeyLocked ? '🔒 Locked' : 'Action Required') }}</span>
           </div>
           <h2>Create Your API Key</h2>
-          <p>Generate a key for programmatic access. It is shown <strong>once</strong> — copy it immediately.</p>
 
-          <button class="btn btn-primary" (click)="createApiKey()" [disabled]="apiKeyLoading" *ngIf="!apiKey">
-            {{ apiKeyLoading ? 'Generating...' : '🔑 Generate API Key' }}
-          </button>
-
-          <div class="api-key-display" *ngIf="apiKey">
-            <div class="key-warning">⚠️ This key will NOT be shown again. Copy it now.</div>
-            <div class="key-value">
-              <code id="apiKeyValue">{{ apiKey }}</code>
-              <button class="btn btn-small" (click)="copyApiKey()">{{ copied ? '✓ Copied' : '📋 Copy' }}</button>
-            </div>
-            <div class="key-prefix">Prefix: <code>{{ apiKeyPrefix }}</code></div>
+          <div *ngIf="isApiKeyLocked" class="locked-state">
+            <p class="locked-msg">🔒 API keys are available on an active subscription.</p>
+            <a routerLink="/pricing" class="btn btn-upgrade">Activate Subscription →</a>
           </div>
-          <div class="error-msg" *ngIf="apiKeyError">{{ apiKeyError }}</div>
+
+          <div *ngIf="!isApiKeyLocked">
+            <p>Generate a key for programmatic access. It is shown <strong>once</strong> — copy it immediately.</p>
+
+            <button class="btn btn-primary" (click)="createApiKey()" [disabled]="apiKeyLoading" *ngIf="!apiKey">
+              {{ apiKeyLoading ? 'Generating...' : '🔑 Generate API Key' }}
+            </button>
+
+            <div class="api-key-display" *ngIf="apiKey">
+              <div class="key-warning">⚠️ This key will NOT be shown again. Copy it now.</div>
+              <div class="key-value">
+                <code id="apiKeyValue">{{ apiKey }}</code>
+                <button class="btn btn-small" (click)="copyApiKey()">{{ copied ? '✓ Copied' : '📋 Copy' }}</button>
+              </div>
+              <div class="key-prefix">Prefix: <code>{{ apiKeyPrefix }}</code></div>
+            </div>
+            <div class="error-msg" *ngIf="apiKeyError">{{ apiKeyError }}</div>
+          </div>
         </div>
 
         <!-- Step 3: Send First Incident -->
@@ -125,7 +133,7 @@ import { environment } from '../../../../environments/environment';
       </div>
     </div>
   `,
-    styles: [`
+  styles: [`
     .onboarding-page { max-width: 800px; margin: 0 auto; padding: 2rem 1rem; }
     .onboarding-header { text-align: center; margin-bottom: 2rem; }
     .onboarding-header h1 { font-size: 2rem; margin-bottom: 0.5rem; }
@@ -188,111 +196,117 @@ import { environment } from '../../../../environments/environment';
     .error-msg { margin-top: 0.75rem; padding: 0.5rem 0.75rem; background: #ef444420; border: 1px solid #ef444440; border-radius: 6px; color: #ef4444; font-size: 0.9rem; }
     .loading-state { color: #64748b; font-style: italic; }
     .upgrade-cta { margin-top: 1rem; }
+
+    .locked-state { margin-top: 0.75rem; padding: 1rem; background: #1e293b; border: 1px solid #eab30830; border-radius: 8px; }
+    .locked-msg { color: #eab308; font-size: 0.95rem; margin-bottom: 0.75rem; }
   `]
 })
 export class OnboardingComponent {
-    private http = inject(HttpClient);
-    private auth = inject(AuthService);
-    private apiUrl = `${environment.backendUrl}/api`;
+  private http = inject(HttpClient);
+  private auth = inject(AuthService);
+  private apiUrl = `${environment.backendUrl}/api`;
 
-    healthStatus: 'checking' | 'ok' | 'degraded' = 'checking';
-    entitlement: any = null;
-    entitlementLoading = true;
-    featureList: { name: string; enabled: boolean }[] = [];
+  healthStatus: 'checking' | 'ok' | 'degraded' = 'checking';
+  entitlement: any = null;
+  entitlementLoading = true;
+  featureList: { name: string; enabled: boolean }[] = [];
 
-    apiKey: string | null = null;
-    apiKeyPrefix: string | null = null;
-    apiKeyLoading = false;
-    apiKeyError: string | null = null;
-    copied = false;
+  apiKey: string | null = null;
+  apiKeyPrefix: string | null = null;
+  apiKeyLoading = false;
+  apiKeyError: string | null = null;
+  copied = false;
+  isApiKeyLocked = true; // locked until entitlement confirms active paid plan
 
-    incidentResult: any = null;
-    incidentLoading = false;
-    incidentError: string | null = null;
+  incidentResult: any = null;
+  incidentLoading = false;
+  incidentError: string | null = null;
 
-    steps = { entitlement: false, apiKey: false, incident: false, viewedLogs: false };
+  steps = { entitlement: false, apiKey: false, incident: false, viewedLogs: false };
 
-    constructor() {
-        this.checkHealth();
-        this.loadEntitlement();
-    }
+  constructor() {
+    this.checkHealth();
+    this.loadEntitlement();
+  }
 
-    checkHealth() {
-        this.http.get<any>(`${this.apiUrl}/health`).subscribe({
-            next: (res) => {
-                this.healthStatus = res.status === 'ok' ? 'ok' : 'degraded';
-            },
-            error: () => this.healthStatus = 'degraded'
-        });
-    }
+  checkHealth() {
+    this.http.get<any>(`${this.apiUrl}/health`).subscribe({
+      next: (res) => {
+        this.healthStatus = res.status === 'ok' ? 'ok' : 'degraded';
+      },
+      error: () => this.healthStatus = 'degraded'
+    });
+  }
 
-    loadEntitlement() {
-        this.http.get<any>(`${this.apiUrl}/billing/entitlement`).subscribe({
-            next: (res) => {
-                this.entitlement = res;
-                this.entitlementLoading = false;
-                this.steps.entitlement = true;
-                if (res.features) {
-                    this.featureList = Object.entries(res.features).map(([name, enabled]) => ({ name, enabled: !!enabled }));
-                }
-            },
-            error: () => this.entitlementLoading = false
-        });
-    }
-
-    createApiKey() {
-        this.apiKeyLoading = true;
-        this.apiKeyError = null;
-        this.http.post<any>(`${this.apiUrl}/keys`, {}).subscribe({
-            next: (res) => {
-                this.apiKey = res.api_key;
-                this.apiKeyPrefix = res.prefix;
-                this.apiKeyLoading = false;
-                this.steps.apiKey = true;
-            },
-            error: (err) => {
-                this.apiKeyLoading = false;
-                this.apiKeyError = err.error?.detail || 'Active subscription required to generate API keys';
-            }
-        });
-    }
-
-    copyApiKey() {
-        if (this.apiKey) {
-            navigator.clipboard.writeText(this.apiKey);
-            this.copied = true;
-            setTimeout(() => this.copied = false, 3000);
+  loadEntitlement() {
+    this.http.get<any>(`${this.apiUrl}/billing/entitlement`).subscribe({
+      next: (res) => {
+        this.entitlement = res;
+        this.entitlementLoading = false;
+        this.steps.entitlement = true;
+        // Unlock API key step only for paid active subscriptions
+        this.isApiKeyLocked = !res || res.plan_id === 'free' || res.status !== 'active';
+        if (res.features) {
+          this.featureList = Object.entries(res.features).map(([name, enabled]) => ({ name, enabled: !!enabled }));
         }
+      },
+      error: () => this.entitlementLoading = false
+    });
+  }
+
+  createApiKey() {
+    this.apiKeyLoading = true;
+    this.apiKeyError = null;
+    this.http.post<any>(`${this.apiUrl}/keys`, {}).subscribe({
+      next: (res) => {
+        this.apiKey = res.api_key;
+        this.apiKeyPrefix = res.prefix;
+        this.apiKeyLoading = false;
+        this.steps.apiKey = true;
+      },
+      error: (err) => {
+        this.apiKeyLoading = false;
+        this.apiKeyError = err.error?.detail || 'Active subscription required to generate API keys';
+      }
+    });
+  }
+
+  copyApiKey() {
+    if (this.apiKey) {
+      navigator.clipboard.writeText(this.apiKey);
+      this.copied = true;
+      setTimeout(() => this.copied = false, 3000);
     }
+  }
 
-    sendTestIncident() {
-        this.incidentLoading = true;
-        this.incidentError = null;
-        this.incidentResult = null;
+  sendTestIncident() {
+    this.incidentLoading = true;
+    this.incidentError = null;
+    this.incidentResult = null;
 
-        const payload = {
-            incidentType: 'onboarding_test',
-            system: 'hub_onboarding',
-            message: 'First incident from onboarding wizard',
-            risk: 'low',
-            schema_version: '4.1-strict'
-        };
+    const payload = {
+      incidentType: 'onboarding_test',
+      system: 'hub_onboarding',
+      message: 'First incident from onboarding wizard',
+      risk: 'low',
+      schema_version: '4.1-strict'
+    };
 
-        this.http.post<any>(`${this.apiUrl}/incidents`, payload).subscribe({
-            next: (res) => {
-                this.incidentResult = res;
-                this.incidentLoading = false;
-                this.steps.incident = true;
-                this.loadEntitlement(); // refresh quota
-            },
-            error: (err) => {
-                this.incidentLoading = false;
-                const code = err.error?.code;
-                if (code === 'QUOTA_EXCEEDED') this.incidentError = 'Quota exceeded — upgrade your plan.';
-                else if (code === 'RATE_LIMITED') this.incidentError = `Rate limited — wait ${err.error?.retry_after || 60} seconds.`;
-                else if (code === 'FEATURE_DISABLED') this.incidentError = 'Logger feature disabled — upgrade required.';
-                else this.incidentError = err.error?.detail || 'Failed to send incident.';
-            }
-        });
-    }
+    this.http.post<any>(`${this.apiUrl}/incidents`, payload).subscribe({
+      next: (res) => {
+        this.incidentResult = res;
+        this.incidentLoading = false;
+        this.steps.incident = true;
+        this.loadEntitlement(); // refresh quota
+      },
+      error: (err) => {
+        this.incidentLoading = false;
+        const code = err.error?.code;
+        if (code === 'QUOTA_EXCEEDED') this.incidentError = 'Quota exceeded — upgrade your plan.';
+        else if (code === 'RATE_LIMITED') this.incidentError = `Rate limited — wait ${err.error?.retry_after || 60} seconds.`;
+        else if (code === 'FEATURE_DISABLED') this.incidentError = 'Logger feature disabled — upgrade required.';
+        else this.incidentError = err.error?.detail || 'Failed to send incident.';
+      }
+    });
+  }
 }

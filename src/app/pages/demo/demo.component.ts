@@ -73,12 +73,13 @@ import { Router, RouterLink } from '@angular/router';
             </ul>
           </div>
           <div class="p-6 rounded-xl bg-white/5 border border-white/10">
-            <h3 class="text-lg font-orbitron text-gray-400 mb-3">What the paid Hub adds</h3>
+            <h3 class="text-lg font-orbitron text-gray-400 mb-3">Not included in this demo</h3>
             <ul class="space-y-2 text-sm text-gray-500">
-              <li class="flex items-start"><span class="text-gray-600 mr-2">+</span>Your own API key and production ledger</li>
-              <li class="flex items-start"><span class="text-gray-600 mr-2">+</span>PDF audit certificates with ownership proof</li>
-              <li class="flex items-start"><span class="text-gray-600 mr-2">+</span>Analytics dashboard (trends, anomalies)</li>
-              <li class="flex items-start"><span class="text-gray-600 mr-2">+</span>Higher quotas, longer retention, priority support</li>
+              <li class="flex items-start"><span class="text-gray-600 mr-2">✗</span>API keys (requires an active subscription)</li>
+              <li class="flex items-start"><span class="text-gray-600 mr-2">✗</span>Hub access and onboarding wizard</li>
+              <li class="flex items-start"><span class="text-gray-600 mr-2">✗</span>Analytics dashboard (trends, anomalies)</li>
+              <li class="flex items-start"><span class="text-gray-600 mr-2">✗</span>PDF audit certificates</li>
+              <li class="flex items-start"><span class="text-gray-600 mr-2">✗</span>Data retention and higher quotas</li>
             </ul>
           </div>
         </div>
