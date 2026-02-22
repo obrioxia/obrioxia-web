@@ -1,15 +1,12 @@
-import { Component, inject } from '@angular/core';
-import { RouterOutlet, Router, NavigationEnd } from '@angular/router';
+import { Component } from '@angular/core';
+import { RouterOutlet } from '@angular/router';
 import { NavbarComponent } from './layout/navbar/navbar.component';
 import { FooterComponent } from './layout/footer/footer.component';
-import { EntitlementCardComponent } from './core/components/entitlement-card/entitlement-card.component';
-import { CommonModule } from '@angular/common';
-import { filter } from 'rxjs/operators';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, NavbarComponent, FooterComponent, EntitlementCardComponent, CommonModule],
+  imports: [RouterOutlet, NavbarComponent, FooterComponent],
   template: `
     <!-- Global Cinematic Background (Fixed, behind everything) -->
     <div class="fixed inset-0 z-0 overflow-hidden pointer-events-none">
@@ -29,11 +26,6 @@ import { filter } from 'rxjs/operators';
     <div class="relative z-10 flex flex-col min-h-screen text-white font-sans selection:bg-obrioxia-cyan selection:text-black">
       <app-navbar></app-navbar>
 
-      <!-- Entitlement card: visible only on Hub pages, sticky below navbar -->
-      <div class="sticky top-[72px] z-20 max-w-[1200px] mx-auto w-full px-4 py-2" *ngIf="isHubRoute">
-        <app-entitlement-card></app-entitlement-card>
-      </div>
-      
       <main class="flex-grow">
         <router-outlet></router-outlet>
       </main>
@@ -42,16 +34,4 @@ import { filter } from 'rxjs/operators';
     </div>
   `
 })
-export class AppComponent {
-  isHubRoute = false;
-  private router = inject(Router);
-
-  constructor() {
-    this.router.events.pipe(
-      filter(e => e instanceof NavigationEnd)
-    ).subscribe((e: any) => {
-      this.isHubRoute = e.urlAfterRedirects?.startsWith('/hub');
-    });
-  }
-}
-
+export class AppComponent { }
