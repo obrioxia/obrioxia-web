@@ -61,6 +61,13 @@ h6 {
   .ob-btn-secondary:hover {
     @apply bg-white/10 border-white/50;
   }
+
+  /* Frosted-glass card used across Hub pages */
+  .glass-panel {
+    background: rgba(15, 23, 42, 0.7);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+  }
 }
 
 /* Custom Scrollbar */
