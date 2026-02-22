@@ -10,7 +10,27 @@
 
     <div class="glass-panel p-8 rounded-xl border border-white/10">
 
-      <form *ngIf="!receipt()" (ngSubmit)="onSubmit()" #logForm="ngForm" class="space-y-6">
+      <div *ngIf="errorDisplay() as error"
+        class="mb-6 p-4 bg-red-900/40 border border-red-500/50 rounded-lg flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 animate-fade-in-up">
+        <div>
+          <h3 class="text-red-400 font-orbitron font-bold mb-1">{{ error.title || 'Logging failed' }} ({{ error.status
+            || 500 }})</h3>
+          <p class="text-red-200 text-sm whitespace-pre-wrap">{{ error.message }}</p>
+        </div>
+        <div class="flex gap-3">
+          <a *ngIf="error.ctaUrl" [href]="error.ctaUrl"
+            class="px-4 py-2 bg-red-500 hover:bg-red-400 text-white font-orbitron text-xs rounded transition-colors whitespace-nowrap">
+            {{ error.ctaText }}
+          </a>
+          <button (click)="errorDisplay.set(null)"
+            class="px-4 py-2 bg-black/40 hover:bg-black/60 border border-white/20 text-white font-orbitron text-xs rounded transition-colors whitespace-nowrap">
+            DISMISS
+          </button>
+        </div>
+      </div>
+
+      <form *ngIf="!receipt()" (ngSubmit)="onSubmit()" (input)="errorDisplay.set(null)" #logForm="ngForm"
+        class="space-y-6">
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div>
             <label class="block text-xs font-orbitron text-gray-500 mb-2">POLICY / USER ID (PII)</label>

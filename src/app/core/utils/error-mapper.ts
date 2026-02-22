@@ -4,11 +4,16 @@
  */
 export interface ErrorDisplay {
     message: string;
-    type: 'quota' | 'feature' | 'rate_limit' | 'unavailable' | 'unknown';
+    type: 'quota' | 'feature' | 'rate_limit' | 'unavailable' | 'unknown' | 'auth';
     showUpgrade: boolean;
     upgradeUrl: string | null;
     retryAfter: number | null;
     planId: string | null;
+    status?: number;
+    code?: string | null;
+    title?: string;
+    ctaText?: string | null;
+    ctaUrl?: string | null;
 }
 
 export function mapErrorResponse(status: number, body: any): ErrorDisplay {
@@ -21,6 +26,20 @@ export function mapErrorResponse(status: number, body: any): ErrorDisplay {
     const planId = body?.plan_id || body?.detail?.plan_id || null;
 
     switch (status) {
+        case 401:
+            return {
+                message: message || detail || 'Please log in to perform this action.',
+                type: 'auth',
+                showUpgrade: false,
+                upgradeUrl: null,
+                retryAfter: null,
+                planId: null,
+                status,
+                code: code || 'AUTH_REQUIRED',
+                title: 'Authentication Required',
+                ctaText: 'LOGIN',
+                ctaUrl: '/login'
+            };
         case 402:
             return {
                 message: message || detail || 'Your monthly quota has been reached.',
@@ -28,7 +47,12 @@ export function mapErrorResponse(status: number, body: any): ErrorDisplay {
                 showUpgrade: true,
                 upgradeUrl: upgradeUrl || '/pricing',
                 retryAfter: null,
-                planId
+                planId,
+                status,
+                code: code || 'QUOTA_EXCEEDED',
+                title: 'Logging failed',
+                ctaText: 'UPGRADE NOW',
+                ctaUrl: upgradeUrl || '/pricing'
             };
         case 403:
             return {
@@ -37,18 +61,26 @@ export function mapErrorResponse(status: number, body: any): ErrorDisplay {
                 showUpgrade: true,
                 upgradeUrl: upgradeUrl || '/pricing',
                 retryAfter: null,
-                planId
+                planId,
+                status,
+                code: code || 'FEATURE_DISABLED',
+                title: 'Logging failed',
+                ctaText: 'UPGRADE NOW',
+                ctaUrl: upgradeUrl || '/pricing'
             };
         case 429:
             return {
-                message: retryAfter
-                    ? `Rate limited. Retry in ${retryAfter} seconds.`
-                    : (message || 'Too many requests. Please wait.'),
+                message: 'Try again in a minute',
                 type: 'rate_limit',
                 showUpgrade: !!upgradeUrl,
                 upgradeUrl,
                 retryAfter,
-                planId
+                planId,
+                status,
+                code: code || 'RATE_LIMITED',
+                title: 'Logging failed',
+                ctaText: null,
+                ctaUrl: null
             };
         case 503:
             return {
@@ -57,7 +89,12 @@ export function mapErrorResponse(status: number, body: any): ErrorDisplay {
                 showUpgrade: false,
                 upgradeUrl: null,
                 retryAfter: null,
-                planId: null
+                planId: null,
+                status,
+                code: code || 'SERVICE_UNAVAILABLE',
+                title: 'Logging failed',
+                ctaText: null,
+                ctaUrl: null
             };
         default:
             return {
@@ -66,7 +103,12 @@ export function mapErrorResponse(status: number, body: any): ErrorDisplay {
                 showUpgrade: false,
                 upgradeUrl: null,
                 retryAfter: null,
-                planId: null
+                planId: null,
+                status,
+                code: code || 'UNKNOWN_ERROR',
+                title: 'Logging failed',
+                ctaText: null,
+                ctaUrl: null
             };
     }
 }

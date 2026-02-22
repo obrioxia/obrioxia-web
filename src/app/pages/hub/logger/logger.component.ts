@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { AuditService, AuditLogPayload } from '../../../core/services/audit.service';
 import { Router } from '@angular/router';
+import { mapErrorResponse, ErrorDisplay } from '../../../core/utils/error-mapper';
 
 @Component({
   selector: 'app-logger',
@@ -13,9 +14,10 @@ import { Router } from '@angular/router';
 export class LoggerComponent {
   private audit = inject(AuditService);
   private router = inject(Router);
-  
+
   loading = signal(false);
   receipt = signal<any | null>(null);
+  errorDisplay = signal<ErrorDisplay | null>(null);
 
   formData: AuditLogPayload = {
     policyNumber: '',
@@ -32,16 +34,16 @@ export class LoggerComponent {
    */
   onSubmit() {
     this.loading.set(true);
+    this.errorDisplay.set(null);
     this.audit.submitLog(this.formData).subscribe({
       next: (res) => {
-        this.receipt.set(res); 
+        this.receipt.set(res);
         this.loading.set(false);
-        // ✅ Success Alert Removed
       },
       error: (err) => {
         console.error('❌ Logging Failure:', err);
-        // Errors remain as alerts to ensure the user knows if the ledger is unreachable
-        alert('Logging Failed: ' + (err.error?.detail || err.message));
+        const mapped = mapErrorResponse(err.status, err.error);
+        this.errorDisplay.set(mapped);
         this.loading.set(false);
       }
     });
@@ -51,19 +53,19 @@ export class LoggerComponent {
     const rawData = this.receipt();
     if (!rawData) return;
 
-    const evidenceData = typeof rawData === 'string' 
+    const evidenceData = typeof rawData === 'string'
       ? { current_hash: rawData, decision_id: rawData, exported_at: new Date().toISOString() }
       : { ...rawData, exported_at: new Date().toISOString() };
 
     const jsonString = JSON.stringify(evidenceData, null, 2);
     const blob = new Blob([jsonString], { type: 'application/json' });
     const url = window.URL.createObjectURL(blob);
-    
+
     const a = document.createElement('a');
     a.href = url;
     const id = evidenceData.sequence || evidenceData.decision_id || Date.now();
     a.download = `obrioxia_evidence_${id}.json`;
-    
+
     document.body.appendChild(a);
     a.click();
     document.body.removeChild(a);
@@ -92,7 +94,7 @@ export class LoggerComponent {
   }
 
   goBack() { this.router.navigate(['/hub']); }
-  
+
   resetForm() {
     this.receipt.set(null);
     this.formData.policyNumber = '';
