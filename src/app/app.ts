@@ -29,8 +29,8 @@ import { filter } from 'rxjs/operators';
     <div class="relative z-10 flex flex-col min-h-screen text-white font-sans selection:bg-obrioxia-cyan selection:text-black">
       <app-navbar></app-navbar>
 
-      <!-- Entitlement card: visible only on Hub pages -->
-      <div class="max-w-[1200px] mx-auto w-full px-4 pt-20" *ngIf="isHubRoute">
+      <!-- Entitlement card: visible only on Hub pages, sticky below navbar -->
+      <div class="sticky top-[72px] z-20 max-w-[1200px] mx-auto w-full px-4 py-2" *ngIf="isHubRoute">
         <app-entitlement-card></app-entitlement-card>
       </div>
       
