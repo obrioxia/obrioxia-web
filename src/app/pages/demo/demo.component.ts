@@ -1,11 +1,11 @@
 import { Component, inject, signal, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-demo',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, RouterLink],
   template: `
     <div class="min-h-screen bg-black text-white font-sans selection:bg-obrioxia-cyan selection:text-black">
       
@@ -62,14 +62,41 @@ import { Router } from '@angular/router';
 
         </div>
 
-        <div class="mt-12 text-center">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-12 max-w-3xl mx-auto">
+          <div class="p-6 rounded-xl bg-white/5 border border-white/10">
+            <h3 class="text-lg font-orbitron text-obrioxia-cyan mb-3">What this demo includes</h3>
+            <ul class="space-y-2 text-sm text-gray-400">
+              <li class="flex items-start"><span class="text-obrioxia-cyan mr-2">►</span>Log decision events to a live sandbox ledger</li>
+              <li class="flex items-start"><span class="text-obrioxia-cyan mr-2">►</span>Verify chain integrity in real time</li>
+              <li class="flex items-start"><span class="text-obrioxia-cyan mr-2">►</span>Shred sensitive fields and re-verify</li>
+              <li class="flex items-start"><span class="text-obrioxia-cyan mr-2">►</span>All data is synthetic — no real PII</li>
+            </ul>
+          </div>
+          <div class="p-6 rounded-xl bg-white/5 border border-white/10">
+            <h3 class="text-lg font-orbitron text-gray-400 mb-3">What the paid Hub adds</h3>
+            <ul class="space-y-2 text-sm text-gray-500">
+              <li class="flex items-start"><span class="text-gray-600 mr-2">+</span>Your own API key and production ledger</li>
+              <li class="flex items-start"><span class="text-gray-600 mr-2">+</span>PDF audit certificates with ownership proof</li>
+              <li class="flex items-start"><span class="text-gray-600 mr-2">+</span>Analytics dashboard (trends, anomalies)</li>
+              <li class="flex items-start"><span class="text-gray-600 mr-2">+</span>Higher quotas, longer retention, priority support</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="mt-10 text-center">
+          <a routerLink="/signup" class="inline-flex items-center justify-center px-8 py-3 bg-obrioxia-cyan text-black font-bold rounded hover:bg-cyan-400 transition-all font-orbitron">
+            SIGN UP FOR HUB ACCESS
+          </a>
+        </div>
+
+        <div class="mt-8 text-center">
             <div class="inline-block px-6 py-2 rounded-full bg-white/5 border border-white/10 text-sm font-mono text-gray-400">
                 SESSION ID: <span class="text-obrioxia-cyan">{{ demoKey }}</span>
             </div>
         </div>
 
         <div class="mt-16 border-t border-white/10 pt-8 text-center">
-          <p class="text-gray-600 text-xs font-orbitron tracking-widest uppercase mb-4">OBRIOXIA AUDIT ENGINE v4.0 · Patent pending.</p>
+          <p class="text-gray-600 text-xs font-orbitron tracking-widest uppercase mb-4">OBRIOXIA AUDIT ENGINE · Patent pending.</p>
           <div class="flex justify-center gap-6">
             <a routerLink="/demo/terms" class="text-gray-600 text-xs hover:text-white transition-colors">Terms &amp; Conditions</a>
             <a routerLink="/demo/privacy" class="text-gray-600 text-xs hover:text-white transition-colors">Privacy Policy</a>

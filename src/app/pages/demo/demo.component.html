@@ -3,7 +3,7 @@
 
     <h1 class="text-4xl text-white font-orbitron mb-4">Live <span class="text-obrioxia-cyan">Demo</span></h1>
     <p class="text-gray-400 mb-8">This sandbox demonstrates tamper-evident logging, write-only field protection, and
-      selective shredding. All data shown is synthetic.</p>
+      selective shredding. All data shown is synthetic — no real PII is used.</p>
 
     <div class="glass-panel border border-white/10 rounded-xl p-8 bg-gray-900/50 text-left mb-8">
       <h3 class="text-lg text-white font-orbitron mb-4">What this demo proves</h3>
@@ -39,11 +39,41 @@
       </ul>
     </div>
 
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+      <div class="glass-panel border border-white/10 rounded-xl p-6 bg-gray-900/50 text-left">
+        <h3 class="text-lg text-white font-orbitron mb-4">What this demo includes</h3>
+        <ul class="space-y-2 text-gray-400 text-sm">
+          <li class="flex items-start"><span class="text-obrioxia-cyan mr-2">►</span>Log decision events to a live
+            sandbox ledger</li>
+          <li class="flex items-start"><span class="text-obrioxia-cyan mr-2">►</span>Verify chain integrity in real time
+          </li>
+          <li class="flex items-start"><span class="text-obrioxia-cyan mr-2">►</span>Shred sensitive fields and
+            re-verify</li>
+          <li class="flex items-start"><span class="text-obrioxia-cyan mr-2">►</span>All data is synthetic — no real PII
+          </li>
+        </ul>
+      </div>
+      <div class="glass-panel border border-white/10 rounded-xl p-6 bg-gray-900/50 text-left">
+        <h3 class="text-lg text-white font-orbitron mb-4">What the paid Hub adds</h3>
+        <ul class="space-y-2 text-gray-500 text-sm">
+          <li class="flex items-start"><span class="text-gray-600 mr-2">+</span>Your own API key and production ledger
+          </li>
+          <li class="flex items-start"><span class="text-gray-600 mr-2">+</span>PDF audit certificates with ownership
+            proof</li>
+          <li class="flex items-start"><span class="text-gray-600 mr-2">+</span>Analytics dashboard (trends, anomalies)
+          </li>
+          <li class="flex items-start"><span class="text-gray-600 mr-2">+</span>Higher quotas, longer retention,
+            priority support</li>
+        </ul>
+      </div>
+    </div>
+
     <p class="text-gray-600 text-xs font-mono">This demo uses synthetic data. It demonstrates technical capabilities,
       not a compliance certification.</p>
 
-    <div class="mt-8">
-      <a routerLink="/hub" class="text-obrioxia-cyan text-sm hover:underline font-orbitron">← Enter the Hub</a>
+    <div class="mt-8 text-center">
+      <a routerLink="/signup" class="text-obrioxia-cyan text-sm hover:underline font-orbitron">Sign up for Hub access
+        →</a>
     </div>
 
   </div>

@@ -15,15 +15,19 @@
         <ul class="space-y-3">
           <li class="flex items-start text-gray-300">
             <span class="text-obrioxia-cyan mr-2">►</span>
-            SHA-256 hash chaining ensures historical records cannot be silently altered.
+            Cryptographic chaining ensures historical records cannot be silently altered.
           </li>
           <li class="flex items-start text-gray-300">
             <span class="text-obrioxia-cyan mr-2">►</span>
-            Canonical JSON serialisation supports deterministic verification.
+            Deterministic serialisation supports independent verification by any party.
           </li>
           <li class="flex items-start text-gray-300">
             <span class="text-obrioxia-cyan mr-2">►</span>
             API-first ingestion designed for agentic workflows.
+          </li>
+          <li class="flex items-start text-gray-300">
+            <span class="text-obrioxia-cyan mr-2">►</span>
+            Idempotent event ingestion — safe retries without duplicate records.
           </li>
         </ul>
       </div>
@@ -47,7 +51,7 @@
           </li>
           <li class="flex items-start text-gray-300">
             <span class="text-obrioxia-green mr-2">►</span>
-            Multi-mode lookup: verify by hash, decision ID, or 0x-prefixed hash — the endpoint normalises automatically.
+            Look up any record by ID or hash — the verifier handles the rest.
           </li>
           <li class="flex items-start text-gray-300">
             <span class="text-obrioxia-green mr-2">►</span>
@@ -57,9 +61,9 @@
       </div>
 
       <div class="glass-panel p-8 rounded-xl border border-white/10">
-        <h2 class="text-2xl text-white font-orbitron mb-4">Evidence Packs (JSON + PDF)</h2>
-        <p class="text-gray-400 mb-6 max-w-3xl">Downloadable, portable proof packages containing the raw log data, the
-          cryptographic proof, and a human-readable summary.</p>
+        <h2 class="text-2xl text-white font-orbitron mb-4">Forensic Audit Certificates</h2>
+        <p class="text-gray-400 mb-6 max-w-3xl">Downloadable proof containing the cryptographic receipt and a
+          human-readable summary — ready for regulators and auditors.</p>
         <ul class="space-y-3">
           <li class="flex items-start text-gray-300">
             <span class="text-obrioxia-cyan mr-2">►</span>
@@ -67,15 +71,15 @@
           </li>
           <li class="flex items-start text-gray-300">
             <span class="text-obrioxia-cyan mr-2">►</span>
-            Machine-readable JSON for automated auditing.
+            Machine-readable proof available via the verification API.
           </li>
           <li class="flex items-start text-gray-300">
             <span class="text-obrioxia-cyan mr-2">►</span>
-            Portable proof packages for sharing and external review.
+            Self-contained proof, ready for regulators and auditors.
           </li>
           <li class="flex items-start text-gray-300">
             <span class="text-obrioxia-cyan mr-2">►</span>
-            Ownership-verified: PDF generation requires proof you created the record.
+            Ownership-verified: certificate generation requires proof you created the record.
           </li>
         </ul>
       </div>
@@ -87,20 +91,15 @@
         <ul class="space-y-3">
           <li class="flex items-start text-gray-300">
             <span class="text-red-500 mr-2">►</span>
-            Encrypts PII before hashing using per-event write-only keys.
+            Sensitive data is sealed with write-only protection before it enters the chain.
           </li>
           <li class="flex items-start text-gray-300">
             <span class="text-red-500 mr-2">►</span>
-            "Shredding" a key renders the PII mathematically unrecoverable.
+            Shredding destroys access permanently — no backdoor, no recovery.
           </li>
           <li class="flex items-start text-gray-300">
             <span class="text-red-500 mr-2">►</span>
             The audit metadata remains intact, proving the event occurred while respecting privacy.
-          </li>
-          <li class="flex items-start text-gray-300">
-            <span class="text-red-500 mr-2">►</span>
-            Dual shred path: v2 records have their wrapped encryption key destroyed; legacy records have PII replaced
-            with a shredded marker.
           </li>
         </ul>
       </div>
@@ -124,7 +123,7 @@
           </li>
           <li class="flex items-start text-gray-300">
             <span class="text-obrioxia-cyan mr-2">►</span>
-            <strong>Analytics:</strong> API endpoints for confidence scores, trends, and anomaly detection.
+            <strong>Analytics:</strong> Visual dashboards for decision trends, chain health, and anomaly detection.
           </li>
           <li class="flex items-start text-gray-300">
             <span class="text-obrioxia-cyan mr-2">►</span>
@@ -144,17 +143,15 @@
         <ul class="space-y-3">
           <li class="flex items-start text-gray-300">
             <span class="text-obrioxia-cyan mr-2">►</span>
-            <strong>Node.js / TypeScript</strong>&nbsp;— native fetch, zero dependencies, Node 18+. <code
-              class="text-obrioxia-cyan text-xs">@obrioxia/sdk</code>
+            <strong>Node.js / TypeScript</strong>&nbsp;— native fetch, zero dependencies, Node 18+.
           </li>
           <li class="flex items-start text-gray-300">
             <span class="text-obrioxia-cyan mr-2">►</span>
-            <strong>Python</strong>&nbsp;— httpx-based, context-manager support. <code
-              class="text-obrioxia-cyan text-xs">obrioxia-sdk</code>
+            <strong>Python</strong>&nbsp;— httpx-based, context-manager support.
           </li>
           <li class="flex items-start text-gray-300">
             <span class="text-obrioxia-cyan mr-2">►</span>
-            Both SDKs support demo-key and Bearer-token auth, incident logging, chain verification, and health checks.
+            Both SDKs support API key and Bearer-token auth, incident logging, chain verification, and health checks.
           </li>
         </ul>
       </div>

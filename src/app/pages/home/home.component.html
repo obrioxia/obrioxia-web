@@ -51,8 +51,8 @@
           1</div>
         <h3 class="text-xl text-white font-orbitron mb-3 text-center">Ingest</h3>
         <p class="text-gray-400 text-sm text-center">
-          Your AI sends events to the Obrioxia API. We separate metadata from sensitive PII using write-only encryption,
-          so the production system can seal data but never read it back.
+          Your AI sends decision events to the Obrioxia API. Sensitive fields are sealed on arrival — the
+          production system can never read them back.
         </p>
       </div>
 
@@ -62,8 +62,8 @@
           2</div>
         <h3 class="text-xl text-white font-orbitron mb-3 text-center">Seal</h3>
         <p class="text-gray-400 text-sm text-center">
-          The payload is serialized into canonical JSON and sealed into a SHA-256 hash chain. Each record
-          cryptographically locks the previous one, making the history tamper-evident.
+          Each record is cryptographically locked to the one before it, creating an unbreakable chain.
+          Any modification — even a single character — is instantly detectable.
         </p>
       </div>
 
@@ -73,7 +73,7 @@
           3</div>
         <h3 class="text-xl text-white font-orbitron mb-3 text-center">Verify</h3>
         <p class="text-gray-400 text-sm text-center">
-          Download forensic evidence packs (JSON + PDF) or use the Chain Verifier to confirm that your logs have not
+          Download forensic audit certificates or use the Chain Verifier to confirm that your logs have not
           been altered since creation.
         </p>
       </div>
@@ -127,7 +127,7 @@
 
     <div class="mt-24 pt-8 border-t border-white/10 text-center">
       <p class="text-gray-600 font-orbitron text-xs tracking-widest uppercase">
-        Obrioxia Immutable Systems &copy; 2025 · Patent pending.
+        Obrioxia Immutable Systems &copy; 2025–2026 · Patent pending.
       </p>
     </div>
 
