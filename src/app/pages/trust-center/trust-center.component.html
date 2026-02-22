@@ -18,9 +18,9 @@
       <div>
         <h3 class="text-xl text-white font-orbitron mb-3">Encryption Standards</h3>
         <p class="text-gray-400 text-sm">
-          We utilise industry-standard TLS 1.3 for all data in transit. Data at rest is protected using envelope
-          encryption. Our write-only crypto-shredding engine uses per-event key wrapping to ensure the production
-          service can seal data but never decrypt historical records.
+          We utilise TLS 1.3 for all data in transit. Data at rest is protected using envelope
+          encryption with industry-standard authenticated ciphers. Our write-only crypto-shredding engine uses per-event
+          sealing to ensure the production service can encrypt data but never decrypt historical records.
         </p>
       </div>
 
@@ -28,7 +28,8 @@
         <h3 class="text-xl text-white font-orbitron mb-3">The Tamper-Evident Model</h3>
         <p class="text-gray-400 text-sm">
           Our core security thesis is "Write Once, Read Many" (WORM). Once a decision ID is generated and secured via
-          SHA-256 hash-chaining, any alteration — by internal staff, your admins, or external attackers — breaks the
+          cryptographic hash-chaining, any alteration — by internal staff, your admins, or external attackers — breaks
+          the
           chain and is detected by the Chain Verifier.
         </p>
       </div>
