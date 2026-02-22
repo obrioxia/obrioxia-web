@@ -266,7 +266,8 @@ export class OnboardingComponent {
       },
       error: (err) => {
         this.apiKeyLoading = false;
-        this.apiKeyError = err.error?.detail || 'Active subscription required to generate API keys';
+        const d = err.error?.detail;
+        this.apiKeyError = (typeof d === 'string' ? d : d?.message || d?.code) || 'Active subscription required to generate API keys';
       }
     });
   }
@@ -302,10 +303,13 @@ export class OnboardingComponent {
       error: (err) => {
         this.incidentLoading = false;
         const code = err.error?.code;
+        const d = err.error?.detail;
+        const safeString = typeof d === 'string' ? d : d?.message || d?.code || err.message;
+
         if (code === 'QUOTA_EXCEEDED') this.incidentError = 'Quota exceeded — upgrade your plan.';
         else if (code === 'RATE_LIMITED') this.incidentError = `Rate limited — wait ${err.error?.retry_after || 60} seconds.`;
         else if (code === 'FEATURE_DISABLED') this.incidentError = 'Logger feature disabled — upgrade required.';
-        else this.incidentError = err.error?.detail || 'Failed to send incident.';
+        else this.incidentError = safeString || 'Failed to send incident.';
       }
     });
   }

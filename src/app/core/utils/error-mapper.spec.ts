@@ -63,4 +63,15 @@ describe('mapErrorResponse', () => {
         expect(result.type).toBe('unknown');
         expect(result.showUpgrade).toBe(false);
     });
+
+    it('should handle object-valued detail for 402 without showing [object Object]', () => {
+        // detail is not a string, it's an object as returned from the Python endpoints sometimes
+        const result = mapErrorResponse(402, {
+            detail: { code: 'QUOTA_EXCEEDED', message: 'Monthly limit reached' }
+        });
+
+        expect(result.type).toBe('quota');
+        expect(result.message).toBe('Monthly limit reached');
+        expect(result.message).not.toContain('[object Object]');
+    });
 });
