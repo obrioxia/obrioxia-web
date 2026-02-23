@@ -25,12 +25,12 @@
       </div>
 
       <div>
-        <h3 class="text-xl text-white font-orbitron mb-3">The Tamper-Evident Model</h3>
-        <p class="text-gray-400 text-sm">
-          Our core security thesis is "Write Once, Read Many" (WORM). Once a decision ID is generated and secured via
-          cryptographic hash-chaining, any alteration — by internal staff, your admins, or external attackers — breaks
-          the
-          chain and is detected by the Chain Verifier.
+        <h3 class="text-xl text-white font-orbitron mb-4">Tamper-Evident Cryptographic Chaining</h3>
+        <p class="text-gray-400 leading-relaxed">
+          Every decision event is cryptographically chained to its predecessor using SHA-256 hashing. Any modification —
+          even a single character — breaks the chain and is immediately detectable. The chain is linear, rooted at a
+          genesis
+          block, and enforced by database-level unique constraints on each link.
         </p>
       </div>
 
@@ -53,11 +53,21 @@
       </div>
 
       <div>
-        <h3 class="text-xl text-white font-orbitron mb-3">Access Control Philosophy</h3>
-        <p class="text-gray-400 text-sm">
-          Write-only protection for sensitive fields: the service cannot decrypt stored PII. Two authentication modes
-          are supported: demo API keys for sandbox exploration, and Firebase Bearer tokens for production accounts.
-          PDF generation and data access are ownership-verified — you can only retrieve records you created.
+        <h3 class="text-xl text-white font-orbitron mb-4">Access Control</h3>
+        <p class="text-gray-400 leading-relaxed">
+          Multiple authentication modes are supported, including customer API keys, Firebase-verified bearer tokens,
+          and scoped demo keys. Admin operations require elevated credentials. Feature access is gated by
+          subscription tier through the entitlement system.
+        </p>
+      </div>
+
+      <div>
+        <h3 class="text-xl text-white font-orbitron mb-4">Crypto-Shredding</h3>
+        <p class="text-gray-400 leading-relaxed">
+          Obrioxia reconciles immutable audit logs with data-erasure obligations through cryptographic key destruction.
+          When a subject exercises their Right to Erasure, the wrapped per-event encryption key is permanently deleted
+          from the key store. The encrypted data remains in the ledger but becomes irrecoverable. Chain verification
+          continues to pass because the hash chain does not depend on the encryption key material.
         </p>
       </div>
 
