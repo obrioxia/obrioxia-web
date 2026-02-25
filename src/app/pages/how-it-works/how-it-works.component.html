@@ -4,8 +4,8 @@
     <div class="text-center mb-16">
       <h1 class="text-4xl text-white font-orbitron mb-4">How It <span class="text-obrioxia-cyan">Works</span></h1>
       <p class="text-gray-400 text-lg max-w-2xl mx-auto">
-        Think of Obrioxia as a forensic flight recorder for your AI fleet. It creates a tamper-evident record of every
-        decision — the "digital alibi" you need when liability is in question.
+        Obrioxia creates a tamper-evident, cryptographically sealed record of every AI decision — the evidence
+        layer you need when regulatory obligations or liability are in question.
       </p>
     </div>
 
@@ -37,8 +37,9 @@
             <h2 class="text-2xl text-white font-orbitron mb-2">Ingest</h2>
             <p class="text-gray-400 leading-relaxed">
               Your AI sends decision events to the Obrioxia API — inputs, outputs, confidence scores, and metadata.
-              Sensitive fields are sealed on arrival with write-only protection so the production system can never
-              read them back.
+              Sensitive fields are sealed at ingestion with a per-event AES-256-GCM key, wrapped under an RSA public
+              key.
+              The production server holds only the public key and cannot reverse the encryption.
             </p>
           </div>
         </div>
@@ -53,9 +54,9 @@
           <div>
             <h2 class="text-2xl text-white font-orbitron mb-2">Seal</h2>
             <p class="text-gray-400 leading-relaxed">
-              Each record is cryptographically locked to the one before it, creating an unbroken chain.
+              Each record is cryptographically locked to the one before it, creating a tamper-evident chain.
               If anyone modifies or deletes a past record, the mathematical link breaks — and the Verifier
-              will flag it instantly.
+              will detect it on verification.
             </p>
           </div>
         </div>

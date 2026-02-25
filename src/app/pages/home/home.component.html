@@ -5,19 +5,19 @@
       <div
         class="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-white/10 bg-white/5 text-xs font-medium text-gray-300 mb-6 tracking-wide backdrop-blur-sm">
         <span class="w-1.5 h-1.5 rounded-full bg-white opacity-80"></span>
-        Forensic Flight Recorder
+        Evidence Infrastructure
       </div>
 
       <h1
         class="text-[36px] md:text-[56px] font-medium leading-[1.28] mb-6 bg-clip-text text-transparent bg-gradient-to-b from-white to-white/70">
-        The Forensic Flight Recorder for <span
-          class="bg-clip-text text-transparent bg-gradient-to-r from-obrioxia-cyan to-obrioxia-cyan/70">Enterprise
-          AI.</span>
+        Regulatory-Grade Evidence Infrastructure for <span
+          class="bg-clip-text text-transparent bg-gradient-to-r from-obrioxia-cyan to-obrioxia-cyan/70">AI
+          Decisions.</span>
       </h1>
 
       <p class="text-white/70 text-[15px] font-normal max-w-[680px] mx-auto mb-10 text-center">
-        Support Article 12 record-keeping with auditable traceability. Obrioxia provides a tamper-evident, hash-chained
-        audit ledger that helps evidence what was recorded, when it was recorded, and how it changed.
+        Tamper-evident decision records. Cryptographically sealed on ingestion. Designed for high-risk and regulated
+        AI deployments.
       </p>
 
       <div class="flex flex-col sm:flex-row justify-center gap-4 w-full max-w-sm sm:max-w-none mx-auto">
@@ -51,8 +51,9 @@
           1</div>
         <h3 class="text-xl text-white font-orbitron mb-3 text-center">Ingest</h3>
         <p class="text-gray-400 text-sm text-center">
-          Your AI sends decision events to the Obrioxia API. Sensitive fields are sealed on arrival — the
-          production system can never read them back.
+          Your AI sends decision events to the Obrioxia API. Sensitive fields are sealed at ingestion
+          with per-event AES-256-GCM encryption — the production service holds only the public key
+          and cannot read them back.
         </p>
       </div>
 
@@ -62,8 +63,8 @@
           2</div>
         <h3 class="text-xl text-white font-orbitron mb-3 text-center">Seal</h3>
         <p class="text-gray-400 text-sm text-center">
-          Each record is cryptographically locked to the one before it, creating an unbreakable chain.
-          Any modification — even a single character — is instantly detectable.
+          Each record is cryptographically locked to the one before it, creating a tamper-evident chain.
+          Any modification — even a single character — is detectable on verification.
         </p>
       </div>
 
@@ -119,8 +120,9 @@
         </div>
         <h3 class="text-xl text-white font-orbitron mb-4">Privacy-Aware Immutability</h3>
         <p class="text-gray-400 leading-relaxed">
-          Security meets GDPR. Our write-only architecture protects the integrity of the chain while allowing for the
-          irreversible crypto-shredding of PII. Respond to Right to Erasure requests without breaking your audit trail.
+          Our write-only architecture protects the integrity of the chain while ensuring the production service
+          can never access sealed PII. Respond to Right to Erasure requests by destroying the per-event key —
+          the chain remains intact and continues to verify.
         </p>
       </div>
     </div>

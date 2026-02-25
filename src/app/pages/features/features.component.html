@@ -3,15 +3,15 @@
 
     <div class="text-center mb-16">
       <h1 class="text-4xl text-white font-orbitron mb-4">Platform <span class="text-obrioxia-cyan">Features</span></h1>
-      <p class="text-gray-400">Enterprise-grade controls for the AI age.</p>
+      <p class="text-gray-400">Evidence infrastructure for regulated AI deployments.</p>
     </div>
 
     <div class="space-y-12">
 
       <div class="glass-panel p-8 rounded-xl border border-white/10">
-        <h2 class="text-2xl text-white font-orbitron mb-4">Tamper-Evident Decision Ledger</h2>
-        <p class="text-gray-400 mb-6 max-w-3xl">A tamper-evident, append-only database that serves as the single source
-          of truth for your AI operations.</p>
+        <h2 class="text-2xl text-white font-orbitron mb-4">Tamper-Evident Evidence Ledger</h2>
+        <p class="text-gray-400 mb-6 max-w-3xl">An append-only, cryptographically chained record of every AI decision.
+          The authoritative evidence layer for regulatory defensibility.</p>
         <ul class="space-y-3">
           <li class="flex items-start text-gray-300">
             <span class="text-obrioxia-cyan mr-2">►</span>
@@ -61,9 +61,10 @@
       </div>
 
       <div class="glass-panel p-8 rounded-xl border border-white/10">
-        <h2 class="text-2xl text-white font-orbitron mb-4">Forensic Audit Certificates</h2>
+        <h2 class="text-2xl text-white font-orbitron mb-4">Evidence Certificates</h2>
         <p class="text-gray-400 mb-6 max-w-3xl">Downloadable proof containing the cryptographic receipt and a
-          human-readable summary — ready for regulators and auditors.</p>
+          human-readable summary of non-sensitive fields — ready for regulators and auditors. Encrypted PII fields
+          are not rendered in the certificate.</p>
         <ul class="space-y-3">
           <li class="flex items-start text-gray-300">
             <span class="text-obrioxia-cyan mr-2">►</span>
@@ -85,21 +86,42 @@
       </div>
 
       <div class="glass-panel p-8 rounded-xl border border-white/10">
-        <h2 class="text-2xl text-white font-orbitron mb-4">Privacy-Aware Immutability (Crypto-Shredding)</h2>
-        <p class="text-gray-400 mb-6 max-w-3xl">Our write-only architecture allows you to remove access to sensitive
-          user data to support GDPR Article 17 obligations, without breaking the hash chain that records the event.</p>
+        <h2 class="text-2xl text-white font-orbitron mb-4">Crypto-Shredding (Right to Erasure)</h2>
+        <p class="text-gray-400 mb-6 max-w-3xl">Permanently revoke access to sealed PII by destroying the per-event
+          encryption key. The evidence chain remains intact and continues to verify.</p>
         <ul class="space-y-3">
           <li class="flex items-start text-gray-300">
             <span class="text-red-500 mr-2">►</span>
-            Sensitive data is sealed with write-only protection before it enters the chain.
+            PII fields are sealed at ingestion with a unique per-event AES-256-GCM key, wrapped under an RSA public key
+            the production server cannot reverse.
           </li>
           <li class="flex items-start text-gray-300">
             <span class="text-red-500 mr-2">►</span>
-            Shredding destroys access permanently — no backdoor, no recovery.
+            Shredding nulls the wrapped DEK on the record. The ciphertext remains but access is permanently severed.
           </li>
           <li class="flex items-start text-gray-300">
             <span class="text-red-500 mr-2">►</span>
             The audit metadata remains intact, proving the event occurred while respecting privacy.
+          </li>
+        </ul>
+      </div>
+
+      <div class="glass-panel p-8 rounded-xl border border-white/10">
+        <h2 class="text-2xl text-white font-orbitron mb-4">Evidence Retention Enforcement</h2>
+        <p class="text-gray-400 mb-6 max-w-3xl">Retention periods are enforced through irreversible key destruction,
+          preserving the integrity of the audit chain while ensuring expired data cannot be reconstructed.</p>
+        <ul class="space-y-3">
+          <li class="flex items-start text-gray-300">
+            <span class="text-obrioxia-cyan mr-2">►</span>
+            Retention windows are derived from the active subscription plan.
+          </li>
+          <li class="flex items-start text-gray-300">
+            <span class="text-obrioxia-cyan mr-2">►</span>
+            Expired records undergo cryptographic key destruction — the same mechanism used for erasure requests.
+          </li>
+          <li class="flex items-start text-gray-300">
+            <span class="text-obrioxia-cyan mr-2">►</span>
+            The tamper-evident chain remains intact after expiry. Verification continues to pass.
           </li>
         </ul>
       </div>

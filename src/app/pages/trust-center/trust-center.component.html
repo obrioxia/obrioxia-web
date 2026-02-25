@@ -3,7 +3,7 @@
 
     <div class="text-center mb-16">
       <h1 class="text-4xl text-white font-orbitron mb-4">Trust <span class="text-obrioxia-cyan">Center</span></h1>
-      <p class="text-gray-400 text-lg">We secure the record of what your AI did.</p>
+      <p class="text-gray-400 text-lg">Regulatory-grade evidence infrastructure for AI decision records.</p>
     </div>
 
     <div class="glass-panel p-8 rounded-xl border border-white/10 mb-12">
@@ -18,10 +18,10 @@
       <div>
         <h3 class="text-xl text-white font-orbitron mb-3">Encryption Standards</h3>
         <p class="text-gray-400 text-sm">
-          We utilise TLS 1.3 for all data in transit. Data at rest is protected using envelope
-          encryption with industry-standard authenticated ciphers. When configured in write-only mode, our
-          crypto-shredding engine uses per-event sealing to ensure the production service can encrypt data but never
-          decrypt historical records.
+          All data in transit is protected with TLS 1.3. Data at rest is protected using per-event
+          envelope encryption: AES-256-GCM with a unique Data Encryption Key (DEK) per record,
+          wrapped with RSA-OAEP using the writer's public key. The production service holds only the
+          public key — it can seal records but never decrypt historical data.
         </p>
       </div>
 
@@ -30,8 +30,7 @@
         <p class="text-gray-400 leading-relaxed">
           Every decision event is cryptographically chained to its predecessor using SHA-256 hashing. Any modification —
           even a single character — breaks the chain and is immediately detectable. The chain is linear, rooted at a
-          genesis
-          block, and enforced by database-level unique constraints on each link.
+          genesis block, with uniqueness enforced via indexed constraints on each link.
         </p>
       </div>
 
@@ -66,9 +65,19 @@
         <h3 class="text-xl text-white font-orbitron mb-4">Crypto-Shredding</h3>
         <p class="text-gray-400 leading-relaxed">
           Obrioxia reconciles immutable audit logs with data-erasure obligations through cryptographic key destruction.
-          When a subject exercises their Right to Erasure, the wrapped per-event encryption key is permanently deleted
-          from the key store. The encrypted data remains in the ledger but becomes irrecoverable. Chain verification
-          continues to pass because the hash chain does not depend on the encryption key material.
+          When a subject exercises their Right to Erasure, the per-event DEK wrapped on the record
+          is permanently nulled. The encrypted data remains in the ledger but becomes cryptographically irrecoverable.
+          Chain verification continues to pass because the hash computation explicitly excludes key material.
+        </p>
+      </div>
+
+      <div>
+        <h3 class="text-xl text-white font-orbitron mb-4">Retention Enforcement</h3>
+        <p class="text-gray-400 leading-relaxed">
+          Retention periods are enforced cryptographically according to the active subscription plan.
+          When a record exceeds its retention window, the wrapped encryption key associated with that record is
+          permanently destroyed. Encrypted data remains part of the tamper-evident chain, but becomes mathematically
+          irrecoverable. Retention is enforced at the evidence layer, not merely defined in policy.
         </p>
       </div>
 
@@ -85,7 +94,7 @@
 
     <div class="border-t border-white/10 pt-8 text-center">
       <p class="text-gray-500 text-sm font-orbitron">
-        COMPLIANCE: ISO/IEC 42001 ALIGNED | SOC 2 TYPE II: PLANNED
+        SOC 2 TYPE II: PLANNED
       </p>
     </div>
 
