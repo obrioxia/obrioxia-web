@@ -47,3 +47,9 @@ src/environments/environment.ts
 src/environments/environment.prod.ts
 src/environments/environment.development.ts
 .wrangler/
+
+# NotebookLM packs are local artifacts only
+docs_v2/notebooklm_pack/
+notebooklm_pack/
+notebooklm_packs/
+tmp_notebooklm_packs/
