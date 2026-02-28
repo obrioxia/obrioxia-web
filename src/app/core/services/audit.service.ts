@@ -57,4 +57,12 @@ export class AuditService {
       responseType: 'blob'
     });
   }
+
+  /**
+   * Fetches the export bundle for client-side decryption.
+   * Auth interceptor attaches Bearer token automatically.
+   */
+  exportBundle(decisionId: string): Observable<any> {
+    return this.http.get(`${this.apiUrl}/incidents/${decisionId}/export`);
+  }
 }

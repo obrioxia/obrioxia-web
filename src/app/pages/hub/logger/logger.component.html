@@ -93,15 +93,119 @@
           </div>
         </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
           <button (click)="downloadJson()"
             class="py-3 px-4 bg-white/5 border border-white/20 text-white font-orbitron text-sm rounded hover:bg-white/10 transition-colors flex items-center justify-center gap-2">
-            DOWNLOAD JSON EVIDENCE
+            DOWNLOAD JSON
           </button>
           <button (click)="downloadPdf()"
             class="py-3 px-4 bg-obrioxia-cyan/10 border border-obrioxia-cyan text-obrioxia-cyan font-orbitron text-sm rounded hover:bg-obrioxia-cyan hover:text-black transition-colors flex items-center justify-center gap-2">
-            DOWNLOAD PDF PACK
+            DOWNLOAD PDF
           </button>
+          <button (click)="downloadExportBundle()" [disabled]="exportLoading()"
+            class="py-3 px-4 bg-purple-500/10 border border-purple-500/50 text-purple-300 font-orbitron text-sm rounded hover:bg-purple-500/20 transition-colors flex items-center justify-center gap-2 disabled:opacity-50">
+            {{ exportLoading() ? 'FETCHING...' : 'EXPORT BUNDLE' }}
+          </button>
+        </div>
+
+        <!-- Export error banner -->
+        <div *ngIf="exportError() as err"
+          class="p-3 bg-red-900/30 border border-red-500/30 rounded-lg flex justify-between items-center">
+          <span class="text-red-300 text-sm">{{ err }}</span>
+          <button (click)="exportError.set(null)" class="text-red-400 hover:text-white text-xs ml-4">DISMISS</button>
+        </div>
+
+        <!-- Verification display (only shown when export bundle is loaded) -->
+        <div *ngIf="exportBundle() as bundle" class="p-5 bg-white/5 border border-white/10 rounded-xl space-y-3">
+          <h4 class="text-sm font-orbitron text-gray-400 tracking-wider">BUNDLE VERIFICATION</h4>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs font-mono">
+            <div class="flex items-center gap-2">
+              <span class="w-2 h-2 rounded-full" [class]="bundle.is_shredded ? 'bg-yellow-500' : 'bg-green-500'"></span>
+              <span class="text-gray-400">SHREDDED:</span>
+              <span [class]="bundle.is_shredded ? 'text-yellow-300' : 'text-green-300'">{{ bundle.is_shredded ? 'YES' :
+                'NO' }}</span>
+            </div>
+            <div class="flex items-center gap-2">
+              <span class="w-2 h-2 rounded-full bg-obrioxia-cyan"></span>
+              <span class="text-gray-400">KEY EPOCH:</span>
+              <span class="text-obrioxia-cyan">{{ bundle.key_epoch }}</span>
+            </div>
+            <div *ngIf="bundle.signature?.client_signature_status" class="flex items-center gap-2">
+              <span class="w-2 h-2 rounded-full"
+                [class]="bundle.signature.client_signature_status === 'verified' ? 'bg-green-500' : 'bg-yellow-500'"></span>
+              <span class="text-gray-400">SIGNATURE:</span>
+              <span class="text-gray-200">{{ bundle.signature.client_signature_status }}</span>
+            </div>
+            <div *ngIf="bundle.entry_hash" class="flex items-center gap-2 col-span-full">
+              <span class="w-2 h-2 rounded-full bg-green-500"></span>
+              <span class="text-gray-400">ENTRY HASH:</span>
+              <span class="text-gray-300 break-all">{{ bundle.entry_hash }}</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Collapsible decryption helper panel -->
+        <div class="border border-white/10 rounded-xl overflow-hidden">
+          <button (click)="decryptPanelOpen.set(!decryptPanelOpen())"
+            class="w-full px-5 py-4 flex justify-between items-center bg-white/5 hover:bg-white/10 transition-colors">
+            <span class="text-sm font-orbitron text-gray-300">Decrypt locally (Node, no Python)</span>
+            <span class="text-gray-500 text-xs">{{ decryptPanelOpen() ? '[-]' : '[+]' }}</span>
+          </button>
+
+          <div *ngIf="decryptPanelOpen()" class="p-5 space-y-5 bg-black/20">
+
+            <div>
+              <p class="text-xs font-orbitron text-gray-500 mb-2">STEP 1 — SAVE THE EXPORT JSON</p>
+              <p class="text-sm text-gray-400">Click <strong class="text-purple-300">EXPORT BUNDLE</strong> above to
+                download the encrypted bundle JSON.</p>
+            </div>
+
+            <div>
+              <p class="text-xs font-orbitron text-gray-500 mb-2">STEP 2 — DECRYPT VIA CLI</p>
+              <div class="relative">
+                <pre
+                  class="bg-black/50 border border-white/10 rounded p-3 text-xs text-obrioxia-cyan font-mono overflow-x-auto">node scripts/decrypt_bundle.mjs --bundle export.json --private-key private.pem</pre>
+                <button
+                  (click)="copyToClipboard('node scripts/decrypt_bundle.mjs --bundle export.json --private-key private.pem', 'cli')"
+                  class="absolute top-2 right-2 text-xs text-gray-500 hover:text-white px-2 py-1 bg-white/10 rounded">
+                  {{ copiedField() === 'cli' ? 'COPIED' : 'COPY' }}
+                </button>
+              </div>
+              <p class="text-gray-500 text-xs mt-1">Requires Node 18+. Exit code 0 = decrypted, 2 = nothing decryptable.
+              </p>
+            </div>
+
+            <div>
+              <p class="text-xs font-orbitron text-gray-500 mb-2">STEP 3 — OR USE THE SDK</p>
+              <div class="relative">
+                <pre
+                  class="bg-black/50 border border-white/10 rounded p-3 text-xs text-obrioxia-cyan font-mono overflow-x-auto whitespace-pre">import &#123; readFileSync &#125; from 'node:fs';
+import &#123; decryptExportBundle &#125; from '@obrioxia/client-decryptor';
+
+const result = await decryptExportBundle(&#123;
+  privateKeyPem: readFileSync('private.pem', 'utf-8'),
+  bundleJson: JSON.parse(readFileSync('export.json', 'utf-8')),
+&#125;);
+
+console.log(result.decrypted_fields);
+console.log(result.undecryptable_fields);</pre>
+                <button (click)="copyToClipboard(sdkSnippet, 'sdk')"
+                  class="absolute top-2 right-2 text-xs text-gray-500 hover:text-white px-2 py-1 bg-white/10 rounded">
+                  {{ copiedField() === 'sdk' ? 'COPIED' : 'COPY' }}
+                </button>
+              </div>
+              <p class="text-gray-500 text-xs mt-2">Use repo-local SDK in <code
+                  class="text-obrioxia-cyan">client_sdk/node</code> if not published to npm. Zero dependencies, Node
+                18+.</p>
+            </div>
+
+            <div class="pt-3 border-t border-white/10">
+              <p class="text-xs text-gray-500">Output fields: <code class="text-gray-400">decrypted_fields</code>, <code
+                  class="text-gray-400">undecryptable_fields</code>, <code
+                  class="text-gray-400">bundle_fingerprint</code> (SHA-256), <code class="text-gray-400">metadata</code>
+                (decision_id, key_epoch).</p>
+            </div>
+          </div>
         </div>
 
         <button (click)="resetForm()" class="w-full mt-4 text-gray-500 text-xs hover:text-white transition-colors">
