@@ -35,28 +35,32 @@
 
       <div
         class="glass-panel p-8 rounded-xl border border-white/10 hover:border-obrioxia-cyan/30 transition-all flex flex-col">
-        <h3 class="text-xl text-white font-orbitron mb-2">Growth Pro 1</h3>
-        <div class="text-3xl text-obrioxia-cyan font-orbitron mb-4">£500<span class="text-sm text-gray-400">/mo</span>
+        <h3 class="text-xl text-white font-orbitron mb-2">Infrastructure</h3>
+        <div class="text-3xl text-obrioxia-cyan font-orbitron mb-4">£1,500<span class="text-sm text-gray-400">/mo</span>
         </div>
-        <p class="text-gray-400 text-sm mb-6 min-h-[4rem]">Essential forensic logging for early-stage production agents.
-          Verify
-          decisions and build trust with your first users.</p>
+        <p class="text-gray-400 text-sm mb-6 min-h-[4rem]">Hash-chained, encrypted forensic logging for production
+          agents.
+          Anchors generated hourly. Signed intake receipts on every event.</p>
 
         <div class="space-y-3 mb-8 flex-grow">
           <div class="flex items-center text-gray-300 text-sm"><span class="text-obrioxia-cyan mr-3">✓</span>
-            <strong>100,000</strong>&nbsp;Events / Mo
+            <strong>500,000</strong>&nbsp;Events / Mo
           </div>
           <div class="flex items-center text-gray-300 text-sm"><span class="text-obrioxia-cyan mr-3">✓</span>
-            3-Month Retention</div>
+            365-Day Retention</div>
           <div class="flex items-center text-gray-300 text-sm"><span class="text-obrioxia-cyan mr-3">✓</span>
-            Full Crypto-Shredding</div>
+            Hash Chain + Per-Event Encryption</div>
+          <div class="flex items-center text-gray-300 text-sm"><span class="text-obrioxia-cyan mr-3">✓</span>
+            Hourly Anchoring (LOCAL_PEM Signing)</div>
+          <div class="flex items-center text-gray-300 text-sm"><span class="text-obrioxia-cyan mr-3">✓</span>
+            Signed Intake Receipts</div>
           <div class="flex items-center text-gray-300 text-sm"><span class="text-obrioxia-cyan mr-3">✓</span>
             PDF Evidence Packs</div>
         </div>
 
-        <button (click)="buyGrowth('growth_1')" [disabled]="checkoutLoading"
+        <button (click)="buyGrowth('infrastructure')" [disabled]="checkoutLoading"
           class="w-full py-3 mt-auto border border-obrioxia-cyan text-obrioxia-cyan font-orbitron text-sm rounded hover:bg-obrioxia-cyan hover:text-black transition-all disabled:opacity-50 disabled:cursor-wait">
-          {{ checkoutLoading ? 'CONNECTING...' : 'Upgrade to Pro 1' }}
+          {{ checkoutLoading ? 'CONNECTING...' : 'Upgrade to Infrastructure' }}
         </button>
       </div>
 
@@ -64,59 +68,77 @@
         class="glass-panel p-8 rounded-xl border border-obrioxia-cyan shadow-[0_0_20px_rgba(0,255,255,0.1)] flex flex-col relative bg-gray-900/40">
         <div
           class="absolute -top-3 left-1/2 -translate-x-1/2 bg-obrioxia-cyan text-black text-xs font-bold px-3 py-1 rounded-full font-orbitron tracking-wider">
-          MOST POPULAR</div>
-        <h3 class="text-xl text-white font-orbitron mb-2">Growth Pro 2</h3>
-        <div class="text-3xl text-obrioxia-cyan font-orbitron mb-4">£1,000<span class="text-sm text-gray-400">/mo</span>
+          RECOMMENDED</div>
+        <h3 class="text-xl text-white font-orbitron mb-2">Compliance Ledger</h3>
+        <div class="text-3xl text-obrioxia-cyan font-orbitron mb-4">£3,500<span class="text-sm text-gray-400">/mo</span>
         </div>
-        <p class="text-gray-400 text-sm mb-6 min-h-[4rem]">Expanded capacity for scaling applications. 6-month retention
-          allows
-          for robust incident and trend analysis.</p>
-
-        <div class="space-y-3 mb-8 flex-grow">
-          <div class="flex items-center text-gray-300 text-sm"><span class="text-obrioxia-cyan mr-3">✓</span>
-            <strong>500,000</strong>&nbsp;Events / Mo
-          </div>
-          <div class="flex items-center text-gray-300 text-sm"><span class="text-obrioxia-cyan mr-3">✓</span>
-            6-Month Retention</div>
-          <div class="flex items-center text-gray-300 text-sm"><span class="text-obrioxia-cyan mr-3">✓</span>
-            Everything in Pro 1</div>
-          <div class="flex items-center text-gray-300 text-sm"><span class="text-obrioxia-cyan mr-3">✓</span>
-            Priority Support</div>
-        </div>
-
-        <button (click)="buyGrowth('growth_2')" [disabled]="checkoutLoading"
-          class="w-full py-3 mt-auto bg-obrioxia-cyan text-black font-bold font-orbitron text-sm rounded hover:bg-obrioxia-cyan/90 transition-all shadow-lg shadow-obrioxia-cyan/20 disabled:opacity-50 disabled:cursor-wait">
-          {{ checkoutLoading ? 'CONNECTING...' : 'Upgrade to Pro 2' }}
-        </button>
-      </div>
-
-      <div
-        class="glass-panel p-8 rounded-xl border border-white/10 hover:border-obrioxia-cyan/30 transition-all flex flex-col">
-        <h3 class="text-xl text-white font-orbitron mb-2">Growth Pro 3</h3>
-        <div class="text-3xl text-obrioxia-cyan font-orbitron mb-4">£1,500<span class="text-sm text-gray-400">/mo</span>
-        </div>
-        <p class="text-gray-400 text-sm mb-6 min-h-[4rem]">Maximum volume and retention for mission-critical AI. 1-year
-          history
-          ensures readiness for annual compliance audits.</p>
+        <p class="text-gray-400 text-sm mb-6 min-h-[4rem]">Full crypto core plus crypto-shredding, external publication
+          (optional, when configured), and operational alerting. 3-year retention.</p>
 
         <div class="space-y-3 mb-8 flex-grow">
           <div class="flex items-center text-gray-300 text-sm"><span class="text-obrioxia-cyan mr-3">✓</span>
             <strong>1,000,000</strong>&nbsp;Events / Mo
           </div>
           <div class="flex items-center text-gray-300 text-sm"><span class="text-obrioxia-cyan mr-3">✓</span>
-            1-Year Retention</div>
+            3-Year Retention</div>
           <div class="flex items-center text-gray-300 text-sm"><span class="text-obrioxia-cyan mr-3">✓</span>
-            Everything in Pro 2</div>
+            Full Crypto-Shredding</div>
           <div class="flex items-center text-gray-300 text-sm"><span class="text-obrioxia-cyan mr-3">✓</span>
-            Dedicated Success Mgr</div>
+            External Publication — Single Destination (optional)</div>
+          <div class="flex items-center text-gray-300 text-sm"><span class="text-obrioxia-cyan mr-3">✓</span>
+            Operational Alert Webhooks</div>
+          <div class="flex items-center text-gray-300 text-sm"><span class="text-obrioxia-cyan mr-3">✓</span>
+            Analytics Dashboard</div>
         </div>
 
-        <button (click)="buyGrowth('growth_3')" [disabled]="checkoutLoading"
-          class="w-full py-3 mt-auto border border-white/20 text-white font-orbitron text-sm rounded hover:bg-white/10 transition-all disabled:opacity-50 disabled:cursor-wait">
-          {{ checkoutLoading ? 'CONNECTING...' : 'Upgrade to Pro 3' }}
+        <button (click)="buyGrowth('compliance')" [disabled]="checkoutLoading"
+          class="w-full py-3 mt-auto bg-obrioxia-cyan text-black font-bold font-orbitron text-sm rounded hover:bg-obrioxia-cyan/90 transition-all shadow-lg shadow-obrioxia-cyan/20 disabled:opacity-50 disabled:cursor-wait">
+          {{ checkoutLoading ? 'CONNECTING...' : 'Upgrade to Compliance' }}
         </button>
       </div>
 
+      <div
+        class="glass-panel p-8 rounded-xl border border-white/10 hover:border-obrioxia-cyan/30 transition-all flex flex-col">
+        <h3 class="text-xl text-white font-orbitron mb-2">Institutional</h3>
+        <div class="text-3xl text-obrioxia-cyan font-orbitron mb-4">£8,500<span class="text-sm text-gray-400">/mo</span>
+        </div>
+        <p class="text-gray-400 text-sm mb-6 min-h-[4rem]">Full crypto core with KMS signing, dual-destination
+          publication,
+          RFC 3161 timestamping, and governance separation guidance. 7-year retention.</p>
+
+        <div class="space-y-3 mb-8 flex-grow">
+          <div class="flex items-center text-gray-300 text-sm"><span class="text-obrioxia-cyan mr-3">✓</span>
+            <strong>5,000,000</strong>&nbsp;Events / Mo
+          </div>
+          <div class="flex items-center text-gray-300 text-sm"><span class="text-obrioxia-cyan mr-3">✓</span>
+            Up to 7-Year Retention</div>
+          <div class="flex items-center text-gray-300 text-sm"><span class="text-obrioxia-cyan mr-3">✓</span>
+            KMS Signing (Customer-Managed HSM Key)</div>
+          <div class="flex items-center text-gray-300 text-sm"><span class="text-obrioxia-cyan mr-3">✓</span>
+            Dual-Destination Publication (optional)</div>
+          <div class="flex items-center text-gray-300 text-sm"><span class="text-obrioxia-cyan mr-3">✓</span>
+            RFC 3161 Timestamping</div>
+          <div class="flex items-center text-gray-300 text-sm"><span class="text-obrioxia-cyan mr-3">✓</span>
+            Dedicated Environment + Priority Support</div>
+        </div>
+
+        <button (click)="buyGrowth('institutional')" [disabled]="checkoutLoading"
+          class="w-full py-3 mt-auto border border-white/20 text-white font-orbitron text-sm rounded hover:bg-white/10 transition-all disabled:opacity-50 disabled:cursor-wait">
+          {{ checkoutLoading ? 'CONNECTING...' : 'Upgrade to Institutional' }}
+        </button>
+      </div>
+
+    </div>
+
+    <div class="max-w-4xl mx-auto mt-12 mb-16 p-6 rounded-xl border border-white/10 bg-white/5">
+      <h4 class="text-sm text-gray-400 font-orbitron mb-3 tracking-wider">LIMITATIONS</h4>
+      <div class="space-y-2 text-gray-500 text-xs">
+        <p>• Tamper-evident, not tamper-proof. Modifications are detectable; they are not prevented.</p>
+        <p>• Event completeness is not guaranteed. Events never submitted cannot be detected.</p>
+        <p>• An anchoring interval window exists. Events between anchors are in a vulnerability period.</p>
+        <p>• An operator with infrastructure access remains a residual risk without governance separation.</p>
+        <p>• No compliance certifications (SOC 2, ISO, GDPR) are claimed.</p>
+      </div>
     </div>
 
     <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
