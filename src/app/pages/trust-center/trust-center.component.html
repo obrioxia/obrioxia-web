@@ -81,7 +81,8 @@
             3161 TSA timestamping when <code class="text-obrioxia-cyan text-xs">TSA_URL</code> is configured.</li>
           <li class="flex items-start"><span
               class="text-obrioxia-cyan mr-2">►</span><strong>Optional:</strong>&nbsp;S3-compatible witness sink when
-            <code class="text-obrioxia-cyan text-xs">WITNESS_S3_ENABLED=1</code> is set.</li>
+            <code class="text-obrioxia-cyan text-xs">WITNESS_S3_ENABLED=1</code> is set.
+          </li>
         </ul>
         <p class="text-gray-500 text-xs mt-2 italic">See Technical Details</p>
       </div>
@@ -103,13 +104,15 @@
         </p>
         <ul class="text-gray-400 text-sm mt-2 space-y-1">
           <li class="flex items-start"><span class="text-obrioxia-cyan mr-2">►</span><code
-              class="text-obrioxia-cyan text-xs">POST /api/admin/checkpoints</code> — create a checkpoint over a range
+              class="text-obrioxia-cyan text-xs">POST /api/admin/checkpoints/create</code> — create a checkpoint over a
+            range
             of chain entries</li>
           <li class="flex items-start"><span class="text-obrioxia-cyan mr-2">►</span><code
               class="text-obrioxia-cyan text-xs">GET /api/admin/checkpoints/latest</code> — retrieve the latest
             checkpoint hash and metadata</li>
           <li class="flex items-start"><span class="text-obrioxia-cyan mr-2">►</span><code
-              class="text-obrioxia-cyan text-xs">GET /api/admin/witness/latest</code> — retrieve latest witness details
+              class="text-obrioxia-cyan text-xs">GET /api/admin/checkpoints/export-latest-witness</code> — retrieve
+            latest witness details
             and presigned URL (when S3 is enabled)</li>
         </ul>
         <p class="text-gray-500 text-xs mt-2 italic">See API Reference</p>

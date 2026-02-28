@@ -200,7 +200,7 @@
           <li class="flex items-start text-gray-300">
             <span class="text-obrioxia-cyan mr-2">►</span>
             <strong>Export Bundle</strong>&nbsp;— <code
-              class="text-obrioxia-cyan text-xs">GET /api/incidents/:id/export</code> returns
+              class="text-obrioxia-cyan text-xs">GET /api/incidents/{{ '{' }}identifier{{ '}' }}/export</code> returns
             encrypted fields, wrapped DEK, signature metadata, and key epoch. Everything needed for client-side
             decryption.
           </li>
