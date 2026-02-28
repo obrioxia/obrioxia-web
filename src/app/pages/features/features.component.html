@@ -39,7 +39,7 @@
         <ul class="space-y-3">
           <li class="flex items-start text-gray-300">
             <span class="text-obrioxia-green mr-2">►</span>
-            Zero-trust architecture: don't trust the database, verify the math.
+            Verification-first design: don't trust the database, verify the math.
           </li>
           <li class="flex items-start text-gray-300">
             <span class="text-obrioxia-green mr-2">►</span>
@@ -47,7 +47,8 @@
           </li>
           <li class="flex items-start text-gray-300">
             <span class="text-obrioxia-green mr-2">►</span>
-            Any modification — even a single byte — breaks the chain and is detected on verification.
+            Any modification — even a single byte — breaks the chain and is detected on verification (subject to the
+            anchoring interval).
           </li>
           <li class="flex items-start text-gray-300">
             <span class="text-obrioxia-green mr-2">►</span>
@@ -86,7 +87,7 @@
       </div>
 
       <div class="glass-panel p-8 rounded-xl border border-white/10">
-        <h2 class="text-2xl text-white font-orbitron mb-4">Crypto-Shredding (Right to Erasure)</h2>
+        <h2 class="text-2xl text-white font-orbitron mb-4">Crypto-Shredding (Per-Record Data Destruction)</h2>
         <p class="text-gray-400 mb-6 max-w-3xl">Permanently revoke access to sealed PII by destroying the per-event
           encryption key. The evidence chain remains intact and continues to verify.</p>
         <ul class="space-y-3">
@@ -123,13 +124,18 @@
             <span class="text-obrioxia-cyan mr-2">►</span>
             The tamper-evident chain remains intact after expiry. Verification continues to pass.
           </li>
+          <li class="flex items-start text-gray-300">
+            <span class="text-yellow-500 mr-2">►</span>
+            <strong>Note:</strong>&nbsp;The retention scheduler is OFF by default. Enable with <code
+              class="text-obrioxia-cyan text-xs">ENABLE_RETENTION_SCHEDULER=1</code>.
+          </li>
         </ul>
       </div>
 
       <div class="glass-panel p-8 rounded-xl border border-white/10">
         <h2 class="text-2xl text-white font-orbitron mb-4">Obrioxia Hub</h2>
         <p class="text-gray-400 mb-6 max-w-3xl">The central command center for managing your audit streams, verifying
-          chains, and executing GDPR erasure requests.</p>
+          chains, and executing crypto-shredding operations.</p>
         <ul class="space-y-3">
           <li class="flex items-start text-gray-300">
             <span class="text-obrioxia-cyan mr-2">►</span>
@@ -141,7 +147,7 @@
           </li>
           <li class="flex items-start text-gray-300">
             <span class="text-obrioxia-cyan mr-2">►</span>
-            GDPR Admin panel for authorized crypto-shredding actions.
+            Admin panel for authorized crypto-shredding actions.
           </li>
           <li class="flex items-start text-gray-300">
             <span class="text-obrioxia-cyan mr-2">►</span>
@@ -163,21 +169,97 @@
       </div>
 
       <div class="glass-panel p-8 rounded-xl border border-white/10">
-        <h2 class="text-2xl text-white font-orbitron mb-4">Integrations &amp; SDKs</h2>
-        <p class="text-gray-400 mb-6 max-w-3xl">Drop-in client libraries for your language of choice. Zero-config auth
-          handling, typed responses, and built-in timeout support.</p>
+        <h2 class="text-2xl text-white font-orbitron mb-4">Client Decryption SDK</h2>
+        <p class="text-gray-400 mb-6 max-w-3xl">Decrypt Obrioxia export bundles locally using your RSA private key.
+          The server never sees your private key.</p>
         <ul class="space-y-3">
           <li class="flex items-start text-gray-300">
             <span class="text-obrioxia-cyan mr-2">►</span>
-            <strong>Node.js / TypeScript</strong>&nbsp;— native fetch, zero dependencies, Node 18+.
+            <strong>Node.js / TypeScript</strong>&nbsp;— <code
+              class="text-obrioxia-cyan text-xs">&#64;obrioxia/client-decryptor</code>. Native crypto, zero
+            dependencies, Node 18+.
           </li>
           <li class="flex items-start text-gray-300">
             <span class="text-obrioxia-cyan mr-2">►</span>
-            <strong>Python</strong>&nbsp;— httpx-based, context-manager support.
+            <strong>CLI</strong>&nbsp;— <code class="text-obrioxia-cyan text-xs">node scripts/decrypt_bundle.mjs</code>
+            for scriptable decryption.
           </li>
           <li class="flex items-start text-gray-300">
             <span class="text-obrioxia-cyan mr-2">►</span>
-            Both SDKs support API key and Bearer-token auth, incident logging, chain verification, and health checks.
+            RSA-OAEP DEK unwrap + AES-256-GCM per-field decryption, with AAD binding to <code
+              class="text-obrioxia-cyan text-xs">decision_id::field_name</code>.
+          </li>
+        </ul>
+      </div>
+
+      <div class="glass-panel p-8 rounded-xl border border-white/10">
+        <h2 class="text-2xl text-white font-orbitron mb-4">Developer Tools</h2>
+        <p class="text-gray-400 mb-6 max-w-3xl">API endpoints for integration, key management, and forensic data export.
+        </p>
+        <ul class="space-y-3">
+          <li class="flex items-start text-gray-300">
+            <span class="text-obrioxia-cyan mr-2">►</span>
+            <strong>Export Bundle</strong>&nbsp;— <code
+              class="text-obrioxia-cyan text-xs">GET /api/incidents/:id/export</code> returns
+            encrypted fields, wrapped DEK, signature metadata, and key epoch. Everything needed for client-side
+            decryption.
+          </li>
+          <li class="flex items-start text-gray-300">
+            <span class="text-obrioxia-cyan mr-2">►</span>
+            <strong>Key Ceremony</strong>&nbsp;— Admin-only endpoints generate new RSA keypairs and store public keys in
+            the <code class="text-obrioxia-cyan text-xs">key_epochs</code> collection. Private keys are written to
+            local artifacts only. Does not auto-rotate the active encryptor.
+          </li>
+          <li class="flex items-start text-gray-300">
+            <span class="text-obrioxia-cyan mr-2">►</span>
+            <strong>API Key Management</strong>&nbsp;— Create, list, and revoke API keys.
+            Keys are SHA-256 hashed before storage.
+          </li>
+        </ul>
+      </div>
+
+      <div class="glass-panel p-8 rounded-xl border border-yellow-500/20">
+        <h2 class="text-2xl text-white font-orbitron mb-4">Reality vs Future <span
+            class="text-yellow-500 text-sm font-mono">[TRANSPARENCY]</span></h2>
+        <p class="text-gray-400 mb-6 max-w-3xl">The following capabilities are <strong>not currently
+            implemented</strong>.
+          We list them here so you know exactly what you are getting today.</p>
+        <ul class="space-y-3">
+          <li class="flex items-start text-gray-400">
+            <span class="text-gray-500 mr-2">—</span>
+            <strong>No Merkle tree.</strong>&nbsp;The audit chain is a linear linked list, not a tree structure.
+          </li>
+          <li class="flex items-start text-gray-400">
+            <span class="text-gray-500 mr-2">—</span>
+            <strong>No multi-region replication.</strong>&nbsp;Data lives on a single MongoDB instance.
+          </li>
+          <li class="flex items-start text-gray-400">
+            <span class="text-gray-500 mr-2">—</span>
+            <strong>No public transparency log.</strong>&nbsp;Checkpoint verification requires admin credentials.
+          </li>
+          <li class="flex items-start text-gray-400">
+            <span class="text-gray-500 mr-2">—</span>
+            <strong>No Python SDK.</strong>&nbsp;Only the Node.js client decryptor is available today.
+          </li>
+          <li class="flex items-start text-gray-400">
+            <span class="text-gray-500 mr-2">—</span>
+            <strong>No automatic key rotation.</strong>&nbsp;Key ceremony is a preparation tool; active encryptor
+            changeover is manual.
+          </li>
+          <li class="flex items-start text-gray-400">
+            <span class="text-gray-500 mr-2">—</span>
+            <strong>Retention scheduler is OFF by default.</strong>&nbsp;Requires <code
+              class="text-obrioxia-cyan text-xs">ENABLE_RETENTION_SCHEDULER=1</code>.
+          </li>
+          <li class="flex items-start text-gray-400">
+            <span class="text-gray-500 mr-2">—</span>
+            <strong>TSA timestamping is optional.</strong>&nbsp;Requires <code
+              class="text-obrioxia-cyan text-xs">TSA_URL</code> to be configured.
+          </li>
+          <li class="flex items-start text-gray-400">
+            <span class="text-gray-500 mr-2">—</span>
+            <strong>S3 witness sink is optional.</strong>&nbsp;Requires <code
+              class="text-obrioxia-cyan text-xs">WITNESS_S3_ENABLED=1</code> and bucket configuration.
           </li>
         </ul>
       </div>
