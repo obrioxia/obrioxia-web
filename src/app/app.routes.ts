@@ -18,6 +18,7 @@ import { OnboardingComponent } from './pages/hub/onboarding/onboarding.component
 import { HowItWorksComponent } from './pages/how-it-works/how-it-works.component';
 import { TrustCenterComponent } from './pages/trust-center/trust-center.component';
 import { TrustPackComponent } from './pages/trust-pack/trust-pack.component';
+import { RoboticsComponent } from './pages/robotics/robotics.component';
 import { StatusComponent } from './pages/status/status.component';
 import { EuAiActComponent } from './pages/compliance/eu-ai-act/eu-ai-act.component';
 import { Iso42001Component } from './pages/compliance/iso-42001/iso-42001.component';
@@ -46,6 +47,7 @@ export const routes: Routes = [
   { path: 'how-it-works', component: HowItWorksComponent },
   { path: 'trust-center', component: TrustCenterComponent },
   { path: 'trust-pack', component: TrustPackComponent },
+  { path: 'robotics', component: RoboticsComponent },
   { path: 'status', component: StatusComponent },
 
   // Compliance Pages
