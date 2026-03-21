@@ -1,0 +1,13 @@
+# https://obrioxia.com/robots.txt
+# Obrioxia — Tamper-Evident Audit Infrastructure
+
+User-agent: *
+Allow: /
+
+Disallow: /login
+Disallow: /hub
+Disallow: /hub/
+Disallow: /demo
+Disallow: /demo/
+Disallow: /demo-gate
+Disallow: /api/
