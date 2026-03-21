@@ -24,6 +24,7 @@ import { RouterLink } from '@angular/router';
           <ul class="space-y-4 text-sm text-gray-500">
             <li><a routerLink="/features" class="hover:text-obrioxia-cyan transition-colors">Features</a></li>
             <li><a routerLink="/robotics" class="hover:text-obrioxia-cyan transition-colors">Robotics</a></li>
+            <li><a routerLink="/drone-demo" class="hover:text-obrioxia-cyan transition-colors">Drone Demo</a></li>
             <li><a routerLink="/how-it-works" class="hover:text-obrioxia-cyan transition-colors">How It Works</a></li>
             <li><a routerLink="/pricing" class="hover:text-obrioxia-cyan transition-colors">Pricing</a></li>
             <li><a routerLink="/status" class="hover:text-obrioxia-cyan transition-colors">System Status</a></li>

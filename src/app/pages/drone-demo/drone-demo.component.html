@@ -1,0 +1,284 @@
+<div class="min-h-screen pt-28 pb-20 px-4">
+  <div class="max-w-3xl mx-auto">
+
+    <!-- ═══════════════════════════════════════════════════════════ -->
+    <!-- HERO                                                      -->
+    <!-- ═══════════════════════════════════════════════════════════ -->
+    <div class="text-center mb-14 flex flex-col items-center">
+      <div
+        class="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-white/10 bg-white/5 text-[11px] font-medium text-gray-400 mb-5 tracking-widest uppercase backdrop-blur-sm">
+        <span class="w-1.5 h-1.5 rounded-full bg-obrioxia-cyan opacity-60"></span>
+        Drone Accountability Demo
+      </div>
+
+      <h1
+        class="text-[32px] md:text-[46px] font-medium leading-[1.28] mb-4 bg-clip-text text-transparent bg-gradient-to-b from-white to-white/70">
+        Drone <span
+          class="bg-clip-text text-transparent bg-gradient-to-r from-obrioxia-cyan to-obrioxia-cyan/70">Accountability</span>
+        Demo
+      </h1>
+
+      <p class="text-white/50 text-sm max-w-[560px] mx-auto text-center">
+        Watch the accountability chain build step by step
+        as a constrained drone incident plays out through the Obrioxia engine.
+      </p>
+    </div>
+
+    <!-- ═══════════════════════════════════════════════════════════ -->
+    <!-- SCENARIO SELECTOR                                         -->
+    <!-- ═══════════════════════════════════════════════════════════ -->
+    <div class="mb-8">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
+        @for (scenario of scenarios; track scenario.id) {
+          <button
+            [id]="'scenario-btn-' + scenario.id"
+            (click)="selectScenario(scenario.id)"
+            [disabled]="running()"
+            class="glass-panel px-4 py-3 rounded-lg border text-left transition-all"
+            [ngClass]="{
+              'border-obrioxia-cyan/50 bg-obrioxia-cyan/[0.05]': selectedScenarioId() === scenario.id,
+              'border-white/10 hover:border-white/20': selectedScenarioId() !== scenario.id,
+              'opacity-40 cursor-not-allowed': running(),
+              'cursor-pointer': !running()
+            }">
+            <div class="flex items-center gap-2">
+              @if (scenario.id === 'gps-degradation') {
+                <span class="text-yellow-500 text-sm">&#9888;&#65039;</span>
+              } @else if (scenario.id === 'tampered-record') {
+                <span class="text-red-500 text-sm">&#10005;</span>
+              } @else {
+                <span class="text-red-500 text-sm">&#9676;</span>
+              }
+              <span class="text-white font-orbitron text-[11px]">{{ scenario.title }}</span>
+            </div>
+            <span class="text-gray-600 text-[10px] tracking-wider uppercase block mt-1 ml-6">{{ scenario.role }}</span>
+          </button>
+        }
+      </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════════════════════ -->
+    <!-- RUN / RESET                                               -->
+    <!-- ═══════════════════════════════════════════════════════════ -->
+    <div class="text-center mb-8">
+      @if (!completed()) {
+        <button id="run-demo-btn" (click)="runDemo()"
+          class="ob-btn-primary text-center"
+          [ngClass]="{ 'opacity-50 cursor-not-allowed': running() }">
+          @if (running()) {
+            <span class="inline-flex items-center gap-2">
+              <span class="w-3 h-3 border-2 border-white/30 border-t-white rounded-full animate-spin"></span>
+              Sealing events...
+            </span>
+          } @else {
+            &#9654; Run Demo
+          }
+        </button>
+      } @else {
+        <button (click)="reset()" class="ob-btn-secondary text-center">
+          &#8634; Run Again
+        </button>
+      }
+    </div>
+
+    <!-- ═══════════════════════════════════════════════════════════ -->
+    <!-- CHAIN CONTAINER                                           -->
+    <!-- The growing log — events append here one by one           -->
+    <!-- ═══════════════════════════════════════════════════════════ -->
+    @if (revealedCount() > 0 || showVerdict()) {
+      <div class="rounded-xl border border-white/10 bg-black/60 backdrop-blur-sm overflow-hidden mb-12">
+
+        <!-- Chain header -->
+        <div class="px-5 py-3 border-b border-white/10 flex items-center justify-between">
+          <div class="flex items-center gap-2">
+            <span class="w-2 h-2 rounded-full animate-pulse"
+              [ngClass]="running() ? 'bg-obrioxia-cyan' : completed() ? 'bg-obrioxia-green' : 'bg-gray-600'"></span>
+            <span class="font-orbitron text-[11px] tracking-widest uppercase"
+              [ngClass]="running() ? 'text-obrioxia-cyan' : completed() ? 'text-obrioxia-green' : 'text-gray-500'">
+              {{ running() ? 'SEALING CHAIN' : completed() ? 'CHAIN SEALED' : 'CHAIN' }}
+            </span>
+          </div>
+          <span class="font-mono text-[10px] text-gray-600">
+            {{ revealedCount() }}/{{ chain().length }} records
+          </span>
+        </div>
+
+        <!-- Event rows -->
+        <div class="divide-y divide-white/[0.04]">
+          @for (record of chain(); track $index; let i = $index) {
+            @if (i < revealedCount()) {
+              <div class="px-5 py-3 border-l-2 transition-all"
+                [ngClass]="[rowBorderClass(record), rowBgClass(record)]">
+
+                <!-- Event header line: number + icon + FAMILY -> event_type -->
+                <div class="flex items-center gap-2">
+                  <span class="font-mono text-[11px] text-gray-600 w-5 text-right select-none">{{ i + 1 }}.</span>
+                  <span class="text-sm">{{ familyIcon(record.event_family) }}</span>
+                  <span class="font-mono text-xs font-bold" [ngClass]="familyColor(record.event_family)">
+                    {{ record.event_family }}
+                  </span>
+                  <span class="font-mono text-xs text-gray-600 select-none">&rarr;</span>
+                  <span class="font-mono text-xs text-gray-400">{{ record.event_type }}</span>
+                </div>
+
+                <!-- Detail lines -->
+                @for (line of eventDetails(record); track $index) {
+                  <div class="mt-1 ml-[30px] text-xs leading-relaxed"
+                    [ngClass]="{
+                      'text-yellow-500/90 font-medium': record.event_family === 'LOSS_EVENT',
+                      'text-purple-400/90 font-medium': record.event_family === 'DECISION_EVENT',
+                      'text-red-400/90 font-medium': record._tampered || record._missing_evidence,
+                      'text-gray-500': record.event_family !== 'LOSS_EVENT' && record.event_family !== 'DECISION_EVENT' && !record._tampered && !record._missing_evidence
+                    }">
+                    {{ line }}
+                  </div>
+                }
+
+                <!-- Chain fingerprint — always visible, green mono -->
+                <div class="mt-1.5 ml-[30px] font-mono text-[11px] text-obrioxia-green/60">
+                  [{{ record.decision_id }}... hash:{{ record.entry_hash?.substring(0, 12) }}...]
+                </div>
+              </div>
+            }
+          }
+        </div>
+
+        <!-- ═══════════════════════════════════════════════════════ -->
+        <!-- VERIFICATION BLOCK (appended inside the chain panel)  -->
+        <!-- ═══════════════════════════════════════════════════════ -->
+        @if (showVerdict()) {
+          <div class="border-t-2 px-5 py-6"
+            [ngClass]="{
+              'border-t-obrioxia-green bg-obrioxia-green/[0.04]': verification()?.verdict === 'VALID' || verification()?.verdict === 'VALID_WITH_DECLARED_LOSS',
+              'border-t-red-500 bg-red-500/[0.04]': verification()?.verdict === 'INVALID'
+            }">
+
+            <div class="mb-4">
+              <span class="font-orbitron text-[11px] tracking-widest uppercase text-white">VERIFICATION RESULT</span>
+            </div>
+
+            <!-- Verdict banner -->
+            <div class="flex items-center gap-3 mb-5">
+              <div class="px-4 py-2 rounded font-orbitron text-sm font-bold tracking-wider"
+                [ngClass]="{
+                  'bg-obrioxia-green text-black': verification()?.verdict === 'VALID',
+                  'bg-yellow-500 text-black': verification()?.verdict === 'VALID_WITH_DECLARED_LOSS',
+                  'bg-red-500 text-white': verification()?.verdict === 'INVALID'
+                }">
+                @if (verification()?.verdict === 'VALID') {
+                  &#10003; {{ verdictLabel(verification()?.verdict) }}
+                } @else if (verification()?.verdict === 'VALID_WITH_DECLARED_LOSS') {
+                  &#9888; {{ verdictLabel(verification()?.verdict) }}
+                } @else {
+                  &#10005; {{ verdictLabel(verification()?.verdict) }}
+                }
+              </div>
+            </div>
+
+            <!-- Verification stats (terminal style) -->
+            <div class="font-mono text-[12px] space-y-1.5">
+              <div class="flex">
+                <span class="text-gray-500 w-[200px]">Chain integrity:</span>
+                <span [ngClass]="verification()?.chain_intact ? 'text-obrioxia-green' : 'text-red-500'">
+                  {{ verification()?.chain_intact ? '&#10003; INTACT' : '&#10005; BROKEN' }}
+                  ({{ verification()?.chain_length }} records)
+                </span>
+              </div>
+              <div class="flex">
+                <span class="text-gray-500 w-[200px]">Checkpoint digest:</span>
+                <span [ngClass]="verification()?.checkpoint_valid ? 'text-obrioxia-green' : 'text-red-500'">
+                  {{ verification()?.checkpoint_valid ? '&#10003; VERIFIED' : '&#10005; FAILED' }}
+                </span>
+              </div>
+              <div class="flex">
+                <span class="text-gray-500 w-[200px]">Sidecar signatures:</span>
+                <span class="text-gray-300">
+                  {{ verification()?.signatures_valid }}/{{ verification()?.signatures_checked }} verified
+                </span>
+              </div>
+              @if (verification()?.evidence_refs > 0) {
+                <div class="flex">
+                  <span class="text-gray-500 w-[200px]">Evidence completeness:</span>
+                  <span [ngClass]="verification()?.evidence_absent_undeclared > 0 ? 'text-red-500' : 'text-gray-300'">
+                    {{ verification()?.evidence_present }}/{{ verification()?.evidence_refs }} present
+                  </span>
+                </div>
+              }
+            </div>
+
+            <!-- Declared losses -->
+            @if (verification()?.loss_events?.length > 0) {
+              <div class="mt-5 pt-4 border-t border-white/10">
+                <span class="font-orbitron text-[10px] tracking-widest uppercase text-yellow-500">DECLARED LOSSES</span>
+                @for (loss of verification()?.loss_events; track $index) {
+                  <div class="mt-2 font-mono text-xs">
+                    <span class="text-yellow-500">&#9888;</span>
+                    <span class="text-gray-300 ml-2">{{ loss.event_type }} - {{ loss.sensor }}</span>
+                    <span class="text-gray-500 ml-2">({{ (loss.quality_before * 100).toFixed(0) }}% -> {{ (loss.quality_after * 100).toFixed(0) }}%)</span>
+                  </div>
+                }
+              </div>
+            }
+
+            <!-- Verifier notes -->
+            @if (verification()?.details?.length > 0) {
+              <div class="mt-5 pt-4 border-t border-white/10">
+                <span class="font-orbitron text-[10px] tracking-widest uppercase text-gray-500">VERIFIER NOTES</span>
+                @for (detail of verification()?.details; track $index) {
+                  <p class="font-mono text-[11px] text-gray-600 mt-1.5 leading-relaxed">&bull; {{ detail }}</p>
+                }
+              </div>
+            }
+
+            <!-- Plain meaning -->
+            <div class="mt-5 pt-4 border-t border-white/10">
+              <p class="text-gray-400 text-sm leading-relaxed">{{ verdictMeaning() }}</p>
+            </div>
+          </div>
+        }
+
+      </div><!-- end chain container -->
+    }
+
+    <!-- ═══════════════════════════════════════════════════════════ -->
+    <!-- SCOPE (always visible, compact)                           -->
+    <!-- ═══════════════════════════════════════════════════════════ -->
+    <div class="mb-16">
+      <div class="glass-panel px-5 py-4 rounded-xl border border-white/5 max-w-2xl mx-auto">
+        <div class="flex flex-wrap gap-x-6 gap-y-1 text-[11px] text-gray-600">
+          <span>&#10005; Not a drone control platform</span>
+          <span>&#10005; Not a telemetry dashboard</span>
+          <span>&#10005; Not a flight stack</span>
+          <span>&#10005; Same Obrioxia engine, one drone scenario</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════════════════════ -->
+    <!-- CTA                                                       -->
+    <!-- ═══════════════════════════════════════════════════════════ -->
+    <div class="text-center mb-10">
+      <p class="text-gray-500 text-sm mb-5">
+        Building autonomous systems that need post-event accountability?
+      </p>
+      <div class="flex flex-col sm:flex-row justify-center gap-3">
+        <a href="mailto:hello@obrioxia.com?subject=Drone%20Accountability%20Walkthrough"
+          class="ob-btn-primary text-center">
+          Request a Walkthrough
+        </a>
+        <a href="mailto:hello@obrioxia.com?subject=Explore%20Drone%20Pilot%20Collaboration"
+          class="ob-btn-secondary text-center">
+          Explore Pilot Collaboration
+        </a>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="mt-14 pt-5 border-t border-white/10 text-center">
+      <p class="text-gray-700 font-orbitron text-[10px] tracking-widest uppercase">
+        Obrioxia Immutable Systems &copy; 2025-2026 &middot; Patent pending.
+      </p>
+    </div>
+
+  </div>
+</div>
