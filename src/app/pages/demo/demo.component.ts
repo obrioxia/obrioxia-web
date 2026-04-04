@@ -113,7 +113,8 @@ export class DemoComponent implements OnInit {
   demoKey = '';
 
   ngOnInit() {
-    this.demoKey = localStorage.getItem('demo_key') || 'UNKNOWN';
+    const fullKey = localStorage.getItem('demo_key') || '';
+    this.demoKey = fullKey.length > 4 ? fullKey.substring(0, 4) + '****' : 'UNKNOWN';
   }
 
   logout() {

@@ -50,6 +50,34 @@ export class AuditService {
   }
 
   /**
+   * Demo-scoped shred: uses x-demo-key header instead of admin auth.
+   */
+  demoShred(identifier: string): Observable<any> {
+    const key = localStorage.getItem('demo_key') || '';
+    return this.http.post(`${this.apiUrl}/demo/shred/${encodeURIComponent(identifier)}`, {}, {
+      headers: { 'x-demo-key': key }
+    });
+  }
+
+  /**
+   * Demo-scoped lookup: finds a record by policyNumber, decision_id, or HMAC hash.
+   */
+  demoLookup(identifier: string): Observable<any> {
+    const key = localStorage.getItem('demo_key') || '';
+    return this.http.post(`${this.apiUrl}/demo/lookup/${encodeURIComponent(identifier)}`, {}, {
+      headers: { 'x-demo-key': key }
+    });
+  }
+
+  /**
+   * Admin-scoped lookup: uses Bearer token (attached by auth interceptor).
+   * Fetches the record export bundle for preview before shredding.
+   */
+  adminLookup(identifier: string): Observable<any> {
+    return this.http.get(`${this.apiUrl}/incidents/${encodeURIComponent(identifier)}/export`);
+  }
+
+  /**
    * Downloads the PDF evidence certificate from the ledger.
    */
   downloadPdfEvidence(receipt: any): Observable<Blob> {

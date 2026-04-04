@@ -38,7 +38,7 @@ import { RouterModule } from '@angular/router';
                     The Obrioxia API allows you to programmatically log AI decisions to a tamper-evident ledger. All requests are cryptographically signed and timestamped upon receipt.
                 </p>
                 <div class="p-4 bg-yellow-500/10 border border-yellow-500/20 rounded text-yellow-200 text-sm mb-8">
-                    <strong>Note:</strong> You must have a valid API Key from the dashboard to make requests.
+                    <strong>Pre-release:</strong> The API surface shown below reflects the current sandbox backend. Endpoint paths and auth requirements may change before general availability.
                 </div>
             </div>
 
@@ -46,24 +46,25 @@ import { RouterModule } from '@angular/router';
             <div class="mb-16">
                 <h2 class="font-orbitron text-2xl text-white mb-4 flex items-center">
                     <span class="bg-blue-500/20 text-blue-400 text-xs px-2 py-1 rounded mr-3 font-mono">POST</span>
-                    /v1/events/log
+                    /api/incidents
                 </h2>
-                <p class="text-gray-400 mb-6">Records a new decision event to the ledger. This operation is asynchronous; you will receive a <code class="text-obrioxia-cyan">receipt_id</code> immediately, but the hash verification happens in the background.</p>
+                <p class="text-gray-400 mb-6">Records a new decision event to the tamper-evident ledger. Returns a receipt with the current hash, previous hash, and timestamp.</p>
                 
                 <div class="bg-[#0d1117] rounded-xl border border-white/10 p-6 overflow-hidden">
                     <div class="flex justify-between items-center mb-4">
                         <span class="text-xs text-gray-500 font-mono">CURL REQUEST</span>
-                        <button class="text-xs text-obrioxia-cyan hover:text-white">COPY</button>
                     </div>
 <pre class="font-mono text-sm text-gray-300 overflow-x-auto">
-curl -X POST https://api.obrioxia.com/v1/events/log \\
-  -H "Authorization: Bearer YOUR_API_KEY" \\
+curl -X POST https://YOUR_BACKEND_URL/api/incidents \\
+  -H "Authorization: Bearer YOUR_FIREBASE_TOKEN" \\
   -H "Content-Type: application/json" \\
   -d '{{ '{' }}
-    "agent_id": "finance-bot-01",
-    "input": "Calculate mortgage risk for User 892",
-    "output": "Risk: High. Deny application.",
-    "metadata": {{ '{' }} "model": "gpt-4-turbo" {{ '}' }}
+    "policyNumber": "OBX-2025-001",
+    "incidentType": "Auto",
+    "claimAmount": 12500,
+    "decisionNotes": "Approved after manual review",
+    "aiConfidenceScore": 0.87,
+    "agentId": "claims-bot-01"
   {{ '}' }}'
 </pre>
                 </div>
@@ -72,17 +73,17 @@ curl -X POST https://api.obrioxia.com/v1/events/log \\
              <!-- ENDPOINT: VERIFY -->
             <div class="mb-16">
                 <h2 class="font-orbitron text-2xl text-white mb-4 flex items-center">
-                    <span class="bg-green-500/20 text-green-400 text-xs px-2 py-1 rounded mr-3 font-mono">GET</span>
-                    /v1/verify/:hash
+                    <span class="bg-green-500/20 text-green-400 text-xs px-2 py-1 rounded mr-3 font-mono">POST</span>
+                    /api/verify/
                 </h2>
-                <p class="text-gray-400 mb-6">Returns the Merkle proof for a specific transaction hash.</p>
+                <p class="text-gray-400 mb-6">Verifies a record hash against the tamper-evident chain. Returns the verification status and matching record details.</p>
                  <div class="bg-[#0d1117] rounded-xl border border-white/10 p-6 overflow-hidden">
 <pre class="font-mono text-sm text-gray-300 overflow-x-auto">
 {{ '{' }}
   "status": "VERIFIED",
-  "timestamp": "2024-12-01T14:32:01Z",
-  "block_height": 892019,
-  "proof": "0x7d89f89..."
+  "timestamp": "2025-01-15T14:32:01Z",
+  "policy_number": "OBX-2025-001",
+  "is_shredded": false
 {{ '}' }}
 </pre>
                 </div>

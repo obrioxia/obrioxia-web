@@ -13,7 +13,7 @@
     <div class="flex flex-col md:flex-row justify-between items-end mb-12 border-b border-white/10 pb-8">
       <div>
         <div class="text-obrioxia-cyan text-xs font-orbitron tracking-widest mb-2">SECURE SESSION ACTIVE</div>
-        <h1 class="text-4xl text-white font-orbitron">Obrioxia <span class="text-gray-500">Hub</span></h1>
+        <h1 class="text-4xl text-white font-orbitron">Obrioxia <span class="text-gray-500">{{ isFree() ? 'Sandbox' : 'Hub' }}</span></h1>
         <p class="text-gray-400 mt-2">Welcome back, {{ (auth.user$ | async)?.email }}</p>
       </div>
       <button (click)="auth.logout()"
@@ -22,40 +22,38 @@
       </button>
     </div>
 
-    <!-- NEW: Quick Actions & Status -->
+    <!-- Quick Actions & Status -->
     <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-12">
 
       <!-- Entitlement Status -->
       <div class="glass-panel p-6 rounded-xl border border-white/10">
         <h3 class="text-white font-orbitron text-lg mb-4 flex items-center">
           <span class="w-2 h-2 rounded-full bg-obrioxia-cyan mr-2"></span>
-          Subscription Status
+          {{ isFree() ? 'Sandbox Status' : 'Subscription Status' }}
         </h3>
 
         <div *ngIf="entitlementLoading" class="text-gray-500 text-sm animate-pulse">Loading status...</div>
 
         <div *ngIf="!entitlementLoading && entitlement">
           <div class="flex justify-between items-end mb-2">
-            <span class="text-obrioxia-cyan text-2xl font-orbitron">{{ entitlement.tier | uppercase }}</span>
-            <span *ngIf="entitlement.tier !== 'free'" class="text-gray-400 text-xs">{{ entitlement.status | uppercase
-              }}</span>
+            <span class="text-obrioxia-cyan text-2xl font-orbitron">{{ entitlement.plan_id === 'free' ? 'SANDBOX' : (entitlement.plan_id | uppercase) }}</span>
+            <span *ngIf="entitlement.plan_id !== 'free'" class="text-gray-400 text-xs">{{ entitlement.status | uppercase }}</span>
           </div>
 
-          <!-- Usage Bar -->
-          <div *ngIf="entitlement.tier !== 'free'" class="w-full bg-gray-800 rounded-full h-2 mb-2">
+          <!-- Usage Bar — show for all tiers -->
+          <div class="w-full bg-gray-800 rounded-full h-2 mb-2">
             <div class="bg-obrioxia-cyan h-2 rounded-full transition-all duration-500"
-              [style.width.%]="(entitlement.events_this_period / entitlement.monthly_limit) * 100">
+              [style.width.%]="(entitlement.events_used_this_period / entitlement.monthly_event_quota) * 100">
             </div>
           </div>
 
-          <div *ngIf="entitlement.tier !== 'free'" class="flex justify-between text-xs text-gray-400 mb-6">
-            <span>{{ entitlement.events_this_period | number }} events used</span>
-            <span>{{ entitlement.monthly_limit | number }} limit</span>
+          <div class="flex justify-between text-xs text-gray-400 mb-6">
+            <span>{{ entitlement.events_used_this_period | number }} events used</span>
+            <span>{{ entitlement.monthly_event_quota | number }} limit</span>
           </div>
 
-          <div *ngIf="entitlement.tier === 'free'" class="mt-4">
-            <p class="text-gray-400 text-sm mb-4">You are on the free tier. Upgrade for higher limits and evidence
-              retention.</p>
+          <div *ngIf="entitlement.plan_id === 'free'" class="mt-2">
+            <p class="text-gray-400 text-sm mb-4">You are on the free sandbox. Logger and Verifier are available within your quota. Upgrade for shredder, analytics, and higher limits.</p>
             <a routerLink="/pricing"
               class="text-xs text-black bg-obrioxia-cyan px-4 py-2 rounded font-bold hover:bg-cyan-400 transition-colors">UPGRADE
               PLAN</a>
@@ -76,8 +74,7 @@
           Quick Test
         </h3>
 
-        <p class="text-gray-400 text-sm mb-6">Send a sample event to the ledger and generate a forensic PDF certificate.
-        </p>
+        <p class="text-gray-400 text-sm mb-6">Send a sample event to the ledger and verify it was recorded.</p>
 
         <div class="flex flex-col space-y-4">
           <button (click)="sendTestEvent()" [disabled]="testLoading"
@@ -101,11 +98,16 @@
             </div>
             <div class="text-[10px] text-gray-500 font-mono mb-4 break-all">ID: {{ testResult.decision_id }}</div>
 
-            <button (click)="generatePdf()" [disabled]="pdfLoading"
+            <!-- PDF only available for paid plans -->
+            <button *ngIf="hasFeature('pdf_evidence')" (click)="generatePdf()" [disabled]="pdfLoading"
               class="w-full py-2 bg-white/10 text-white text-xs font-orbitron rounded hover:bg-white/20 transition-all flex justify-center items-center">
               <span *ngIf="pdfLoading" class="animate-spin mr-2">⟳</span>
               {{ pdfLoading ? 'GENERATING...' : 'DOWNLOAD EVIDENCE PDF' }}
             </button>
+            <div *ngIf="!hasFeature('pdf_evidence')" class="text-center">
+              <p class="text-gray-500 text-xs mb-1">PDF Evidence Packs require a paid plan</p>
+              <a routerLink="/pricing" class="text-obrioxia-cyan text-xs underline hover:text-white">Upgrade</a>
+            </div>
           </div>
         </div>
       </div>
@@ -137,6 +139,7 @@
 
     <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6">
 
+      <!-- LOGGER — free feature -->
       <a routerLink="/hub/logger"
         class="glass-panel p-6 rounded-xl border border-white/10 hover:border-obrioxia-cyan/50 transition-all group cursor-pointer">
         <div class="flex items-center justify-between mb-4">
@@ -146,13 +149,14 @@
               </path>
             </svg>
           </div>
-          <span class="text-xs font-bold text-obrioxia-cyan bg-obrioxia-cyan/10 px-2 py-1 rounded">LIVE ENV</span>
+          <span class="text-xs font-bold text-obrioxia-cyan bg-obrioxia-cyan/10 px-2 py-1 rounded">SANDBOX</span>
         </div>
         <h3 class="text-xl text-white font-orbitron mb-2 group-hover:text-obrioxia-cyan transition-colors">Event Logger
         </h3>
         <p class="text-gray-400 text-sm">Log audit decisions to your tamper-evident ledger in real time.</p>
       </a>
 
+      <!-- VERIFIER — free feature -->
       <a routerLink="/hub/verifier"
         class="glass-panel p-6 rounded-xl border border-white/10 hover:border-obrioxia-green/50 transition-all group cursor-pointer">
         <div class="flex items-center justify-between mb-4">
@@ -162,14 +166,31 @@
                 d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
             </svg>
           </div>
-          <span class="text-xs font-bold text-obrioxia-green bg-obrioxia-green/10 px-2 py-1 rounded">AUDIT TOOL</span>
+          <span class="text-xs font-bold text-obrioxia-green bg-obrioxia-green/10 px-2 py-1 rounded">SANDBOX</span>
         </div>
         <h3 class="text-xl text-white font-orbitron mb-2 group-hover:text-obrioxia-green transition-colors">Chain
           Verifier</h3>
         <p class="text-gray-400 text-sm">Cryptographically verify that your audit logs have not been altered.</p>
       </a>
 
-      <a routerLink="/hub/shredder"
+      <!-- SHREDDER — paid only, visible but locked for free -->
+      <div *ngIf="!hasFeature('shredder')"
+        class="glass-panel p-6 rounded-xl border border-white/10 opacity-60 relative">
+        <div class="flex items-center justify-between mb-4">
+          <div class="w-10 h-10 rounded bg-red-500/10 flex items-center justify-center text-red-500">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16">
+              </path>
+            </svg>
+          </div>
+          <span class="text-xs font-bold text-gray-500 bg-gray-500/10 px-2 py-1 rounded">PAID</span>
+        </div>
+        <h3 class="text-xl text-white font-orbitron mb-2">Crypto-Shredder</h3>
+        <p class="text-gray-400 text-sm mb-4">Execute Right-to-Erasure. Destroy encryption keys while maintaining chain integrity.</p>
+        <a routerLink="/pricing" class="text-xs text-obrioxia-cyan underline hover:text-white">Upgrade to unlock →</a>
+      </div>
+      <a *ngIf="hasFeature('shredder')" routerLink="/hub/shredder"
         class="glass-panel p-6 rounded-xl border border-red-500/20 hover:border-red-500/80 transition-all group cursor-pointer">
         <div class="flex items-center justify-between mb-4">
           <div class="w-10 h-10 rounded bg-red-500/10 flex items-center justify-center text-red-500">
@@ -187,7 +208,24 @@
           integrity.</p>
       </a>
 
-      <a routerLink="/dashboard"
+      <!-- ANALYTICS — paid only, visible but locked for free -->
+      <div *ngIf="!hasFeature('analytics')"
+        class="glass-panel p-6 rounded-xl border border-white/10 opacity-60 relative">
+        <div class="flex items-center justify-between mb-4">
+          <div class="w-10 h-10 rounded bg-purple-500/10 flex items-center justify-center text-purple-400">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 002 2h2a2 2 0 002-2z">
+              </path>
+            </svg>
+          </div>
+          <span class="text-xs font-bold text-gray-500 bg-gray-500/10 px-2 py-1 rounded">PAID</span>
+        </div>
+        <h3 class="text-xl text-white font-orbitron mb-2">Analytics Dashboard</h3>
+        <p class="text-gray-400 text-sm mb-4">Decision trends, chain health, and anomaly detection at a glance.</p>
+        <a routerLink="/pricing" class="text-xs text-obrioxia-cyan underline hover:text-white">Upgrade to unlock →</a>
+      </div>
+      <a *ngIf="hasFeature('analytics')" routerLink="/dashboard"
         class="glass-panel p-6 rounded-xl border border-white/10 hover:border-purple-500/50 transition-all group cursor-pointer">
         <div class="flex items-center justify-between mb-4">
           <div class="w-10 h-10 rounded bg-purple-500/10 flex items-center justify-center text-purple-400">

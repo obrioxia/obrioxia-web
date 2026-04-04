@@ -51,6 +51,16 @@ export class HubComponent {
     });
   }
 
+  /** True if user is on the free/sandbox tier */
+  isFree(): boolean {
+    return !this.entitlement || this.entitlement.plan_id === 'free';
+  }
+
+  /** Check if a specific feature is enabled by entitlement */
+  hasFeature(feature: string): boolean {
+    return this.entitlement?.features?.[feature] === true;
+  }
+
   sendTestEvent() {
     this.testLoading = true;
     this.testError = null;

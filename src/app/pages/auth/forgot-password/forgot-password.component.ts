@@ -52,6 +52,8 @@ export class ForgotPasswordComponent {
         this.loading = false;
       },
       error: () => {
+        // Show same message regardless of whether the account exists
+        // This prevents account enumeration
         this.sent = true;
         this.loading = false;
       }

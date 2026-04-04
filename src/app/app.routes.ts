@@ -70,8 +70,6 @@ export const routes: Routes = [
 
   // --- DEMO ROUTES ---
 
-  // 1. The Sign-Up Page (Public) points to Full Form
-  { path: 'demo-signup', component: SignupComponent },
 
   // 2. The Gate (Public - Where they enter the key)
   { path: 'demo-gate', component: DemoGateComponent },

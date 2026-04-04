@@ -132,9 +132,7 @@ export class SignupComponent {
           displayName: this.data.fullName
         });
 
-        // ✅ CRITICAL FIX: "Fire and Forget" Database Save
-        // We removed 'await' here. Now, if the database connection hangs, 
-        // it won't stop the signup process. It saves in the background.
+        // Background save to Firestore (non-blocking)
         setDoc(doc(this.firestore, 'users', user.uid), {
           uid: user.uid,
           email: this.data.email,
@@ -146,27 +144,31 @@ export class SignupComponent {
           createdAt: new Date().toISOString(),
           accountType: 'demo_user'
         }).catch(err => console.error("DB Background Save Error:", err));
+
+        // 2. Get Firebase ID token for authenticated backend call
+        const idToken = await user.getIdToken();
+
+        // 3. Request demo key — send Bearer token only, never the password
+        const handshakeUrl = `${environment.backendUrl}/api/demo/request-key`;
+
+        this.http.post(handshakeUrl, {}, {
+          headers: { 'Authorization': `Bearer ${idToken}` }
+        })
+          .pipe(
+            timeout(10000),
+            finalize(() => this.loading.set(false))
+          )
+          .subscribe({
+            next: (res: any) => {
+              const hint = res.key_hint || '';
+              this.successMessage = `Account created. Your demo key (${hint}) has been sent to ${this.data.email}.`;
+            },
+            error: (err) => {
+              console.error("Demo key request failed:", err);
+              this.successMessage = "Account created, but we could not issue your demo key automatically. Please sign in at the Demo Gate and request your key there.";
+            }
+          });
       }
-
-      // 2. Python Backend Handshake
-      const handshakeUrl = `${environment.backendUrl}/api/demo/request-key`;
-
-      this.http.post(handshakeUrl, this.data)
-        .pipe(
-          // ✅ CRITICAL FIX: Timeout ensures button unfreezes after 10s
-          timeout(10000),
-          finalize(() => this.loading.set(false))
-        )
-        .subscribe({
-          next: () => {
-            this.successMessage = "Account Created! Your unique demo key has been sent to your email.";
-          },
-          error: (err) => {
-            console.error("Backend Sync Error:", err);
-            // ✅ FORCE SUCCESS: User is created in Auth, so we show success anyway
-            this.successMessage = "Secure Account Created. Redirecting to Demo Access...";
-          }
-        });
 
     } catch (err: any) {
       console.error("Registration Error:", err);

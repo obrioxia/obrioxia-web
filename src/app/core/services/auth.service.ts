@@ -1,9 +1,9 @@
 import { Injectable, inject } from '@angular/core';
-import { Auth, authState, signInWithEmailAndPassword, signOut, User } from '@angular/fire/auth';
+import { Auth, authState, signInWithEmailAndPassword, signOut, sendPasswordResetEmail, sendEmailVerification, User } from '@angular/fire/auth';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
-import { Observable, from } from 'rxjs';
-import { tap } from 'rxjs/operators';
+import { Observable, from, of } from 'rxjs';
+import { tap, switchMap } from 'rxjs/operators';
 import { environment } from '../../../environments/environment';
 
 @Injectable({
@@ -15,8 +15,7 @@ export class AuthService {
   private router = inject(Router);
 
   /**
-   * ✅ FIX: Pointing to the new Python Render backend.
-   * Standardized to use the /api/demo prefix for the handshake logic.
+   * Backend URL for the demo handshake endpoint only.
    */
   private apiUrl = `${environment.backendUrl}/api/demo`;
 
@@ -39,31 +38,30 @@ export class AuthService {
   }
 
   /**
-   * ✅ FIX: Updated to 'request-key' to match Python backend logic.
-   * This handles the initial "Handshake" where the user gets their demo key.
+   * Demo key request — calls the real backend handshake endpoint.
    */
   register(data: any): Observable<any> {
-    // Send only the email to the new handshake endpoint
     return this.http.post(`${this.apiUrl}/request-key`, { email: data.email });
   }
 
   /**
-   * These endpoints now utilize the updated Python API structure.
-   * Note: Ensure your Python backend has corresponding routes for verification/passwords.
+   * Firebase client-side password reset.
+   * Sends a real reset email via Firebase Auth — no backend stub needed.
    */
-  verifyEmail(token: string): Observable<any> {
-    return this.http.get(`${this.apiUrl}/verify/${token}`);
-  }
-
-  resendVerification(email: string): Observable<any> {
-    return this.http.post(`${this.apiUrl}/request-key`, { email });
-  }
-
   forgotPassword(email: string): Observable<any> {
-    return this.http.post(`${this.apiUrl}/forgot-password`, { email });
+    return from(sendPasswordResetEmail(this.auth, email));
   }
 
-  resetPassword(token: string, newPassword: string): Observable<any> {
-    return this.http.post(`${this.apiUrl}/reset-password`, { token, newPassword });
+  /**
+   * Firebase client-side email verification resend.
+   * Sends a real verification email if the user is logged in but unverified.
+   */
+  resendVerification(email: string): Observable<any> {
+    const currentUser = this.auth.currentUser;
+    if (currentUser && !currentUser.emailVerified) {
+      return from(sendEmailVerification(currentUser));
+    }
+    // If no user is logged in, return success silently to avoid leaking account info
+    return of({ status: 'sent' });
   }
 }
