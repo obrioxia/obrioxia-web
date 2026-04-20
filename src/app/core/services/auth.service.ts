@@ -1,5 +1,5 @@
 import { Injectable, inject } from '@angular/core';
-import { Auth, authState, signInWithEmailAndPassword, signOut, sendPasswordResetEmail, sendEmailVerification, User } from '@angular/fire/auth';
+import { Auth, authState, signInWithEmailAndPassword, signOut, sendPasswordResetEmail, sendEmailVerification, applyActionCode, User } from '@angular/fire/auth';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { Observable, from, of } from 'rxjs';
@@ -63,5 +63,14 @@ export class AuthService {
     }
     // If no user is logged in, return success silently to avoid leaking account info
     return of({ status: 'sent' });
+  }
+
+  /**
+   * Firebase email verification via action code.
+   * Called when the user clicks the verification link in their email.
+   * The oobCode is extracted from the link's query parameters.
+   */
+  verifyEmail(oobCode: string): Observable<void> {
+    return from(applyActionCode(this.auth, oobCode));
   }
 }

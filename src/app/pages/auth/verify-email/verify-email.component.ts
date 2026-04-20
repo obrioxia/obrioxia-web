@@ -40,13 +40,14 @@ export class VerifyEmailComponent implements OnInit {
   status: 'verifying' | 'success' | 'error' = 'verifying';
 
   ngOnInit() {
-    const token = this.route.snapshot.queryParams['token'];
-    if (!token) {
+    // Firebase verification links use 'oobCode'; fall back to 'token' for legacy links
+    const oobCode = this.route.snapshot.queryParams['oobCode'] || this.route.snapshot.queryParams['token'];
+    if (!oobCode) {
       this.status = 'error';
       return;
     }
 
-    this.auth.verifyEmail(token).subscribe({
+    this.auth.verifyEmail(oobCode).subscribe({
       next: () => this.status = 'success',
       error: () => this.status = 'error'
     });
