@@ -21,6 +21,7 @@ import { TrustPackComponent } from './pages/trust-pack/trust-pack.component';
 import { RoboticsComponent } from './pages/robotics/robotics.component';
 import { DroneDemoComponent } from './pages/drone-demo/drone-demo.component';
 import { StatusComponent } from './pages/status/status.component';
+import { FinancialServicesComponent } from './pages/financial-services/financial-services.component';
 import { EuAiActComponent } from './pages/compliance/eu-ai-act/eu-ai-act.component';
 import { Iso42001Component } from './pages/compliance/iso-42001/iso-42001.component';
 import { InsuranceComponent } from './pages/compliance/insurance/insurance.component';
@@ -51,6 +52,7 @@ export const routes: Routes = [
   { path: 'robotics', component: RoboticsComponent },
   { path: 'drone-demo', component: DroneDemoComponent },
   { path: 'status', component: StatusComponent },
+  { path: 'financial-services', component: FinancialServicesComponent },
 
   // Compliance Pages
   { path: 'compliance/eu-ai-act', component: EuAiActComponent },
