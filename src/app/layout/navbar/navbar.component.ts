@@ -44,12 +44,12 @@ import { Auth, signOut } from '@angular/fire/auth';
     <nav class="fixed top-0 inset-x-0 z-50 pointer-events-none">
       <div class="pointer-events-auto mx-4 lg:mx-auto mt-4 max-w-[1200px] w-[calc(100%-2rem)] lg:w-full rounded-full border border-white/10 bg-black/40 backdrop-blur-md shadow-[0_0_40px_rgba(0,0,0,0.35)] px-5 lg:px-10 py-3 lg:py-4 flex items-center justify-between">
         
-        <a routerLink="/" (click)="isMobileMenuOpen = false" class="flex items-center gap-2 group relative z-50">
+        <a routerLink="/" (click)="isMobileMenuOpen = false" class="shrink-0 flex items-center gap-2 group relative z-50">
           <img src="/brand/obrioxia-logo.png" alt="Obrioxia" class="shrink-0 h-7 lg:h-8 w-auto object-contain block hover:opacity-80 transition-opacity duration-300">
         </a>
 
         <!-- Desktop Links -->
-        <div class="hidden lg:flex items-center gap-[30px]">
+        <div class="hidden lg:flex items-center gap-[20px]">
           <a routerLink="/features" routerLinkActive="text-obrioxia-cyan" class="text-[15px] text-white/80 hover:text-white transition-colors whitespace-nowrap">FEATURES</a>
           <a routerLink="/robotics" routerLinkActive="text-obrioxia-cyan" class="text-[15px] text-white/80 hover:text-white transition-colors whitespace-nowrap">ROBOTICS</a>
           <a routerLink="/drone-demo" routerLinkActive="text-obrioxia-cyan" class="text-[15px] text-white/80 hover:text-white transition-colors whitespace-nowrap">DRONE DEMO</a>
@@ -60,7 +60,7 @@ import { Auth, signOut } from '@angular/fire/auth';
           <a routerLink="/pricing" routerLinkActive="text-obrioxia-cyan" class="text-[15px] text-white/80 hover:text-white transition-colors whitespace-nowrap">PRICING</a>
         </div>
 
-        <div class="hidden lg:flex items-center gap-[30px] ml-4">
+        <div class="hidden lg:flex items-center gap-[20px] ml-4">
           <ng-container *ngIf="auth.user$ | async as user; else loginBtn">
             <a routerLink="/hub" class="ob-btn-primary flex gap-2">
               <div class="w-2 h-2 rounded-full bg-obrioxia-green animate-pulse"></div>
