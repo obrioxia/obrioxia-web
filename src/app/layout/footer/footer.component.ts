@@ -23,8 +23,6 @@ import { RouterLink } from '@angular/router';
           <h4 class="text-white font-orbitron text-sm mb-6">PRODUCT</h4>
           <ul class="space-y-4 text-sm text-gray-500">
             <li><a routerLink="/features" class="hover:text-obrioxia-cyan transition-colors">Features</a></li>
-            <li><a routerLink="/robotics" class="hover:text-obrioxia-cyan transition-colors">Robotics</a></li>
-            <li><a routerLink="/drone-demo" class="hover:text-obrioxia-cyan transition-colors">Drone Demo</a></li>
             <li><a routerLink="/how-it-works" class="hover:text-obrioxia-cyan transition-colors">How It Works</a></li>
             <li><a routerLink="/financial-services" class="hover:text-obrioxia-cyan transition-colors">Financial Services</a></li>
             <li><a routerLink="/pricing" class="hover:text-obrioxia-cyan transition-colors">Pricing</a></li>
@@ -52,6 +50,12 @@ import { RouterLink } from '@angular/router';
           <ul class="space-y-4 text-sm text-gray-500">
             <li><a href="mailto:sales@obrioxia.com" class="hover:text-obrioxia-cyan transition-colors">Sales Inquiries</a></li>
             <li><a href="mailto:security@obrioxia.com" class="hover:text-obrioxia-cyan transition-colors">Security Contact</a></li>
+          </ul>
+
+          <h4 class="text-white font-orbitron text-sm mt-8 mb-6">RESEARCH</h4>
+          <ul class="space-y-4 text-sm text-gray-500">
+            <li><a routerLink="/robotics" class="hover:text-obrioxia-cyan transition-colors">Robotics Accountability</a></li>
+            <li><a routerLink="/drone-demo" class="hover:text-obrioxia-cyan transition-colors">Drone Demo</a></li>
           </ul>
         </div>
 

@@ -13,13 +13,11 @@ import { Auth, signOut } from '@angular/fire/auth';
     <div *ngIf="isMobileMenuOpen" class="fixed inset-0 z-40 bg-black/95 backdrop-blur-2xl flex flex-col pt-28 px-6 pointer-events-auto lg:hidden">
       <div class="flex flex-col gap-6 text-lg font-medium">
         <a routerLink="/features" routerLinkActive="text-obrioxia-cyan" (click)="isMobileMenuOpen = false" class="text-white/80 hover:text-white transition-colors">FEATURES</a>
-        <a routerLink="/robotics" routerLinkActive="text-obrioxia-cyan" (click)="isMobileMenuOpen = false" class="text-white/80 hover:text-white transition-colors">ROBOTICS</a>
-        <a routerLink="/drone-demo" routerLinkActive="text-obrioxia-cyan" (click)="isMobileMenuOpen = false" class="text-white/80 hover:text-white transition-colors">DRONE DEMO</a>
-        <a routerLink="/demo-gate" routerLinkActive="text-obrioxia-cyan" (click)="isMobileMenuOpen = false" class="text-white/80 hover:text-white transition-colors uppercase">LIVE DEMO</a>
-        <a routerLink="/how-it-works" routerLinkActive="text-obrioxia-cyan" (click)="isMobileMenuOpen = false" class="text-white/80 hover:text-white transition-colors">HOW IT WORKS</a>
         <a routerLink="/financial-services" routerLinkActive="text-obrioxia-cyan" (click)="isMobileMenuOpen = false" class="text-white/80 hover:text-white transition-colors">FINANCIAL SERVICES</a>
+        <a routerLink="/how-it-works" routerLinkActive="text-obrioxia-cyan" (click)="isMobileMenuOpen = false" class="text-white/80 hover:text-white transition-colors">HOW IT WORKS</a>
         <a routerLink="/trust-center" routerLinkActive="text-obrioxia-cyan" (click)="isMobileMenuOpen = false" class="text-white/80 hover:text-white transition-colors">TRUST CENTER</a>
         <a routerLink="/pricing" routerLinkActive="text-obrioxia-cyan" (click)="isMobileMenuOpen = false" class="text-white/80 hover:text-white transition-colors">PRICING</a>
+        <a routerLink="/demo-gate" routerLinkActive="text-obrioxia-cyan" (click)="isMobileMenuOpen = false" class="text-white/80 hover:text-white transition-colors uppercase">LIVE DEMO</a>
         
         <hr class="border-white/10 my-2">
         
@@ -51,13 +49,11 @@ import { Auth, signOut } from '@angular/fire/auth';
         <!-- Desktop Links -->
         <div class="hidden lg:flex items-center gap-[20px]">
           <a routerLink="/features" routerLinkActive="text-obrioxia-cyan" class="text-[15px] text-white/80 hover:text-white transition-colors whitespace-nowrap">FEATURES</a>
-          <a routerLink="/robotics" routerLinkActive="text-obrioxia-cyan" class="text-[15px] text-white/80 hover:text-white transition-colors whitespace-nowrap">ROBOTICS</a>
-          <a routerLink="/drone-demo" routerLinkActive="text-obrioxia-cyan" class="text-[15px] text-white/80 hover:text-white transition-colors whitespace-nowrap">DRONE DEMO</a>
-          <a routerLink="/demo-gate" routerLinkActive="text-obrioxia-cyan" class="text-[15px] text-white/80 hover:text-white transition-colors uppercase cursor-pointer whitespace-nowrap">LIVE DEMO</a>
-          <a routerLink="/how-it-works" routerLinkActive="text-obrioxia-cyan" class="text-[15px] text-white/80 hover:text-white transition-colors whitespace-nowrap">HOW IT WORKS</a>
           <a routerLink="/financial-services" routerLinkActive="text-obrioxia-cyan" class="text-[15px] text-white/80 hover:text-white transition-colors whitespace-nowrap">FINANCIAL SERVICES</a>
+          <a routerLink="/how-it-works" routerLinkActive="text-obrioxia-cyan" class="text-[15px] text-white/80 hover:text-white transition-colors whitespace-nowrap">HOW IT WORKS</a>
           <a routerLink="/trust-center" routerLinkActive="text-obrioxia-cyan" class="text-[15px] text-white/80 hover:text-white transition-colors whitespace-nowrap">TRUST CENTER</a>
           <a routerLink="/pricing" routerLinkActive="text-obrioxia-cyan" class="text-[15px] text-white/80 hover:text-white transition-colors whitespace-nowrap">PRICING</a>
+          <a routerLink="/demo-gate" routerLinkActive="text-obrioxia-cyan" class="text-[15px] text-white/80 hover:text-white transition-colors uppercase cursor-pointer whitespace-nowrap">LIVE DEMO</a>
         </div>
 
         <div class="hidden lg:flex items-center gap-[20px] ml-4">
