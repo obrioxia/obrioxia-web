@@ -17,6 +17,7 @@ import { Auth, signOut } from '@angular/fire/auth';
         <a routerLink="/drone-demo" routerLinkActive="text-obrioxia-cyan" (click)="isMobileMenuOpen = false" class="text-white/80 hover:text-white transition-colors">DRONE DEMO</a>
         <a routerLink="/demo-gate" routerLinkActive="text-obrioxia-cyan" (click)="isMobileMenuOpen = false" class="text-white/80 hover:text-white transition-colors uppercase">LIVE DEMO</a>
         <a routerLink="/how-it-works" routerLinkActive="text-obrioxia-cyan" (click)="isMobileMenuOpen = false" class="text-white/80 hover:text-white transition-colors">HOW IT WORKS</a>
+        <a routerLink="/financial-services" routerLinkActive="text-obrioxia-cyan" (click)="isMobileMenuOpen = false" class="text-white/80 hover:text-white transition-colors">FINANCIAL SERVICES</a>
         <a routerLink="/trust-center" routerLinkActive="text-obrioxia-cyan" (click)="isMobileMenuOpen = false" class="text-white/80 hover:text-white transition-colors">TRUST CENTER</a>
         <a routerLink="/pricing" routerLinkActive="text-obrioxia-cyan" (click)="isMobileMenuOpen = false" class="text-white/80 hover:text-white transition-colors">PRICING</a>
         
@@ -54,6 +55,7 @@ import { Auth, signOut } from '@angular/fire/auth';
           <a routerLink="/drone-demo" routerLinkActive="text-obrioxia-cyan" class="text-[15px] text-white/80 hover:text-white transition-colors whitespace-nowrap">DRONE DEMO</a>
           <a routerLink="/demo-gate" routerLinkActive="text-obrioxia-cyan" class="text-[15px] text-white/80 hover:text-white transition-colors uppercase cursor-pointer whitespace-nowrap">LIVE DEMO</a>
           <a routerLink="/how-it-works" routerLinkActive="text-obrioxia-cyan" class="text-[15px] text-white/80 hover:text-white transition-colors whitespace-nowrap">HOW IT WORKS</a>
+          <a routerLink="/financial-services" routerLinkActive="text-obrioxia-cyan" class="text-[15px] text-white/80 hover:text-white transition-colors whitespace-nowrap">FINANCIAL SERVICES</a>
           <a routerLink="/trust-center" routerLinkActive="text-obrioxia-cyan" class="text-[15px] text-white/80 hover:text-white transition-colors whitespace-nowrap">TRUST CENTER</a>
           <a routerLink="/pricing" routerLinkActive="text-obrioxia-cyan" class="text-[15px] text-white/80 hover:text-white transition-colors whitespace-nowrap">PRICING</a>
         </div>
