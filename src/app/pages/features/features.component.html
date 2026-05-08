@@ -220,46 +220,40 @@
 
       <div class="glass-panel p-8 rounded-xl border border-yellow-500/20">
         <h2 class="text-2xl text-white font-orbitron mb-4">Reality vs Future <span
-            class="text-yellow-500 text-sm font-mono">[TRANSPARENCY]</span></h2>
-        <p class="text-gray-400 mb-6 max-w-3xl">The following capabilities are <strong>not currently
-            implemented</strong>.
-          We list them here so you know exactly what you are getting today.</p>
+            class="text-yellow-500 text-sm font-mono">[Transparency]</span></h2>
+        <p class="text-gray-400 mb-6 max-w-3xl">The following capabilities are either not implemented yet or require explicit production configuration.</p>
         <ul class="space-y-3">
           <li class="flex items-start text-gray-400">
             <span class="text-gray-500 mr-2">—</span>
-            <strong>No Merkle tree.</strong>&nbsp;The audit chain is a linear linked list, not a tree structure.
+            <span><strong>No Merkle tree.</strong> The audit chain is currently a linear hash chain, not a Merkle tree.</span>
           </li>
           <li class="flex items-start text-gray-400">
             <span class="text-gray-500 mr-2">—</span>
-            <strong>No multi-region replication.</strong>&nbsp;Data lives on a single MongoDB instance.
+            <span><strong>No multi-region database replication yet.</strong> MongoDB remains the primary operational store, with optional external witness anchoring available for checkpoint evidence.</span>
           </li>
           <li class="flex items-start text-gray-400">
             <span class="text-gray-500 mr-2">—</span>
-            <strong>No public transparency log.</strong>&nbsp;Checkpoint verification requires admin credentials.
+            <span><strong>No public transparency log.</strong> Public checkpoint publication is not implemented.</span>
           </li>
           <li class="flex items-start text-gray-400">
             <span class="text-gray-500 mr-2">—</span>
-            <strong>No Python SDK.</strong>&nbsp;Only the Node.js client decryptor is available today.
+            <span><strong>No Python SDK.</strong> The current client-side verifier/decryptor support is not yet packaged as a Python SDK.</span>
           </li>
           <li class="flex items-start text-gray-400">
             <span class="text-gray-500 mr-2">—</span>
-            <strong>No automatic key rotation.</strong>&nbsp;Key ceremony is a preparation tool; active encryptor
-            changeover is manual.
+            <span><strong>No automatic active key rotation.</strong> Key ceremony tooling exists, but active encryptor changeover is manual.</span>
           </li>
           <li class="flex items-start text-gray-400">
             <span class="text-gray-500 mr-2">—</span>
-            <strong>Retention scheduler is OFF by default.</strong>&nbsp;Requires <code
-              class="text-obrioxia-cyan text-xs">ENABLE_RETENTION_SCHEDULER=1</code>.
+            <span><strong>Retention scheduler is OFF by default.</strong> Requires <code class="text-obrioxia-cyan text-xs">ENABLE_RETENTION_SCHEDULER=1</code>.</span>
           </li>
           <li class="flex items-start text-gray-400">
             <span class="text-gray-500 mr-2">—</span>
-            <strong>TSA timestamping is optional.</strong>&nbsp;Requires <code
-              class="text-obrioxia-cyan text-xs">TSA_URL</code> to be configured.
+            <span><strong>TSA timestamping is optional.</strong> Requires <code class="text-obrioxia-cyan text-xs">TSA_URL</code> to be configured.</span>
           </li>
           <li class="flex items-start text-gray-400">
             <span class="text-gray-500 mr-2">—</span>
-            <strong>S3 witness sink is optional.</strong>&nbsp;Requires <code
-              class="text-obrioxia-cyan text-xs">WITNESS_S3_ENABLED=1</code> and bucket configuration.
+            <span><strong>External witness anchoring is implemented but optional.</strong> Supports S3-compatible storage such as AWS S3 or Cloudflare R2 when <code class="text-obrioxia-cyan text-xs">WITNESS_S3_ENABLED=1</code> and bucket credentials are configured.</span>
           </li>
         </ul>
       </div>

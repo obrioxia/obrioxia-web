@@ -148,8 +148,7 @@
           Current production architecture constraints — included for transparency:
         </p>
         <ul class="text-gray-400 text-sm mt-2 space-y-1">
-          <li class="flex items-start"><span class="text-gray-500 mr-2">—</span>Single MongoDB instance (no multi-region
-            replication)</li>
+          <li class="flex items-start"><span class="text-gray-500 mr-2">—</span>No multi-region database replication yet. MongoDB remains the primary operational store, with optional external witness anchoring available for checkpoint evidence when configured.</li>
           <li class="flex items-start"><span class="text-gray-500 mr-2">—</span>Linear hash chain (no Merkle tree)</li>
           <li class="flex items-start"><span class="text-gray-500 mr-2">—</span>Tamper-evident, not tamper-proof — an
             operator with infrastructure access can modify data; the system detects such modifications</li>
