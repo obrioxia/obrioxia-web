@@ -10,7 +10,7 @@ export const demoGuard: CanActivateFn = (route, state) => {
   // 2. If NO key, kick them out to the login gate
   if (!key) {
     // If they are trying to go to the demo, redirect to the gate (home or login page)
-    return router.createUrlTree(['/']); 
+    return router.createUrlTree(['/demo-gate']); 
   }
 
   // 3. If key exists, let them pass

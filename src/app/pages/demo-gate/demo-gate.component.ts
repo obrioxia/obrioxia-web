@@ -1,62 +1,119 @@
-import { Component, inject, signal } from '@angular/core';
+import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
-import { Router } from '@angular/router';
-import { HttpClient } from '@angular/common/http';
-import { finalize } from 'rxjs/operators';
-import { environment } from '../../../environments/environment';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-demo-gate',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, RouterLink],
   template: `
-    <div class="min-h-screen bg-black flex items-center justify-center p-4">
-      <div class="glass-panel p-12 rounded-xl border border-obrioxia-cyan/30 w-full max-w-lg text-center">
-        <h1 class="text-4xl font-orbitron text-white mb-2">DEMO <span class="text-obrioxia-cyan">ACCESS</span></h1>
-        <p class="text-gray-400 font-mono text-sm mb-8">ENTER YOUR 8-DIGIT SECURE KEY</p>
-        
-        <input [(ngModel)]="key" maxlength="8" class="w-full bg-black/60 border-2 border-obrioxia-cyan text-center text-4xl text-white font-mono py-4 rounded-lg tracking-[0.5em] uppercase mb-8" placeholder="XXXXXXXX">
-        
-        <div *ngIf="error" class="mb-6 text-red-400 font-mono font-bold">{{ error }}</div>
+    <div class="min-h-screen flex items-center justify-center p-4 pt-28 pb-20">
+      <div class="w-full max-w-3xl space-y-8">
 
-        <button (click)="verifyKey()" [disabled]="loading() || key.length < 8" class="w-full py-5 bg-obrioxia-cyan text-black font-bold text-xl font-orbitron rounded hover:bg-cyan-400 transition-all">
-          {{ loading() ? 'VERIFYING...' : 'ENTER HUB' }}
-        </button>
+        <!-- Header -->
+        <div class="text-center">
+          <h1 class="text-4xl md:text-5xl font-orbitron font-black mb-4 bg-clip-text text-transparent bg-gradient-to-r from-white via-gray-200 to-gray-500">
+            TRY THE <span class="text-obrioxia-cyan">DEMO</span>
+          </h1>
+          <p class="text-gray-400 max-w-xl mx-auto text-base leading-relaxed">
+            Obrioxia creates tamper-evident evidence around AI-supported decisions so they can later be verified, audited, reconstructed, and defended.
+          </p>
+        </div>
+
+        <!-- Split Paths -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+
+          <!-- Path 1: New user -->
+          <div class="glass-panel p-8 rounded-xl border border-white/10 hover:border-obrioxia-cyan/40 transition-all group">
+            <div class="w-12 h-12 bg-obrioxia-cyan/10 border border-obrioxia-cyan rounded-full flex items-center justify-center text-obrioxia-cyan font-orbitron text-xl mb-5 mx-auto">
+              1
+            </div>
+            <h2 class="text-xl text-white font-orbitron mb-3 text-center">New here?</h2>
+            <p class="text-gray-400 text-sm text-center mb-6">
+              Create a demo account to receive your access key.
+            </p>
+            <a routerLink="/signup" class="block w-full py-3 bg-obrioxia-cyan text-black font-bold text-center rounded hover:bg-cyan-400 transition-all font-orbitron text-sm">
+              CREATE DEMO ACCOUNT
+            </a>
+          </div>
+
+          <!-- Path 2: Returning user -->
+          <div class="glass-panel p-8 rounded-xl border border-white/10 hover:border-obrioxia-cyan/40 transition-all group">
+            <div class="w-12 h-12 bg-obrioxia-cyan/10 border border-obrioxia-cyan rounded-full flex items-center justify-center text-obrioxia-cyan font-orbitron text-xl mb-5 mx-auto">
+              ►
+            </div>
+            <h2 class="text-xl text-white font-orbitron mb-3 text-center">Already have a demo key?</h2>
+            <p class="text-gray-400 text-sm text-center mb-6">
+              Open the demo environment and paste your key to start.
+            </p>
+            <a href="https://demo.obrioxia.com/demo-gate" class="block w-full py-3 bg-white/10 border border-white/20 text-white font-bold text-center rounded hover:bg-white/20 transition-all font-orbitron text-sm">
+              OPEN DEMO ENVIRONMENT
+            </a>
+          </div>
+
+        </div>
+
+        <!-- How it works -->
+        <div class="glass-panel p-8 rounded-xl border border-white/10">
+          <h3 class="text-lg text-white font-orbitron mb-5 text-center">How the demo works</h3>
+          <div class="grid grid-cols-1 md:grid-cols-5 gap-4">
+            <div class="text-center">
+              <div class="w-8 h-8 bg-obrioxia-cyan/10 border border-obrioxia-cyan/30 rounded-full flex items-center justify-center text-obrioxia-cyan font-orbitron text-sm mb-2 mx-auto">1</div>
+              <p class="text-gray-400 text-xs">Create account</p>
+            </div>
+            <div class="text-center">
+              <div class="w-8 h-8 bg-obrioxia-cyan/10 border border-obrioxia-cyan/30 rounded-full flex items-center justify-center text-obrioxia-cyan font-orbitron text-sm mb-2 mx-auto">2</div>
+              <p class="text-gray-400 text-xs">Verify email if prompted</p>
+            </div>
+            <div class="text-center">
+              <div class="w-8 h-8 bg-obrioxia-cyan/10 border border-obrioxia-cyan/30 rounded-full flex items-center justify-center text-obrioxia-cyan font-orbitron text-sm mb-2 mx-auto">3</div>
+              <p class="text-gray-400 text-xs">Get your demo key</p>
+            </div>
+            <div class="text-center">
+              <div class="w-8 h-8 bg-obrioxia-cyan/10 border border-obrioxia-cyan/30 rounded-full flex items-center justify-center text-obrioxia-cyan font-orbitron text-sm mb-2 mx-auto">4</div>
+              <p class="text-gray-400 text-xs">Open demo environment</p>
+            </div>
+            <div class="text-center">
+              <div class="w-8 h-8 bg-obrioxia-cyan/10 border border-obrioxia-cyan/30 rounded-full flex items-center justify-center text-obrioxia-cyan font-orbitron text-sm mb-2 mx-auto">5</div>
+              <p class="text-gray-400 text-xs">Paste key &amp; explore</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Demo actions preview -->
+        <div class="glass-panel p-8 rounded-xl border border-white/10">
+          <h3 class="text-lg text-white font-orbitron mb-5 text-center">What you can do in the demo</h3>
+          <div class="grid grid-cols-2 md:grid-cols-5 gap-4">
+            <div class="text-center p-3 rounded-lg bg-white/5 border border-white/5">
+              <p class="text-obrioxia-cyan text-xs font-orbitron mb-1">Log Event</p>
+              <p class="text-gray-500 text-[10px]">Submit a decision record</p>
+            </div>
+            <div class="text-center p-3 rounded-lg bg-white/5 border border-white/5">
+              <p class="text-obrioxia-cyan text-xs font-orbitron mb-1">Verify Chain</p>
+              <p class="text-gray-500 text-[10px]">Check chain integrity</p>
+            </div>
+            <div class="text-center p-3 rounded-lg bg-white/5 border border-white/5">
+              <p class="text-obrioxia-cyan text-xs font-orbitron mb-1">Audit Ledger</p>
+              <p class="text-gray-500 text-[10px]">Browse the full ledger</p>
+            </div>
+            <div class="text-center p-3 rounded-lg bg-white/5 border border-white/5">
+              <p class="text-red-400 text-xs font-orbitron mb-1">Shredder</p>
+              <p class="text-gray-500 text-[10px]">Crypto-shred a field</p>
+            </div>
+            <div class="text-center p-3 rounded-lg bg-white/5 border border-white/5">
+              <p class="text-yellow-400 text-xs font-orbitron mb-1">Golden Path</p>
+              <p class="text-gray-500 text-[10px]">Guided walkthrough</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Footer note -->
+        <p class="text-center text-gray-600 text-xs font-mono">
+          The demo uses synthetic data. It demonstrates technical capabilities, not a compliance certification.
+        </p>
+
       </div>
     </div>
   `
 })
-export class DemoGateComponent {
-  private http = inject(HttpClient);
-  private router = inject(Router);
-
-  key = '';
-  loading = signal(false);
-  error = '';
-
-  verifyKey() {
-    if (this.key.length < 8) return;
-    this.loading.set(true);
-    this.error = '';
-
-    const url = `${environment.backendUrl}/api/demo/verify/`;
-
-    this.http.post<any>(url, { key: this.key })
-      .pipe(finalize(() => this.loading.set(false)))
-      .subscribe({
-        next: (res) => {
-          if (res.valid) {
-            localStorage.setItem('demo_key', this.key);
-            this.router.navigate(['/demo']);
-          } else {
-            this.error = "INVALID KEY";
-          }
-        },
-        error: (err) => {
-          console.error(err);
-          this.error = "CONNECTION FAILED";
-        }
-      });
-  }
-}
+export class DemoGateComponent {}
