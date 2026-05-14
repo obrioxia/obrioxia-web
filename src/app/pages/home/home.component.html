@@ -9,23 +9,23 @@
       </div>
 
       <h1
-        class="text-[36px] md:text-[56px] font-medium leading-[1.28] mb-6 bg-clip-text text-transparent bg-gradient-to-b from-white to-white/70">
-        The Accountability Engine for <span
-          class="bg-clip-text text-transparent bg-gradient-to-r from-obrioxia-cyan to-obrioxia-cyan/70">High-Stakes AI.</span>
+        class="text-[36px] md:text-[56px] font-medium leading-[1.28] mb-6 bg-clip-text text-transparent bg-gradient-to-b from-white to-white/70 max-w-[900px]">
+        AI governance tells you what should happen.<br/>
+        <span class="bg-clip-text text-transparent bg-gradient-to-r from-obrioxia-cyan to-obrioxia-cyan/70">Obrioxia proves what actually happened.</span>
       </h1>
 
-      <p class="text-white/70 text-[15px] font-normal max-w-[680px] mx-auto mb-10 text-center">
-        Create tamper-evident evidence trails for AI-assisted decisions so they can be reconstructed, audited, challenged, and defended.
+      <p class="text-white/70 text-[15px] font-normal max-w-[680px] mx-auto mb-10 text-center leading-relaxed">
+        Tamper-evident runtime evidence for high-stakes AI systems, built for regulated teams that need to reconstruct decisions months after a complaint, audit, incident, or regulatory challenge.
       </p>
 
-      <div class="flex flex-col sm:flex-row justify-center gap-4 w-full max-w-sm sm:max-w-none mx-auto">
+      <div class="flex flex-col sm:flex-row justify-center gap-4 w-full max-w-lg sm:max-w-none mx-auto">
         <a routerLink="/financial-services"
-          class="ob-btn-primary w-full sm:w-auto text-center">
-          View Financial Services Use Case &rarr;
+          class="ob-btn-primary w-full sm:w-auto text-center px-8">
+          Book an Article 12 evidence pilot
         </a>
         <a routerLink="/demo-gate"
-          class="ob-btn-secondary w-full sm:w-auto text-center">
-          Try Live Demo
+          class="ob-btn-secondary w-full sm:w-auto text-center px-8">
+          See the "What happened?" reconstruction demo
         </a>
       </div>
 
@@ -38,95 +38,71 @@
       </div>
     </div>
 
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-32 relative">
-      <div
-        class="hidden md:block absolute top-1/2 left-0 w-full h-px bg-gradient-to-r from-transparent via-obrioxia-cyan/30 to-transparent">
-      </div>
+    <!-- Problem Section -->
+    <div class="mb-24 text-center max-w-4xl mx-auto glass-panel p-10 rounded-2xl border border-white/5">
+      <h2 class="text-2xl md:text-3xl text-white font-orbitron mb-6">The gap is not AI governance. The gap is evidence.</h2>
+      <p class="text-gray-400 leading-relaxed mb-6 text-left md:text-center text-lg">
+        Most organisations can show AI policies, risk registers, model inventories, governance committees, and monitoring dashboards.
+      </p>
+      <p class="text-gray-400 leading-relaxed text-left md:text-center text-lg">
+        But when a regulator, auditor, board, or customer asks what happened in one specific AI-assisted decision, they often cannot reconstruct what context the AI saw, what data influenced the recommendation, what the model inferred, what was escalated or suppressed, whether a human genuinely reviewed it, whether policy controls operated, or whether the evidence trail was altered after the fact.
+      </p>
+    </div>
 
-      <div class="glass-panel p-8 rounded-xl border border-white/10 relative bg-black/80 z-10">
-        <div
-          class="w-12 h-12 bg-obrioxia-cyan/10 border border-obrioxia-cyan rounded-full flex items-center justify-center text-obrioxia-cyan font-orbitron text-xl mb-6 mx-auto">
-          1</div>
-        <h3 class="text-xl text-white font-orbitron mb-3 text-center">Ingest</h3>
-        <p class="text-gray-400 text-sm text-center">
-          Your AI sends decision events to the Obrioxia API. Sensitive fields are sealed at ingestion
-          with per-event AES-256-GCM encryption — the production service holds only the public key
-          and cannot read them back.
+    <!-- Product Framing -->
+    <div class="mb-12 text-center max-w-3xl mx-auto">
+      <h2 class="text-2xl md:text-3xl text-white font-orbitron mb-6">Runtime evidence infrastructure for regulated AI.</h2>
+      <p class="text-gray-400 leading-relaxed text-lg">
+        Obrioxia creates tamper-evident proof chains across AI-assisted workflows, giving teams a defensible record of system behaviour, human intervention, control operation, and decision provenance.
+      </p>
+    </div>
+
+    <!-- Use Case Cards -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-24">
+      <div class="glass-panel p-8 rounded-xl border border-white/10 hover:border-obrioxia-cyan/50 transition-all flex flex-col">
+        <h3 class="text-xl text-white font-orbitron mb-3">EU AI Act Article 12 readiness</h3>
+        <p class="text-gray-400 text-sm leading-relaxed mt-auto">
+          Evidence packs for high-risk AI logging, traceability, and reconstruction.
         </p>
       </div>
 
-      <div class="glass-panel p-8 rounded-xl border border-white/10 relative bg-black/80 z-10">
-        <div
-          class="w-12 h-12 bg-obrioxia-cyan/10 border border-obrioxia-cyan rounded-full flex items-center justify-center text-obrioxia-cyan font-orbitron text-xl mb-6 mx-auto">
-          2</div>
-        <h3 class="text-xl text-white font-orbitron mb-3 text-center">Seal</h3>
-        <p class="text-gray-400 text-sm text-center">
-          Each record is cryptographically locked to the one before it, creating a tamper-evident chain.
-          Any modification — even a single character — is detectable on verification.
+      <div class="glass-panel p-8 rounded-xl border border-white/10 hover:border-obrioxia-cyan/50 transition-all flex flex-col">
+        <h3 class="text-xl text-white font-orbitron mb-3">FCA and Consumer Duty pressure</h3>
+        <p class="text-gray-400 text-sm leading-relaxed mt-auto">
+          Reconstruct AI-assisted customer journeys when outcomes are challenged.
         </p>
       </div>
 
-      <div class="glass-panel p-8 rounded-xl border border-white/10 relative bg-black/80 z-10">
-        <div
-          class="w-12 h-12 bg-obrioxia-cyan/10 border border-obrioxia-cyan rounded-full flex items-center justify-center text-obrioxia-cyan font-orbitron text-xl mb-6 mx-auto">
-          3</div>
-        <h3 class="text-xl text-white font-orbitron mb-3 text-center">Verify</h3>
-        <p class="text-gray-400 text-sm text-center">
-          Download forensic audit certificates or use the Chain Verifier to confirm that your logs have not
-          been altered since creation.
+      <div class="glass-panel p-8 rounded-xl border border-white/10 hover:border-obrioxia-cyan/50 transition-all flex flex-col">
+        <h3 class="text-xl text-white font-orbitron mb-3">Model risk and internal audit</h3>
+        <p class="text-gray-400 text-sm leading-relaxed mt-auto">
+          Move from model inventory to decision provenance.
+        </p>
+      </div>
+
+      <div class="glass-panel p-8 rounded-xl border border-white/10 hover:border-obrioxia-cyan/50 transition-all flex flex-col">
+        <h3 class="text-xl text-white font-orbitron mb-3">AI assurance consultancies</h3>
+        <p class="text-gray-400 text-sm leading-relaxed mt-auto">
+          Give assurance teams audit-grade runtime proof, not another governance questionnaire.
+        </p>
+      </div>
+
+      <div class="glass-panel p-8 rounded-xl border border-white/10 hover:border-obrioxia-cyan/50 transition-all flex flex-col md:col-span-2 lg:col-span-2">
+        <h3 class="text-xl text-white font-orbitron mb-3">Complaints and DPO teams</h3>
+        <p class="text-gray-400 text-sm leading-relaxed mt-auto">
+          Show what personal data, recommendations, escalations, and human reviews shaped a contested outcome.
         </p>
       </div>
     </div>
 
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-      <div class="glass-panel p-8 rounded-xl border border-white/10 hover:border-obrioxia-cyan/50 transition-all">
-        <div class="text-obrioxia-cyan mb-4">
-          <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-              d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-          </svg>
-        </div>
-        <h3 class="text-xl text-white font-orbitron mb-4">Auditable Traceability</h3>
-        <p class="text-gray-400 leading-relaxed">
-          Obrioxia logs the events your AI sends to our API — decisions, inputs, outputs, and
-          confidence scores — in a format designed to support record-keeping obligations in regulated deployments.
-          Demonstrate
-          traceability with cryptographic verification.
-        </p>
-      </div>
-
-      <div class="glass-panel p-8 rounded-xl border border-white/10 hover:border-obrioxia-cyan/50 transition-all">
-        <div class="text-obrioxia-cyan mb-4">
-          <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-              d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
-          </svg>
-        </div>
-        <h3 class="text-xl text-white font-orbitron mb-4">Forensic Incident Analysis</h3>
-        <p class="text-gray-400 leading-relaxed">
-          When an AI agent fails or hallucinates, you need more than a text log. You need a digital alibi. Our
-          deterministic ledger allows you to inspect the exact record that was sealed at the moment of decision.
-        </p>
-      </div>
-
-      <div class="glass-panel p-8 rounded-xl border border-white/10 hover:border-obrioxia-cyan/50 transition-all">
-        <div class="text-obrioxia-cyan mb-4">
-          <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-              d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z">
-            </path>
-          </svg>
-        </div>
-        <h3 class="text-xl text-white font-orbitron mb-4">Privacy-Aware Immutability</h3>
-        <p class="text-gray-400 leading-relaxed">
-          Our write-only architecture protects the integrity of the chain while ensuring the production service
-          can never access sealed PII. Respond to Right to Erasure requests by destroying the per-event key —
-          the chain remains intact and continues to verify.
-        </p>
-      </div>
+    <!-- Credibility Line -->
+    <div class="text-center mb-16 border border-white/10 bg-white/5 rounded-xl p-6 max-w-4xl mx-auto backdrop-blur-sm">
+      <p class="text-white/60 text-sm font-medium tracking-wide leading-relaxed">
+        Designed for non-production pilots, sandboxes, retrospective reviews, and simulated incident reconstruction before enterprise-scale deployment.
+      </p>
     </div>
 
-    <div class="mt-24 pt-8 border-t border-white/10 text-center">
+    <div class="mt-12 pt-8 border-t border-white/10 text-center">
       <p class="text-gray-600 font-orbitron text-xs tracking-widest uppercase">
         Obrioxia Immutable Systems &copy; 2025–2026 · Patent pending.
       </p>

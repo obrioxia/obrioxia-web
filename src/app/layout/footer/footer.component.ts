@@ -14,7 +14,7 @@ import { RouterLink } from '@angular/router';
         <div class="col-span-1 md:col-span-1">
           <a routerLink="/" class="mb-6 block"><img src="/brand/obrioxia-logo.png" alt="Obrioxia" class="block h-8 w-auto object-contain"></a>
           <p class="text-gray-500 text-sm leading-relaxed">
-            The tamper-evident audit layer for Enterprise AI. Trust, but verify.
+            Obrioxia: evidentiary infrastructure for high-stakes AI systems.
           </p>
         </div>
 
