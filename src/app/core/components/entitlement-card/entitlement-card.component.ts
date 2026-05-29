@@ -1,13 +1,12 @@
 import { Component, inject, OnInit, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterLink } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../../environments/environment';
 
 @Component({
     selector: 'app-entitlement-card',
     standalone: true,
-    imports: [CommonModule, RouterLink],
+    imports: [CommonModule],
     template: `
     <div class="ent-card" *ngIf="loaded" [class.degraded]="error">
       <div class="ent-row" *ngIf="!error">
@@ -18,7 +17,6 @@ import { environment } from '../../../../environments/environment';
         <span class="features-summary">
           <span *ngFor="let f of featureTags" class="ftag" [class.on]="f.on" [title]="f.name">{{ f.label }}</span>
         </span>
-        <a routerLink="/pricing" class="upgrade-link" *ngIf="entitlement?.plan_id === 'free' || !entitlement?.plan_id">↑</a>
       </div>
       <div class="ent-row error-row" *ngIf="error">
         <span class="error-text">⚠ Service degraded</span>

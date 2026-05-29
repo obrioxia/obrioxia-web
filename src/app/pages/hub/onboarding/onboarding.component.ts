@@ -13,7 +13,7 @@ import { environment } from '../../../../environments/environment';
     <div class="onboarding-page">
       <div class="onboarding-header">
         <h1>🚀 Get Started with Obrioxia</h1>
-        <p class="subtitle">Complete these steps to start logging tamper-proof audit decisions.</p>
+        <p class="subtitle">Complete these steps to start logging tamper-evident audit decisions.</p>
       </div>
 
       <!-- System Health -->
@@ -50,7 +50,7 @@ import { environment } from '../../../../environments/environment';
           </div>
           <div class="loading-state" *ngIf="entitlementLoading">Loading entitlement...</div>
           <div class="upgrade-cta" *ngIf="entitlement  && entitlement.plan_id === 'free'">
-            <a routerLink="/pricing" class="btn btn-upgrade">Upgrade Plan →</a>
+            <a routerLink="/pricing" class="btn btn-upgrade">Contact Sales →</a>
           </div>
         </div>
 
@@ -63,8 +63,8 @@ import { environment } from '../../../../environments/environment';
           <h2>Create Your API Key</h2>
 
           <div *ngIf="isApiKeyLocked" class="locked-state">
-            <p class="locked-msg">🔒 API keys are available on an active subscription.</p>
-            <a routerLink="/pricing" class="btn btn-upgrade">Activate Subscription →</a>
+            <p class="locked-msg">🔒 API keys are available for active pilots and production engagements.</p>
+            <a routerLink="/pricing" class="btn btn-upgrade">Contact Sales to Unlock →</a>
           </div>
 
           <div *ngIf="!isApiKeyLocked">
@@ -125,9 +125,9 @@ import { environment } from '../../../../environments/environment';
             <span class="step-number">5</span>
             <span class="step-badge">Optional</span>
           </div>
-          <h2>Upgrade for More</h2>
-          <p>Unlock shredder, analytics, higher quotas, and larger payloads.</p>
-          <a routerLink="/pricing" class="btn btn-upgrade">💎 View Plans →</a>
+          <h2>Deploy to Production</h2>
+          <p>Run a supported pilot to unlock shredder, analytics, higher quotas, and larger payloads.</p>
+          <a routerLink="/pricing" class="btn btn-upgrade">💎 Discuss a Pilot →</a>
         </div>
 
       </div>

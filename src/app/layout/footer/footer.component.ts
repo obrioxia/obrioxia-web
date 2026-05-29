@@ -14,7 +14,7 @@ import { RouterLink } from '@angular/router';
         <div class="col-span-1 md:col-span-1">
           <a routerLink="/" class="mb-6 block"><img src="/brand/obrioxia-logo.png" alt="Obrioxia" class="block h-8 w-auto object-contain"></a>
           <p class="text-gray-500 text-sm leading-relaxed">
-            Obrioxia: evidentiary infrastructure for high-stakes AI systems.
+            The tamper-evident audit layer for Enterprise AI. Trust, but verify.
           </p>
         </div>
 
@@ -24,8 +24,7 @@ import { RouterLink } from '@angular/router';
           <ul class="space-y-4 text-sm text-gray-500">
             <li><a routerLink="/features" class="hover:text-obrioxia-cyan transition-colors">Features</a></li>
             <li><a routerLink="/how-it-works" class="hover:text-obrioxia-cyan transition-colors">How It Works</a></li>
-            <li><a routerLink="/financial-services" class="hover:text-obrioxia-cyan transition-colors">Financial Services</a></li>
-            <li><a routerLink="/pricing" class="hover:text-obrioxia-cyan transition-colors">Pricing</a></li>
+            <li><a routerLink="/pricing" class="hover:text-obrioxia-cyan transition-colors">Engagement Options</a></li>
             <li><a routerLink="/status" class="hover:text-obrioxia-cyan transition-colors">System Status</a></li>
             <li><a routerLink="/trust-pack" class="hover:text-obrioxia-cyan transition-colors">Trust Pack</a></li>
             <li><a routerLink="/hub/onboarding" class="hover:text-obrioxia-cyan transition-colors">Get Started</a></li>
@@ -39,7 +38,7 @@ import { RouterLink } from '@angular/router';
           <ul class="space-y-4 text-sm text-gray-500">
             <li><a routerLink="/compliance/eu-ai-act" class="hover:text-obrioxia-cyan transition-colors">Supports Article 12</a></li>
             <li><a routerLink="/compliance/iso-42001" class="hover:text-obrioxia-cyan transition-colors">ISO 42001</a></li>
-            <li><a routerLink="/compliance/insurance-automotive" class="hover:text-obrioxia-cyan transition-colors">Insurance & Auto</a></li>
+            <li><a routerLink="/compliance/insurance-automotive" class="hover:text-obrioxia-cyan transition-colors">Insurance & AI Risk</a></li>
             <li><a routerLink="/trust-center" class="hover:text-obrioxia-cyan transition-colors">Trust Center</a></li>
           </ul>
         </div>
@@ -50,12 +49,6 @@ import { RouterLink } from '@angular/router';
           <ul class="space-y-4 text-sm text-gray-500">
             <li><a href="mailto:sales@obrioxia.com" class="hover:text-obrioxia-cyan transition-colors">Sales Inquiries</a></li>
             <li><a href="mailto:security@obrioxia.com" class="hover:text-obrioxia-cyan transition-colors">Security Contact</a></li>
-          </ul>
-
-          <h4 class="text-white font-orbitron text-sm mt-8 mb-6">RESEARCH</h4>
-          <ul class="space-y-4 text-sm text-gray-500">
-            <li><a routerLink="/robotics" class="hover:text-obrioxia-cyan transition-colors">Robotics Accountability</a></li>
-            <li><a routerLink="/drone-demo" class="hover:text-obrioxia-cyan transition-colors">Drone Demo</a></li>
           </ul>
         </div>
 
