@@ -38,6 +38,41 @@
       </div>
     </div>
 
+    <!-- Video Section -->
+    <div class="mb-24 max-w-4xl mx-auto">
+      <div class="text-center mb-8">
+        <h2 class="text-2xl md:text-3xl text-white font-orbitron mb-4">See how Obrioxia works</h2>
+        <p class="text-gray-400 leading-relaxed text-lg max-w-3xl mx-auto">
+          A short explainer on why AI-assisted decisions need defensible evidence, not just governance policies.
+        </p>
+      </div>
+
+      <div class="relative rounded-2xl overflow-hidden border border-white/10 shadow-[0_0_30px_rgba(0,255,255,0.05)] bg-black">
+        <video controls playsinline preload="metadata" class="w-full aspect-video">
+          <source src="videos/obrioxia-home-page-explainer.web.mp4" type="video/mp4">
+          <track kind="captions" src="videos/obrioxia-home-page-explainer-captions.vtt" srclang="en" label="English" default>
+          <div class="text-white p-4 text-center">
+            Having trouble viewing the video? Contact <a href="mailto:hello@obrioxia.com" class="text-obrioxia-cyan hover:underline">hello@obrioxia.com</a> and we'll send the explainer directly.
+          </div>
+        </video>
+        <!-- Bottom fade overlay to hide NotebookLM branding -->
+        <div class="absolute bottom-0 left-0 w-full h-[15%] bg-gradient-to-t from-[rgba(0,0,0,0.75)] to-transparent pointer-events-none"></div>
+      </div>
+
+      <!-- Collapsible Transcript -->
+      <div class="mt-6">
+        <details class="group border border-white/10 rounded-xl bg-white/5 backdrop-blur-sm overflow-hidden">
+          <summary class="cursor-pointer p-4 text-white font-orbitron flex items-center justify-between hover:bg-white/5 transition-colors">
+            <span>Video transcript</span>
+            <svg class="w-5 h-5 text-gray-400 group-open:rotate-180 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+          </summary>
+          <div class="p-6 text-gray-400 text-sm leading-relaxed border-t border-white/10 bg-black/50 max-h-96 overflow-y-auto">
+            It's 9am Tuesday. The financial ombudsman just escalated a formal complaint. A customer alleges your AI-driven credit model unfairly denied them a crucial loan. The decision was made six months ago. Today, you have to answer a simple question. Can you conclusively prove exactly what data your AI saw, what it recommended, and why? Your internal dashboards show a perfectly governed system. But dashboards only display intent. They outline what the model is supposed to do. An auditor ignores your policies. They want to see the unvarnished reality of that single specific transaction. This is where standard investigations break down. You pull the system logs, but they are fragmented across different servers. They are mutable. A database administrator could modify a field three months after the fact, and the system would never notice the change. In highly regulated spaces like claims, automated credit approvals, or vulnerable customer triage, a broken trail creates measurable legal liability. Without a reconstructible evidence trail, a firm cannot satisfy the burden of proof required by regulators. When the evidence is fragmented, the defense fails. This is where Obrioxia comes in. It acts as a specialized accountability engine. A secure evidence layer that sits alongside your existing AI workflows without disrupting them. At the split second an AI makes a choice, Obrioxia ingests the event. It captures the specific inputs the model used, the exact confidence score it generated, and its raw, unfiltered recommendation. It also records the human interactions. If an agent reviewed the AI's output, overrode it, or simply clicked approve, that specific moment of oversight is permanently tied to the record. By systematically capturing these microscopic details at runtime, an isolated, unprovable event becomes a unified, defensible record. To be legally defensible, that evidence must be tamper-evident. You have to prove that no database operator or internal actor went back and altered the history to cover a mistake. Obrioxia uses cryptographic linking. Every event is hashed and linked directly to the one before it, creating a linear sequence. If someone tries to change a past record, the math fails. Modifying a single event instantly breaks the chain, making tampering detectable. But this rigidity hits a legal wall when a customer exercises their GDPR right to be forgotten. Obrioxia resolves this through crypto-shredding. When a customer demands deletion, the system destroys the record's encryption key. The data becomes unreadable, but the audit chain remains solid. True accountability requires this balance. Mathematical proof that the record is genuine, maintained alongside strict privacy compliance. Now, let's go back to that Tuesday morning complaint. The regulator is waiting. Only this time, your response is immediate. Your compliance team downloads an Obrioxia proof pack. It is a complete, verified bundle that reconstructs the exact environment of the AI decision without relying on IT forensics. You've replaced conflicting recollections and missing logs with a verified record of inputs and the human oversight involved. The facts of the case are no longer up for debate. You aren't digging through servers hoping the data is intact. You have a definitive paper trail. For firms deploying AI in customer-facing workflows, the expectations for recordkeeping have shifted. Success now requires more than just observability. It requires defensible evidence. So ask yourself, if an AI-assisted decision is challenged tomorrow, can you definitively prove what happened?
+          </div>
+        </details>
+      </div>
+    </div>
+
     <!-- Problem Section -->
     <div class="mb-24 text-center max-w-4xl mx-auto glass-panel p-10 rounded-2xl border border-white/5">
       <h2 class="text-2xl md:text-3xl text-white font-orbitron mb-6">The gap is not AI governance. The gap is evidence.</h2>
