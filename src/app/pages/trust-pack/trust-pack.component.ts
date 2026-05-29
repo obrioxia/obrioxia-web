@@ -20,7 +20,7 @@ import { RouterLink } from '@angular/router';
         <ul class="check-list">
           <li>Tamper-evident audit log for every decision your system makes</li>
           <li>Immutable record with SHA-256 hash chain — no one can alter entries after the fact</li>
-          <li>GDPR-compliant shredding — irreversibly redact personal data on demand</li>
+          <li>Compliant Erasure — irreversibly redact personal data on demand</li>
           <li>PDF evidence reports for each logged decision</li>
           <li>Real-time analytics dashboard for risk and compliance monitoring</li>
           <li>API-first integration — works with any system, any language</li>
@@ -34,7 +34,7 @@ import { RouterLink } from '@angular/router';
           <li><strong>Hash chain:</strong> Each record's fingerprint depends on the previous record. Change one, and every record after it breaks.</li>
           <li><strong>Audit trail:</strong> Every enforcement decision (allowed, denied, rate-limited) is logged permanently with a unique decision ID.</li>
           <li><strong>Billing fairness:</strong> Quota limits, rate limits, and feature gates apply equally to every customer. No bypass. If the database is down, requests are rejected — never silently allowed.</li>
-          <li><strong>Shred proof:</strong> Shredded records show as <code>[SHREDDED]</code> in the ledger. The operation is irreversible at the application layer.</li>
+          <li><strong>Erasure proof:</strong> Erased records show as <code>[SHREDDED]</code> in the ledger. The operation is irreversible at the application layer.</li>
           <li><strong>Idempotent operations:</strong> Replayed API calls return the same result without double-counting usage.</li>
         </ul>
       </section>
@@ -53,9 +53,9 @@ import { RouterLink } from '@angular/router';
 
       <!-- Data Deletion -->
       <section class="trust-section">
-        <h2>Data Deletion &amp; Shredding</h2>
-        <p>When you shred a record, identifying fields are permanently replaced with <code>[SHREDDED]</code>. The ledger entry remains (with its hash chain intact) but the personal data is gone.</p>
-        <p>This is irreversible at the application level. While database backups may contain pre-shred snapshots within the retention window, the Obrioxia application cannot undo a shred operation.</p>
+        <h2>Data Deletion &amp; Compliant Erasure</h2>
+        <p>When you erase a record, identifying fields are permanently replaced with <code>[SHREDDED]</code>. The ledger entry remains (with its hash chain intact) but the personal data is gone.</p>
+        <p>This is irreversible at the application level. While database backups may contain pre-erasure snapshots within the retention window, the Obrioxia application cannot undo an erasure operation.</p>
       </section>
 
       <!-- Proof Links -->

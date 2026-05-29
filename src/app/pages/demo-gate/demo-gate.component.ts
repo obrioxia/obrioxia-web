@@ -97,8 +97,8 @@ import { RouterLink } from '@angular/router';
               <p class="text-gray-500 text-[10px]">Browse the full ledger</p>
             </div>
             <div class="text-center p-3 rounded-lg bg-white/5 border border-white/5">
-              <p class="text-red-400 text-xs font-orbitron mb-1">Shredder</p>
-              <p class="text-gray-500 text-[10px]">Crypto-shred a field</p>
+              <p class="text-red-400 text-xs font-orbitron mb-1">Erasure</p>
+              <p class="text-gray-500 text-[10px]">Erase a field</p>
             </div>
             <div class="text-center p-3 rounded-lg bg-white/5 border border-white/5">
               <p class="text-yellow-400 text-xs font-orbitron mb-1">Golden Path</p>

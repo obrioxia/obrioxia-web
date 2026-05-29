@@ -28,8 +28,8 @@ import { RouterLink } from '@angular/router';
           </section>
 
           <section>
-            <h2 class="text-lg text-white font-orbitron mb-3">3. Selective Shredding</h2>
-            <p>The shredding feature makes protected fields permanently irrecoverable while preserving the integrity of the audit chain. The record remains in the chain, but the sensitive payload can no longer be accessed.</p>
+            <h2 class="text-lg text-white font-orbitron mb-3">3. Compliant Erasure</h2>
+            <p>The compliant erasure feature makes protected fields permanently irrecoverable while preserving the integrity of the audit chain. The record remains in the chain, but the sensitive payload can no longer be accessed.</p>
           </section>
 
           <section>

@@ -53,10 +53,10 @@ import { Router, RouterLink } from '@angular/router';
 
           <div class="group relative p-8 rounded-2xl bg-white/5 border border-white/10 hover:border-red-500/50 transition-all duration-300 hover:-translate-y-1">
             <div class="absolute inset-0 bg-gradient-to-br from-red-500/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity rounded-2xl"></div>
-            <h3 class="text-2xl font-orbitron text-white mb-2">SHREDDER</h3>
-            <p class="text-sm text-gray-400 mb-6 h-12">Selectively shred sensitive fields. The record stays in the chain but protected data becomes irrecoverable.</p>
+            <h3 class="text-2xl font-orbitron text-white mb-2">ERASURE</h3>
+            <p class="text-sm text-gray-400 mb-6 h-12">Selectively erase sensitive fields. The record stays in the chain but protected data becomes irrecoverable.</p>
             <a href="https://demo.obrioxia.com/shred" class="inline-flex items-center justify-center w-full py-3 bg-transparent border border-red-500 text-red-500 font-bold rounded hover:bg-red-500/10 transition-all font-orbitron">
-              LAUNCH SHREDDER
+              LAUNCH ERASURE
             </a>
           </div>
 
@@ -68,7 +68,7 @@ import { Router, RouterLink } from '@angular/router';
             <ul class="space-y-2 text-sm text-gray-400">
               <li class="flex items-start"><span class="text-obrioxia-cyan mr-2">►</span>Log decision events to a live sandbox ledger</li>
               <li class="flex items-start"><span class="text-obrioxia-cyan mr-2">►</span>Verify chain integrity in real time</li>
-              <li class="flex items-start"><span class="text-obrioxia-cyan mr-2">►</span>Shred sensitive fields and re-verify</li>
+              <li class="flex items-start"><span class="text-obrioxia-cyan mr-2">►</span>Erase sensitive fields and re-verify</li>
               <li class="flex items-start"><span class="text-obrioxia-cyan mr-2">►</span>All data is synthetic — no real PII</li>
             </ul>
           </div>

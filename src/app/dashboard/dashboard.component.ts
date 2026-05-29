@@ -35,9 +35,9 @@ Chart.register(...registerables);
           <h5 class="text-gray-400 text-xs font-mono mb-2">Chain Integrity</h5>
           <h2 class="text-4xl font-bold font-orbitron text-green-500">100%</h2>
         </div>
-        <div class="p-4 bg-white/5 border border-white/10 rounded-xl">
-          <h5 class="text-gray-400 text-xs font-mono mb-2">Shredded Events</h5>
-          <h2 class="text-4xl font-bold font-orbitron text-gray-500">12</h2>
+        <div class="p-3 bg-white/5 border border-white/10 rounded-xl">
+          <h5 class="text-gray-400 text-sm">Erased Events</h5>
+          <h2 class="text-4xl font-bold text-gray-500">12</h2>
         </div>
       </div>
 

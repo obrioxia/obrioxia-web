@@ -52,7 +52,7 @@ Obrioxia uses cryptographic linking. Every event is hashed and linked directly t
 If someone tries to change a past record, the math fails. Modifying a single event instantly breaks the chain, making tampering detectable.
 
 00:02:25.000 --> 00:02:42.000
-But this rigidity hits a legal wall when a customer exercises their GDPR right to be forgotten. Obrioxia resolves this through crypto-shredding. When a customer demands deletion, the system destroys the record's encryption key. The data becomes unreadable, but the audit chain remains solid.
+But this rigidity hits a legal wall when a customer exercises their GDPR right to be forgotten. Obrioxia resolves this through compliant erasure. When a customer demands deletion, the system destroys the record's encryption key. The data becomes unreadable, but the audit chain remains solid.
 
 00:02:42.000 --> 00:02:51.000
 True accountability requires this balance. Mathematical proof that the record is genuine, maintained alongside strict privacy compliance.
