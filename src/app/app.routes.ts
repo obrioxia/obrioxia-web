@@ -16,6 +16,7 @@ import { ShredderComponent } from './pages/hub/shredder/shredder.component';
 import { AnalyticsComponent } from './pages/hub/analytics/analytics.component';
 import { OnboardingComponent } from './pages/hub/onboarding/onboarding.component';
 import { HowItWorksComponent } from './pages/how-it-works/how-it-works.component';
+import { SpendEvidenceComponent } from './pages/spend-evidence/spend-evidence.component';
 import { TrustCenterComponent } from './pages/trust-center/trust-center.component';
 import { TrustPackComponent } from './pages/trust-pack/trust-pack.component';
 import { RoboticsComponent } from './pages/robotics/robotics.component';
@@ -44,6 +45,7 @@ export const routes: Routes = [
   // Main Public Pages
   { path: '', component: HomeComponent },
   { path: 'features', component: FeaturesComponent },
+  { path: 'spend-evidence', component: SpendEvidenceComponent },
   { path: 'pricing', component: PricingComponent },
   { path: 'upgrade', component: PricingComponent },
   { path: 'how-it-works', component: HowItWorksComponent },

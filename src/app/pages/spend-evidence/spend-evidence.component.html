@@ -1,0 +1,170 @@
+<div class="min-h-screen pt-28 pb-20 px-4">
+  <div class="max-w-7xl mx-auto">
+
+    <!-- 1. Hero -->
+    <div class="text-center mb-20">
+      <h1 class="text-5xl text-white font-orbitron mb-6">Tamper-evident receipts for <span class="text-obrioxia-cyan">AI/API usage</span></h1>
+      <p class="text-xl text-gray-400 max-w-3xl mx-auto mb-10">Capture model calls, seal spend events, reconcile usage, and export signed evidence packs for client billing, audits, and reviews.</p>
+      <a href="/demo-gate" class="inline-block bg-obrioxia-cyan hover:bg-obrioxia-cyan-light text-black font-bold py-4 px-8 rounded-lg transition-colors shadow-[0_0_15px_rgba(0,255,255,0.3)]">Request Spend Evidence Demo</a>
+    </div>
+
+    <div class="space-y-12">
+      <!-- 2. Problem section -->
+      <div class="glass-panel p-8 rounded-xl border border-white/10">
+        <h2 class="text-2xl text-white font-orbitron mb-4">The Problem</h2>
+        <p class="text-gray-400 mb-6 max-w-3xl">AI/API bills are hard to defend. Provider dashboards only show high-level totals, and standard application logs are mutable.</p>
+        <ul class="space-y-3">
+          <li class="flex items-start text-gray-300">
+            <span class="text-red-500 mr-2">►</span>
+            Clients ask why spend happened and where the money went.
+          </li>
+          <li class="flex items-start text-gray-300">
+            <span class="text-red-500 mr-2">►</span>
+            Teams need concrete evidence, not just screenshots of a billing dashboard.
+          </li>
+          <li class="flex items-start text-gray-300">
+            <span class="text-red-500 mr-2">►</span>
+            You lack a clear internal, tamper-evident record of what workflow, team, or agent caused the spend.
+          </li>
+        </ul>
+      </div>
+
+      <!-- 3. How it works -->
+      <div class="glass-panel p-8 rounded-xl border border-white/10">
+        <h2 class="text-2xl text-white font-orbitron mb-4">How It Works</h2>
+        <div class="grid md:grid-cols-2 gap-6 mt-6">
+          <div class="bg-black/30 p-6 rounded-lg border border-white/5">
+            <div class="text-obrioxia-cyan text-sm font-mono mb-2">STEP 1</div>
+            <h3 class="text-white text-lg mb-2">Proxy captures AI/API usage events</h3>
+            <p class="text-gray-400 text-sm">Intercepts every request seamlessly without altering upstream API calls.</p>
+          </div>
+          <div class="bg-black/30 p-6 rounded-lg border border-white/5">
+            <div class="text-obrioxia-cyan text-sm font-mono mb-2">STEP 2</div>
+            <h3 class="text-white text-lg mb-2">Each spend event is sealed into a hash chain</h3>
+            <p class="text-gray-400 text-sm">Cryptographic payload includes all critical business and billing metadata.</p>
+          </div>
+          <div class="bg-black/30 p-6 rounded-lg border border-white/5">
+            <div class="text-obrioxia-cyan text-sm font-mono mb-2">STEP 3</div>
+            <h3 class="text-white text-lg mb-2">Tampering breaks verification</h3>
+            <p class="text-gray-400 text-sm">Any silent modification to local records breaks the math instantly.</p>
+          </div>
+          <div class="bg-black/30 p-6 rounded-lg border border-white/5">
+            <div class="text-obrioxia-cyan text-sm font-mono mb-2">STEP 4</div>
+            <h3 class="text-white text-lg mb-2">Usage can be reconciled against provider bills</h3>
+            <p class="text-gray-400 text-sm">Local evidence totals perfectly align with (or audit) provider invoices.</p>
+          </div>
+          <div class="bg-black/30 p-6 rounded-lg border border-white/5 md:col-span-2">
+            <div class="text-obrioxia-cyan text-sm font-mono mb-2">STEP 5</div>
+            <h3 class="text-white text-lg mb-2">Signed evidence packs can be exported</h3>
+            <p class="text-gray-400 text-sm">Generate verifiable offline manifests for regulators and finance teams.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- 4. Use cases -->
+      <div class="glass-panel p-8 rounded-xl border border-white/10">
+        <h2 class="text-2xl text-white font-orbitron mb-4">Use Cases</h2>
+        <ul class="space-y-4">
+          <li class="flex items-start text-gray-300">
+            <span class="text-obrioxia-green mr-3 text-xl">✓</span>
+            <div>
+              <strong class="text-white block">AI agencies explaining client API spend</strong>
+              <span class="text-sm text-gray-400">Provide verifiable receipts for usage-based billing.</span>
+            </div>
+          </li>
+          <li class="flex items-start text-gray-300">
+            <span class="text-obrioxia-green mr-3 text-xl">✓</span>
+            <div>
+              <strong class="text-white block">Builders catching runaway agent loops</strong>
+              <span class="text-sm text-gray-400">Pinpoint exactly which prompt chain exhausted your credits.</span>
+            </div>
+          </li>
+          <li class="flex items-start text-gray-300">
+            <span class="text-obrioxia-green mr-3 text-xl">✓</span>
+            <div>
+              <strong class="text-white block">Teams allocating model spend by workflow</strong>
+              <span class="text-sm text-gray-400">Tag events by team, user, or workflow for internal chargebacks.</span>
+            </div>
+          </li>
+          <li class="flex items-start text-gray-300">
+            <span class="text-obrioxia-green mr-3 text-xl">✓</span>
+            <div>
+              <strong class="text-white block">Finance or audit teams reviewing AI usage history</strong>
+              <span class="text-sm text-gray-400">Reconcile provider bills with an immutable local ledger.</span>
+            </div>
+          </li>
+        </ul>
+      </div>
+
+      <!-- 5. What it proves / does not prove -->
+      <div class="grid md:grid-cols-2 gap-8">
+        <div class="glass-panel p-8 rounded-xl border border-white/10 border-t-4 border-t-obrioxia-green">
+          <h2 class="text-xl text-white font-orbitron mb-4">What It Proves</h2>
+          <ul class="space-y-3">
+            <li class="flex items-start text-gray-300 text-sm">
+              <span class="text-obrioxia-green mr-2">►</span>
+              Existing sealed records cannot be silently modified without breaking verification.
+            </li>
+            <li class="flex items-start text-gray-300 text-sm">
+              <span class="text-obrioxia-green mr-2">►</span>
+              The evidence trail can show model, workflow, team, tokens, estimated cost, and hashes.
+            </li>
+            <li class="flex items-start text-gray-300 text-sm">
+              <span class="text-obrioxia-green mr-2">►</span>
+              Signed evidence packs can be verified independently offline.
+            </li>
+          </ul>
+        </div>
+
+        <div class="glass-panel p-8 rounded-xl border border-white/10 border-t-4 border-t-yellow-500">
+          <h2 class="text-xl text-white font-orbitron mb-4">What It Does Not Prove</h2>
+          <ul class="space-y-3">
+            <li class="flex items-start text-gray-300 text-sm">
+              <span class="text-yellow-500 mr-2">►</span>
+              It is not full WORM compliance unless S3 Object Lock witness anchoring is configured.
+            </li>
+            <li class="flex items-start text-gray-300 text-sm">
+              <span class="text-yellow-500 mr-2">►</span>
+              It does not prove the upstream provider definitively processed exact bytes.
+            </li>
+            <li class="flex items-start text-gray-300 text-sm">
+              <span class="text-yellow-500 mr-2">►</span>
+              It is not legal advice or a compliance guarantee.
+            </li>
+            <li class="flex items-start text-gray-300 text-sm">
+              <span class="text-yellow-500 mr-2">►</span>
+              It does not make local storage immune to total rewrite before external anchoring.
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- 6. Pricing / access -->
+      <div class="glass-panel p-10 rounded-xl border border-white/10 text-center">
+        <h2 class="text-3xl text-white font-orbitron mb-8">Access Plans</h2>
+        <div class="grid md:grid-cols-4 gap-4 max-w-4xl mx-auto mb-10">
+          <div class="p-6 border border-white/5 rounded-lg bg-black/20">
+            <h3 class="text-lg text-white mb-2">Free Demo</h3>
+            <p class="text-gray-400 text-sm">Interactive dashboard</p>
+          </div>
+          <div class="p-6 border border-white/5 rounded-lg bg-black/20">
+            <h3 class="text-lg text-white mb-2">Builder Beta</h3>
+            <p class="text-gray-400 text-sm">Local deployment</p>
+          </div>
+          <div class="p-6 border border-white/5 rounded-lg bg-black/20">
+            <h3 class="text-lg text-white mb-2">Studio Beta</h3>
+            <p class="text-gray-400 text-sm">Team analytics</p>
+          </div>
+          <div class="p-6 border border-white/5 rounded-lg bg-black/20">
+            <h3 class="text-lg text-white mb-2">Evidence Pack</h3>
+            <p class="text-gray-400 text-sm">Signed exports pilot</p>
+          </div>
+        </div>
+        
+        <!-- 7. Final CTA -->
+        <a href="/demo-gate" class="inline-block bg-obrioxia-cyan hover:bg-obrioxia-cyan-light text-black font-bold py-4 px-10 rounded-lg transition-colors shadow-[0_0_15px_rgba(0,255,255,0.3)]">Request Spend Evidence Demo</a>
+      </div>
+
+    </div>
+  </div>
+</div>
