@@ -51,6 +51,12 @@ import { RouterLink } from '@angular/router';
             <li><a href="mailto:sales@obrioxia.com" class="hover:text-obrioxia-cyan transition-colors">Sales Inquiries</a></li>
             <li><a href="mailto:security@obrioxia.com" class="hover:text-obrioxia-cyan transition-colors">Security Contact</a></li>
           </ul>
+
+          <h4 class="text-white font-orbitron text-sm mt-8 mb-6">RESEARCH</h4>
+          <ul class="space-y-4 text-sm text-gray-500">
+            <li><a routerLink="/robotics" class="hover:text-obrioxia-cyan transition-colors">Robotics Accountability</a></li>
+            <li><a routerLink="/drone-demo" class="hover:text-obrioxia-cyan transition-colors">Drone Demo</a></li>
+          </ul>
         </div>
 
       </div>
