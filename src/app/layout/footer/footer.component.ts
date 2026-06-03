@@ -23,6 +23,7 @@ import { RouterLink } from '@angular/router';
           <h4 class="text-white font-orbitron text-sm mb-6">PRODUCT</h4>
           <ul class="space-y-4 text-sm text-gray-500">
             <li><a routerLink="/features" class="hover:text-obrioxia-cyan transition-colors">Features</a></li>
+            <li><a routerLink="/spend-evidence" class="hover:text-obrioxia-cyan transition-colors">Spend Evidence</a></li>
             <li><a routerLink="/how-it-works" class="hover:text-obrioxia-cyan transition-colors">How It Works</a></li>
             <li><a routerLink="/pricing" class="hover:text-obrioxia-cyan transition-colors">Engagement Options</a></li>
             <li><a routerLink="/status" class="hover:text-obrioxia-cyan transition-colors">System Status</a></li>
