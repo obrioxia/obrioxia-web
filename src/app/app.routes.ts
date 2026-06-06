@@ -26,6 +26,7 @@ import { FinancialServicesComponent } from './pages/financial-services/financial
 import { EuAiActComponent } from './pages/compliance/eu-ai-act/eu-ai-act.component';
 import { Iso42001Component } from './pages/compliance/iso-42001/iso-42001.component';
 import { InsuranceComponent } from './pages/compliance/insurance/insurance.component';
+import { AiInsuranceEvidenceComponent } from './pages/compliance/ai-insurance-evidence/ai-insurance-evidence.component';
 import { TermsComponent } from './pages/terms/terms.component';
 import { PrivacyComponent } from './pages/privacy/privacy.component';
 import { SignupComponent } from './pages/auth/signup/signup.component';
@@ -60,6 +61,7 @@ export const routes: Routes = [
   { path: 'compliance/eu-ai-act', component: EuAiActComponent },
   { path: 'compliance/iso-42001', component: Iso42001Component },
   { path: 'compliance/insurance-automotive', component: InsuranceComponent },
+  { path: 'compliance/ai-insurance-evidence', component: AiInsuranceEvidenceComponent },
 
   // Legal
   { path: 'terms-of-service', component: TermsComponent },
