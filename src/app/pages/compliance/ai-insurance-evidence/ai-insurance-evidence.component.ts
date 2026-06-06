@@ -59,27 +59,27 @@ import { RouterLink } from '@angular/router';
             <h3 class="text-lg text-white font-orbitron mb-4 text-center">New Questions for AI-Agent Liability:</h3>
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div class="flex items-start gap-3 p-4 rounded-lg border border-white/5 bg-white/[0.02]">
-                <span class="text-obrioxia-cyan text-lg mt-0.5">?</span>
+                <span class="text-obrioxia-cyan text-[10px] uppercase tracking-widest font-mono border border-obrioxia-cyan/30 px-1.5 py-0.5 rounded bg-obrioxia-cyan/10 shrink-0 mt-0.5">INTENT</span>
                 <p class="text-gray-400 text-sm">What did the customer ask?</p>
               </div>
               <div class="flex items-start gap-3 p-4 rounded-lg border border-white/5 bg-white/[0.02]">
-                <span class="text-obrioxia-cyan text-lg mt-0.5">?</span>
+                <span class="text-obrioxia-cyan text-[10px] uppercase tracking-widest font-mono border border-obrioxia-cyan/30 px-1.5 py-0.5 rounded bg-obrioxia-cyan/10 shrink-0 mt-0.5">PROPOSAL</span>
                 <p class="text-gray-400 text-sm">What did the agent propose?</p>
               </div>
               <div class="flex items-start gap-3 p-4 rounded-lg border border-white/5 bg-white/[0.02]">
-                <span class="text-obrioxia-cyan text-lg mt-0.5">?</span>
+                <span class="text-obrioxia-cyan text-[10px] uppercase tracking-widest font-mono border border-obrioxia-cyan/30 px-1.5 py-0.5 rounded bg-obrioxia-cyan/10 shrink-0 mt-0.5">MATCH</span>
                 <p class="text-gray-400 text-sm">Did it match intent?</p>
               </div>
               <div class="flex items-start gap-3 p-4 rounded-lg border border-white/5 bg-white/[0.02]">
-                <span class="text-obrioxia-cyan text-lg mt-0.5">?</span>
+                <span class="text-obrioxia-cyan text-[10px] uppercase tracking-widest font-mono border border-obrioxia-cyan/30 px-1.5 py-0.5 rounded bg-obrioxia-cyan/10 shrink-0 mt-0.5">APPROVAL</span>
                 <p class="text-gray-400 text-sm">Was human approval required?</p>
               </div>
               <div class="flex items-start gap-3 p-4 rounded-lg border border-white/5 bg-white/[0.02]">
-                <span class="text-obrioxia-cyan text-lg mt-0.5">?</span>
+                <span class="text-obrioxia-cyan text-[10px] uppercase tracking-widest font-mono border border-obrioxia-cyan/30 px-1.5 py-0.5 rounded bg-obrioxia-cyan/10 shrink-0 mt-0.5">RECONSTRUCT</span>
                 <p class="text-gray-400 text-sm">Can the decision be reconstructed later?</p>
               </div>
               <div class="flex items-start gap-3 p-4 rounded-lg border border-white/5 bg-white/[0.02]">
-                <span class="text-obrioxia-cyan text-lg mt-0.5">?</span>
+                <span class="text-obrioxia-cyan text-[10px] uppercase tracking-widest font-mono border border-obrioxia-cyan/30 px-1.5 py-0.5 rounded bg-obrioxia-cyan/10 shrink-0 mt-0.5">ROUTE</span>
                 <p class="text-gray-400 text-sm">Could a risky action be blocked or routed before execution?</p>
               </div>
             </div>
@@ -91,7 +91,7 @@ import { RouterLink } from '@angular/router';
         <!-- ═══════════════════════════════════════════════════════════ -->
         <div class="mb-24">
           <h2 class="text-2xl md:text-3xl text-white font-orbitron mb-8 text-center">
-            Three Layers of <span class="text-obrioxia-cyan">Protection</span>
+            Three Layers of <span class="text-obrioxia-cyan">AI Runtime Evidence</span>
           </h2>
           
           <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
@@ -246,7 +246,7 @@ import { RouterLink } from '@angular/router';
             <div class="absolute inset-0 bg-gradient-to-b from-obrioxia-cyan/5 to-transparent pointer-events-none"></div>
             
             <h2 class="text-2xl md:text-4xl text-white font-orbitron mb-8 relative z-10">
-              Ready to secure your <span class="text-obrioxia-cyan">AI workflows?</span>
+              Ready to discuss <span class="text-obrioxia-cyan">AI Insurance Evidence?</span>
             </h2>
             
             <div class="flex flex-col sm:flex-row justify-center gap-4 w-full relative z-10">
