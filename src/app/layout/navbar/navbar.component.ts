@@ -16,6 +16,7 @@ import { Auth, signOut } from '@angular/fire/auth';
         <a routerLink="/spend-evidence" routerLinkActive="text-obrioxia-cyan" (click)="isMobileMenuOpen = false" class="text-white/80 hover:text-white transition-colors uppercase">SPEND EVIDENCE</a>
         <a routerLink="/demo-signup" routerLinkActive="text-obrioxia-cyan" (click)="isMobileMenuOpen = false" class="text-white/80 hover:text-white transition-colors uppercase">LIVE DEMO SIGN-UP</a>
         <a routerLink="/how-it-works" routerLinkActive="text-obrioxia-cyan" (click)="isMobileMenuOpen = false" class="text-white/80 hover:text-white transition-colors">HOW IT WORKS</a>
+        <a routerLink="/compliance/ai-insurance-evidence" routerLinkActive="text-obrioxia-cyan" (click)="isMobileMenuOpen = false" class="text-white/80 hover:text-white transition-colors uppercase">AI INSURANCE EVIDENCE</a>
         <a routerLink="/trust-center" routerLinkActive="text-obrioxia-cyan" (click)="isMobileMenuOpen = false" class="text-white/80 hover:text-white transition-colors">TRUST CENTER</a>
         <a routerLink="/pricing" routerLinkActive="text-obrioxia-cyan" (click)="isMobileMenuOpen = false" class="text-white/80 hover:text-white transition-colors">ENGAGEMENT OPTIONS</a>
         
@@ -52,6 +53,7 @@ import { Auth, signOut } from '@angular/fire/auth';
           <a routerLink="/spend-evidence" routerLinkActive="text-obrioxia-cyan" class="text-[15px] text-white/80 hover:text-white transition-colors whitespace-nowrap uppercase">SPEND EVIDENCE</a>
           <a routerLink="/demo-signup" routerLinkActive="text-obrioxia-cyan" class="text-[15px] text-white/80 hover:text-white transition-colors uppercase cursor-pointer whitespace-nowrap">LIVE DEMO SIGN-UP</a>
           <a routerLink="/how-it-works" routerLinkActive="text-obrioxia-cyan" class="text-[15px] text-white/80 hover:text-white transition-colors whitespace-nowrap">HOW IT WORKS</a>
+          <a routerLink="/compliance/ai-insurance-evidence" routerLinkActive="text-obrioxia-cyan" class="text-[15px] text-white/80 hover:text-white transition-colors uppercase whitespace-nowrap">AI INSURANCE EVIDENCE</a>
           <a routerLink="/trust-center" routerLinkActive="text-obrioxia-cyan" class="text-[15px] text-white/80 hover:text-white transition-colors whitespace-nowrap">TRUST CENTER</a>
           <a routerLink="/pricing" routerLinkActive="text-obrioxia-cyan" class="text-[15px] text-white/80 hover:text-white transition-colors whitespace-nowrap">ENGAGEMENT OPTIONS</a>
         </div>

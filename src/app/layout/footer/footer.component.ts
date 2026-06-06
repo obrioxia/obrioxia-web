@@ -40,6 +40,7 @@ import { RouterLink } from '@angular/router';
             <li><a routerLink="/compliance/eu-ai-act" class="hover:text-obrioxia-cyan transition-colors">Supports Article 12</a></li>
             <li><a routerLink="/compliance/iso-42001" class="hover:text-obrioxia-cyan transition-colors">ISO 42001</a></li>
             <li><a routerLink="/compliance/insurance-automotive" class="hover:text-obrioxia-cyan transition-colors">Insurance & AI Risk</a></li>
+            <li><a routerLink="/compliance/ai-insurance-evidence" class="hover:text-obrioxia-cyan transition-colors">AI Insurance Evidence</a></li>
             <li><a routerLink="/trust-center" class="hover:text-obrioxia-cyan transition-colors">Trust Center</a></li>
           </ul>
         </div>
