@@ -14,7 +14,7 @@ import { Auth, signOut } from '@angular/fire/auth';
       <div class="flex flex-col gap-6 text-lg font-medium">
         <a routerLink="/features" routerLinkActive="text-obrioxia-cyan" (click)="isMobileMenuOpen = false" class="text-white/80 hover:text-white transition-colors">FEATURES</a>
         <a routerLink="/spend-evidence" routerLinkActive="text-obrioxia-cyan" (click)="isMobileMenuOpen = false" class="text-white/80 hover:text-white transition-colors uppercase">SPEND EVIDENCE</a>
-        <a routerLink="/demo-signup" routerLinkActive="text-obrioxia-cyan" (click)="isMobileMenuOpen = false" class="text-white/80 hover:text-white transition-colors uppercase">LIVE DEMO SIGN-UP</a>
+        <a routerLink="/demo-gate" routerLinkActive="text-obrioxia-cyan" (click)="isMobileMenuOpen = false" class="text-white/80 hover:text-white transition-colors uppercase">LIVE DEMO SIGN-UP</a>
         <a routerLink="/how-it-works" routerLinkActive="text-obrioxia-cyan" (click)="isMobileMenuOpen = false" class="text-white/80 hover:text-white transition-colors">HOW IT WORKS</a>
         <a routerLink="/compliance/ai-insurance-evidence" routerLinkActive="text-obrioxia-cyan" (click)="isMobileMenuOpen = false" class="text-white/80 hover:text-white transition-colors uppercase">AI INSURANCE</a>
         <a routerLink="/trust-center" routerLinkActive="text-obrioxia-cyan" (click)="isMobileMenuOpen = false" class="text-white/80 hover:text-white transition-colors">TRUST CENTER</a>
@@ -51,7 +51,7 @@ import { Auth, signOut } from '@angular/fire/auth';
         <div class="hidden lg:flex items-center gap-6 xl:gap-[30px]">
           <a routerLink="/features" routerLinkActive="text-obrioxia-cyan" class="text-[14px] xl:text-[15px] text-white/80 hover:text-white transition-colors whitespace-nowrap">FEATURES</a>
           <a routerLink="/spend-evidence" routerLinkActive="text-obrioxia-cyan" class="text-[14px] xl:text-[15px] text-white/80 hover:text-white transition-colors whitespace-nowrap uppercase">SPEND EVIDENCE</a>
-          <a routerLink="/demo-signup" routerLinkActive="text-obrioxia-cyan" class="text-[14px] xl:text-[15px] text-white/80 hover:text-white transition-colors uppercase cursor-pointer whitespace-nowrap">LIVE DEMO SIGN-UP</a>
+          <a routerLink="/demo-gate" routerLinkActive="text-obrioxia-cyan" class="text-[14px] xl:text-[15px] text-white/80 hover:text-white transition-colors uppercase cursor-pointer whitespace-nowrap">LIVE DEMO SIGN-UP</a>
           <a routerLink="/how-it-works" routerLinkActive="text-obrioxia-cyan" class="text-[14px] xl:text-[15px] text-white/80 hover:text-white transition-colors whitespace-nowrap">HOW IT WORKS</a>
           <a routerLink="/compliance/ai-insurance-evidence" routerLinkActive="text-obrioxia-cyan" class="text-[14px] xl:text-[15px] text-white/80 hover:text-white transition-colors uppercase whitespace-nowrap">AI INSURANCE</a>
           <a routerLink="/trust-center" routerLinkActive="text-obrioxia-cyan" class="text-[14px] xl:text-[15px] text-white/80 hover:text-white transition-colors whitespace-nowrap">TRUST CENTER</a>
