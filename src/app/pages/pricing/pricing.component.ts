@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
@@ -10,7 +10,7 @@ import { environment } from '../../../environments/environment';
   imports: [CommonModule, ReactiveFormsModule],
   templateUrl: './pricing.component.html'
 })
-export class PricingComponent {
+export class PricingComponent implements OnDestroy {
   private http = inject(HttpClient);
   private fb = inject(FormBuilder);
 
@@ -24,6 +24,8 @@ export class PricingComponent {
   isSubmitting = false;
   submitSuccess = false;
   submitError = '';
+  cooldownRemaining = 0;
+  private cooldownTimer: any = null;
 
   constructor() {
     this.contactForm = this.fb.group({
@@ -47,6 +49,29 @@ export class PricingComponent {
     this.submitSuccess = false;
     this.submitError = '';
     this.contactForm.reset();
+  }
+
+  ngOnDestroy() {
+    this.clearCooldown();
+  }
+
+  private startCooldown() {
+    this.cooldownRemaining = 60;
+    this.clearCooldown();
+    this.cooldownTimer = setInterval(() => {
+      this.cooldownRemaining--;
+      if (this.cooldownRemaining <= 0) {
+        this.clearCooldown();
+      }
+    }, 1000);
+  }
+
+  private clearCooldown() {
+    if (this.cooldownTimer) {
+      clearInterval(this.cooldownTimer);
+      this.cooldownTimer = null;
+    }
+    this.cooldownRemaining = 0;
   }
 
   getModalTitle(): string {
@@ -82,6 +107,7 @@ export class PricingComponent {
       next: () => {
         this.isSubmitting = false;
         this.submitSuccess = true;
+        this.startCooldown();
       },
       error: (err) => {
         this.isSubmitting = false;

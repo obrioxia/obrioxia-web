@@ -52,7 +52,7 @@ interface ComplianceData {
                     </div>
                 </div>
                 <div class="mt-8 pt-8 border-t border-white/10 text-center">
-                    <a routerLink="/contact" class="inline-block px-8 py-3 bg-obrioxia-cyan text-obrioxia-base font-orbitron font-bold rounded hover:bg-[#80F7FF] transition-colors">
+                    <a routerLink="/pricing" class="inline-block px-8 py-3 bg-obrioxia-cyan text-obrioxia-base font-orbitron font-bold rounded hover:bg-[#80F7FF] transition-colors">
                         DOWNLOAD FULL REPORT
                     </a>
                 </div>

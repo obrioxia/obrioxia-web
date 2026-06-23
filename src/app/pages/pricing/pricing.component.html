@@ -177,9 +177,9 @@
               {{ submitError }}
             </div>
 
-            <button type="submit" [disabled]="contactForm.invalid || isSubmitting"
+            <button type="submit" [disabled]="contactForm.invalid || isSubmitting || cooldownRemaining > 0"
               class="w-full py-3 mt-4 bg-obrioxia-cyan text-black font-bold font-orbitron rounded hover:bg-cyan-400 transition-colors disabled:opacity-50 disabled:cursor-not-allowed">
-              {{ isSubmitting ? 'SENDING...' : 'SUBMIT REQUEST' }}
+              {{ cooldownRemaining > 0 ? 'PLEASE WAIT ' + cooldownRemaining + 's' : (isSubmitting ? 'SENDING...' : 'SUBMIT REQUEST') }}
             </button>
 
           </form>
